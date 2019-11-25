@@ -1,0 +1,17 @@
+*.native
+*.byte
+*.docdir
+_build
+*.install
+pkg/META
+src_test/_tags
+.merlin
+_opam
+
+# BuckleScript
+node_modules/
+**/lib/
+*.cmj
+*.bs.js
+*.mlast*
+*.mliast*

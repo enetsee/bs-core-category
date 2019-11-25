@@ -1,0 +1,21 @@
+{
+    "name": "@enetsee/core-category",
+    "namespace": true,
+    "sources": [
+        "src"
+    ],
+    "package-specs": {
+        "module": "commonjs",
+        "in-source": true
+    },
+    "suffix": ".bs.js",
+    "bs-dependencies": [],
+    "bs-dev-dependencies": [],
+    "bsc-flags": [
+        "-bs-super-errors"
+    ],
+    "warnings": {
+        "number": "-44"
+    },
+    "refmt": 3
+}

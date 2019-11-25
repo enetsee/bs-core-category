@@ -1,0 +1,20 @@
+{
+    "name": "@enetsee/core-category",
+    "version": "1.0.0",
+    "description": "Categorical interfaces and (OCaml) functors for Bucklescript",
+    "repository": "https://github.com/enetsee/bs-core-category",
+    "author": "Michael Thomas",
+    "license": "MIT",
+    "dependencies": {},
+    "devDependencies": {
+        "bs-platform": "^6.2.1"
+    },
+    "peerDependencies": {
+        "bs-platform": "6.X"
+    },
+    "scripts": {
+        "build": "bsb -make-world",
+        "watch": "bsb -make-world -w",
+        "clean": "bsb -clean-world"
+    }
+}
