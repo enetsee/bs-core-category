@@ -2,7 +2,7 @@ include EitherBase
 
 include Monad.Make2(struct
   type nonrec ('a,'b) t = ('a,'b) t 
-  let map = map 
+  let map = `Custom map 
   let return = first 
   let bind t ~f =
     match t with 
@@ -10,6 +10,10 @@ include Monad.Make2(struct
     | Second y -> Second y 
   let apply = `Using_bind 
   let select = `Using_bind
+  let liftA2 = `Using_apply
+  let liftA3 = `Using_apply
+  let discardFirst = `Using_apply
+  let discardSecond = `Using_apply
 end)
 
 module Traversable = struct

@@ -1,21 +1,37 @@
 (*** -- Minimal definitions -- ***)
 
-module type Minimal = sig 
-  include Functor.Minimal
+module type Minimal = sig   
+  include TyCon.S1
   val return : 'a -> 'a t 
   val apply : 'a t -> f:('a -> 'b) t -> 'b t
+  val map : [`Using_apply | `Custom of 'a t -> f:('a -> 'b) -> 'b t]  
+  val liftA2 : [`Using_apply | `Custom of 'a t -> 'b t -> f:('a -> 'b -> 'c) -> 'c t]
+  val liftA3 : [`Using_apply | `Custom of 'a t -> 'b t -> 'c t -> f:('a -> 'b -> 'c -> 'd) -> 'd t]
+  val discardFirst : [`Using_apply | `Custom of _ t -> 'b t -> 'b t]
+  val discardSecond : [`Using_apply | `Custom of 'a t -> _ t -> 'a t]
 end
 
 module type Minimal2 = sig 
-  include Functor.Minimal2
+  include TyCon.S2
   val return : 'a -> ('a,_) t 
-  val apply : ('a,'e) t -> f:('a -> 'b ,'e) t -> ('b,'e) t
+  val apply : ('a,'e) t -> f:('a -> 'b,'e) t -> ('b,'e) t
+  val map : [`Using_apply | `Custom of ('a,'e) t -> f:('a -> 'b) -> ('b,'e) t]  
+  val liftA2 : [`Using_apply | `Custom of ('a,'e) t -> ('b,'e) t -> f:('a -> 'b -> 'c) -> ('c,'e) t]
+  val liftA3 : [`Using_apply | `Custom of ('a,'e) t -> ('b,'e) t -> ('c,'e) t -> f:('a -> 'b -> 'c -> 'd) -> ('d,'e) t]
+  val discardFirst : [`Using_apply | `Custom of (_,'e) t -> ('b,'e) t -> ('b,'e) t]
+  val discardSecond : [`Using_apply | `Custom of ('a,'e) t -> (_,'e) t -> ('a,'e) t]
+  
 end
 
 module type Minimal3 = sig 
-  include Functor.Minimal3
+  include TyCon.S3
   val return : 'a -> ('a,_,_) t 
   val apply : ('a,'d,'e) t -> f:('a -> 'b,'d,'e) t -> ('b,'d,'e) t
+  val map : [`Using_apply | `Custom of ('a,'d,'e) t -> f:('a -> 'b) -> ('b,'d,'e) t]  
+  val liftA2 : [`Using_apply | `Custom of ('a,'d,'e) t -> ('b,'d,'e) t -> f:('a -> 'b -> 'c) -> ('c,'d,'e) t]
+  val liftA3 : [`Using_apply | `Custom of ('a,'e,'f) t -> ('b,'e,'f) t -> ('c,'e,'f) t -> f:('a -> 'b -> 'c -> 'd) -> ('d,'e,'f) t]
+  val discardFirst : [`Using_apply | `Custom of (_,'d,'e) t -> ('b,'d,'e) t -> ('b,'d,'e) t]
+  val discardSecond : [`Using_apply | `Custom of ('a,'d,'e) t -> (_,'d,'e) t -> ('a,'d,'e) t]
 end
 
 (*** -- Alternate `Monoidal` presentation -- ***)
@@ -28,8 +44,8 @@ end
 
 module type MinimalMonoidal2 = sig 
   include Functor.Minimal2
-  val unit : unit -> (unit,'e) t 
-  val merge : ('a,'e) t -> ('b,'e) t -> ('a * 'b,'e) t
+  val unit : unit -> (unit,_) t 
+  val merge : ('a,'e) t -> ('b,'e) t -> ('a*'b,'e) t
 end
 
 module type MinimalMonoidal3 = sig 
@@ -49,9 +65,9 @@ module type Infix = sig
 end 
 
 module type Infix2 = sig
-  type ('a,'e) t 
-  val ( <*> ) : ('a ->'b,'e) t -> ('a,'e) t -> ('b,'e) t
-  val ( *> ) : (_,'e) t -> ('b,'e) t -> ('b,'e) t
+  type ('a,'b) t 
+  val ( <*> ) : ('a -> 'b,'e) t -> ('a,'e) t -> ('b,'e) t
+  val ( *> ) : (_,'e) t -> ('a,'e) t -> ('a,'e) t
   val ( <* ) : ('a,'e) t -> (_,'e) t -> ('a,'e) t
   val ( ** ) : ('a,'e) t -> ('b,'e) t -> ('a*'b,'e) t
 end 
@@ -68,34 +84,40 @@ end
 (*** -- Full signatures -- ***)
 
 module type S = sig 
-  include Minimal 
-  include MinimalMonoidal with type 'a t := 'a t
-  include Functor.S with type 'a t := 'a t
-  val liftA : 'a t -> f:('a -> 'b) -> 'b t
+  include Functor.S
+  val return : 'a -> 'a t 
+  val apply : 'a t -> f:('a -> 'b) t -> 'b t   
   val liftA2 : 'a t -> 'b t -> f:('a -> 'b -> 'c) -> 'c t
-  val liftA3 : 'a t -> 'b t -> 'c t -> f:('a -> 'b -> 'c -> 'd) -> 'd t
+  val liftA3 : 'a t -> 'b t -> 'c t -> f:('a -> 'b -> 'c -> 'd) -> 'd t  
+  val discardFirst : _ t -> 'b t -> 'b t
+  val discardSecond :  'a t -> _ t -> 'a t
+  include MinimalMonoidal with type 'a t := 'a t
   module Applicative_infix : Infix with type 'a t := 'a t
   include Infix with type 'a t := 'a t
 end
 
 module type S2 = sig 
-  include Minimal2 
-  include MinimalMonoidal2 with type ('a,'b) t := ('a,'b) t
-  include Functor.S2 with type ('a,'b) t := ('a,'b) t
-  val liftA : ('a,'e) t -> f:('a -> 'b) -> ('b,'e) t
+  include Functor.S2
+  val return : 'a -> ('a,_) t 
+  val apply : ('a,'e) t -> f:('a -> 'b,'e) t -> ('b,'e) t
+  val discardFirst : (_,'e) t -> ('b,'e) t -> ('b,'e) t
+  val discardSecond : ('a,'e) t -> (_,'e) t -> ('a,'e) t  
   val liftA2 : ('a,'e) t -> ('b,'e) t -> f:('a -> 'b -> 'c) -> ('c,'e) t
   val liftA3 : ('a,'e) t -> ('b,'e) t -> ('c,'e) t -> f:('a -> 'b -> 'c -> 'd) -> ('d,'e) t
+  include MinimalMonoidal2 with type ('a,'b) t := ('a,'b) t
   module Applicative_infix : Infix2 with type ('a,'b) t := ('a,'b) t
   include Infix2 with type ('a,'b) t := ('a,'b) t
 end
 
 module type S3 = sig 
-  include Minimal3
-  include MinimalMonoidal3 with type ('a,'b,'c) t := ('a,'b,'c) t
-  include Functor.S3 with type ('a,'b,'c) t := ('a,'b,'c) t
-  val liftA : ('a,'d,'e) t -> f:('a -> 'b) -> ('b,'d,'e) t
+  include Functor.S3
+  val return : 'a -> ('a,_,_) t 
+  val apply : ('a,'d,'e) t -> f:('a -> 'b,'d,'e) t -> ('b,'d,'e) t  
+  val discardFirst : (_,'d,'e) t -> ('b,'d,'e) t -> ('b,'d,'e) t
+  val discardSecond : ('a,'d,'e) t -> (_,'d,'e) t -> ('a,'d,'e) t
   val liftA2 : ('a,'d,'e) t -> ('b,'d,'e) t -> f:('a -> 'b -> 'c) -> ('c,'d,'e) t
   val liftA3 : ('a,'e,'f) t -> ('b,'e,'f) t -> ('c,'e,'f) t -> f:('a -> 'b -> 'c -> 'd) -> ('d,'e,'f) t
+  include MinimalMonoidal3 with type ('a,'b,'c) t := ('a,'b,'c) t
   module Applicative_infix : Infix3 with type ('a,'b,'c) t := ('a,'b,'c) t
   include Infix3 with type ('a,'b,'c) t := ('a,'b,'c) t
 end

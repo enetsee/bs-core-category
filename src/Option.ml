@@ -8,7 +8,7 @@ let some t = Some t
 include Monad.Make(struct 
   type nonrec 'a t = 'a t 
   
-  let map t ~f = map t f   
+  let map = `Custom (fun t ~f -> map t f)
 
   let return x = Some x 
 
@@ -24,7 +24,10 @@ include Monad.Make(struct
     | _ ->  None 
   
   let select = `Using_bind
-    
+  let liftA2 = `Using_apply
+  let liftA3 = `Using_apply
+  let discardFirst = `Using_apply
+  let discardSecond = `Using_apply    
 
 end)
 

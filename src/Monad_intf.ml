@@ -1,27 +1,43 @@
 (*** -- Minimal definitions -- ***)
+module Either = EitherBase
 
 module type Minimal = sig 
-  include Functor.Minimal
+  include TyCon.S1
   val return : 'a -> 'a t 
   val bind : 'a t -> f:('a ->'b t) -> 'b t
-  val apply : [`Custom of 'a t -> f:('a -> 'b) t -> 'b t | `Using_bind ]
-  val select : [`Custom of ('a,'b) EitherBase.t t -> f:('a -> 'b) t -> 'b t | `Using_bind ]
+  val apply : [`Using_bind | `Custom of 'a t -> f:('a -> 'b) t -> 'b t ]
+  val map : [`Using_apply | `Custom of 'a t -> f:('a -> 'b) -> 'b t]  
+  val liftA2 : [`Using_apply | `Custom of 'a t -> 'b t -> f:('a -> 'b -> 'c) -> 'c t]
+  val liftA3 : [`Using_apply | `Custom of 'a t -> 'b t -> 'c t -> f:('a -> 'b -> 'c -> 'd) -> 'd t]
+  val discardFirst : [`Using_apply | `Custom of _ t -> 'b t -> 'b t]
+  val discardSecond : [`Using_apply | `Custom of 'a t -> _ t -> 'a t]
+  val select : [`Using_bind | `Custom of ('a,'b) Either.t t -> f:('a -> 'b) t -> 'b t ]
 end
 
 module type Minimal2 = sig 
   include Functor.Minimal2
   val return : 'a -> ('a,_) t 
   val bind : ('a,'e) t -> f:('a -> ('b,'e) t) -> ('b,'e) t
-  val apply : [`Custom of ('a,'e) t -> f:('a -> 'b,'e) t -> ('b,'e) t | `Using_bind ]
-  val select : [`Custom of (('a,'b) EitherBase.t,'e) t -> f:('a -> 'b,'e) t -> ('b,'e) t | `Using_bind ]
+  val apply : [`Using_bind | `Custom of ('a,'e) t -> f:('a -> 'b,'e) t -> ('b,'e) t ]
+  val map : [`Using_apply | `Custom of ('a,'e) t -> f:('a -> 'b) -> ('b,'e) t]  
+  val liftA2 : [`Using_apply | `Custom of ('a,'e) t -> ('b,'e) t -> f:('a -> 'b -> 'c) -> ('c,'e) t]
+  val liftA3 : [`Using_apply | `Custom of ('a,'e) t -> ('b,'e) t -> ('c,'e) t -> f:('a -> 'b -> 'c -> 'd) -> ('d,'e) t]
+  val discardFirst : [`Using_apply | `Custom of (_,'e) t -> ('b,'e) t -> ('b,'e) t]
+  val discardSecond : [`Using_apply | `Custom of ('a,'e) t -> (_,'e) t -> ('a,'e) t]
+  val select : [`Using_bind | `Custom of (('a,'b) Either.t,'e) t -> f:('a -> 'b,'e) t -> ('b,'e) t]
 end
 
 module type Minimal3 = sig 
   include Functor.Minimal3
   val return : 'a -> ('a,_,_) t 
   val bind : ('a,'d,'e) t -> f:('a -> ('b,'d,'e) t) -> ('b,'d,'e) t
-  val apply : [`Custom of ('a,'d,'e) t -> f:('a -> 'b,'d,'e) t -> ('b,'d,'e) t | `Using_bind ]
-  val select : [`Custom of (('a,'b) EitherBase.t,'d,'e) t -> f:('a -> 'b,'d,'e) t -> ('b,'d,'e) t | `Using_bind ]
+  val apply : [`Using_bind | `Custom of ('a,'d,'e) t -> f:('a -> 'b,'d,'e) t -> ('b,'d,'e) t ]
+  val map : [`Using_apply | `Custom of ('a,'d,'e) t -> f:('a -> 'b) -> ('b,'d,'e) t]  
+  val liftA2 : [`Using_apply | `Custom of ('a,'d,'e) t -> ('b,'d,'e) t -> f:('a -> 'b -> 'c) -> ('c,'d,'e) t]
+  val liftA3 : [`Using_apply | `Custom of ('a,'e,'f) t -> ('b,'e,'f) t -> ('c,'e,'f) t -> f:('a -> 'b -> 'c -> 'd) -> ('d,'e,'f) t]
+  val discardFirst : [`Using_apply | `Custom of (_,'d,'e) t -> ('b,'d,'e) t -> ('b,'d,'e) t]
+  val discardSecond : [`Using_apply | `Custom of ('a,'d,'e) t -> (_,'d,'e) t -> ('a,'d,'e) t]
+  val select : [`Using_bind | `Custom of (('a,'b) Either.t,'d,'e) t -> f:('a -> 'b,'d,'e) t -> ('b,'d,'e) t]
 end
 
 (*** -- Infix functions -- ***)
@@ -85,7 +101,6 @@ module type S3 = sig
   val mapM : 'a list -> f:('a -> ('b,'d,'e) t) -> ('b list,'d,'e) t
   val mapM_ : 'a list -> f:('a -> ('b,'d,'e) t) -> (unit,'d,'e) t
 end
-
 
 
 

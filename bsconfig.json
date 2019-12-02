@@ -1,6 +1,6 @@
 {
     "name": "@enetsee/core-category",
-    "namespace": true,
+    "namespace": "core-category",
     "sources": [
         "src"
     ],

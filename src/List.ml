@@ -16,21 +16,28 @@ end)
 include Monad.Make(struct
   type nonrec 'a t = 'a t
 
-  let map x ~f = map x f 
-  
-  let return x = [x]
-  
   let apply = `Custom (fun x ~f ->
-    map ~f:(fun g -> map x ~f:g) f
+    map f (fun g -> map x g)
     |> flatten
   )
 
   let bind x ~f = 
-    map x ~f
+    map x f
     |> flatten
 
-  let select = `Using_bind
+  let map = `Custom (fun x ~f -> map x f )
+  
+  let return x = [x]
     
+  let select = `Using_bind
+
+  let liftA2 = `Using_apply
+
+  let liftA3 = `Using_apply
+    
+  let discardFirst = `Using_apply
+
+  let discardSecond = `Using_apply
 end)
 
 let isEmpty = function [] -> true | _ -> false

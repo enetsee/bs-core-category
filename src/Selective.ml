@@ -91,6 +91,10 @@ module Make_backwards3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t
   let apply x ~f = X.apply ~f:(X.apply ~f:(X.return (fun x f -> f x)) x) f
   let select = X.select 
   let map = X.map
+  let liftA2 = X.liftA2
+  let liftA3 = X.liftA3
+  let discardFirst = X.discardFirst
+  let discardSecond = X.discardSecond
 end)
 
 module Make_backwards2(X:Minimal2) : S2 with type ('a,'b) t := ('a,'b) X.t = Make_backwards3(struct

@@ -7,21 +7,22 @@ let oneOf xs = Js.Promise.race xs
 
 let fail x = Js.Promise.reject x
 
-let catch x ~f = Js.Promise.catch f x
+let catch x ~f = 
+  Js.Promise.catch 
+    (fun y -> Js.Promise.resolve @@ f y) x
 
 include Monad.Make(struct
   type nonrec 'a t = 'a t
   let return x = Js.Promise.resolve x
-
   let bind x ~f = Js.Promise.then_ f x
 
-  let map t ~f = 
-    bind t ~f:(Fun.compose return f)
-
-  let apply = `Using_bind
-    
-  let select = `Using_bind
-    
+  let map = `Using_apply    
+  let apply = `Using_bind    
+  let select = `Using_bind    
+  let liftA2 = `Using_apply
+  let liftA3 = `Using_apply
+  let discardFirst = `Using_apply
+  let discardSecond = `Using_apply
 end)
 
 let sequence xs = Js.Promise.all xs

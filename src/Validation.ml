@@ -12,11 +12,13 @@ module Make(Error : Semigroup.S0) : S with module Error := Error = struct
   include Selective.Make(struct
     type nonrec 'a t = 'a t
     
-    let map t ~f = 
+    let map_ t ~f = 
       match t with 
       | Success x -> Success (f x)
       | Failure err -> Failure err
       
+    let map = `Custom map_
+    
     let return x = Success x
     
     let apply x ~f = 
@@ -29,8 +31,13 @@ module Make(Error : Semigroup.S0) : S with module Error := Error = struct
     let select x ~f = 
       match x with 
       | Failure err  -> Failure err
-      | Success Either.(First a)  -> map ~f:((|>) a) f
+      | Success Either.(First a)  -> map_ ~f:((|>) a) f
       | Success Either.(Second b) -> Success b
+
+    let liftA2 = `Using_apply
+    let liftA3 = `Using_apply
+    let discardFirst = `Using_apply
+    let discardSecond = `Using_apply
         
   end)
 

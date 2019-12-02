@@ -1,7 +1,6 @@
 include Applicative_intf
 
 (*** -- Conversion functors -- ***)
-
 module S_to_S2 (X : S) : S2 with type ('a,_) t = 'a X.t = struct
   type ('a,_) t = 'a X.t
   include (X : S with type 'a t := 'a X.t)
@@ -22,25 +21,53 @@ module S3_to_S2 (X : S3) : S2 with type ('a, 'b) t = ('a, 'b, unit) X.t = struct
   include (X : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t)
 end
 
-(*** -- Make functors --- ***)
 
 module Make3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = struct 
+  
   let return = X.return 
+  
   let apply = X.apply 
+  
   let unit () = return ()
+  
+  include Functor.Make3(struct
+    type nonrec ('a,'b,'c) t = ('a,'b,'c) X.t
+    let map = 
+      match X.map with
+      | `Custom f -> f
+      | _ -> fun x ~f -> apply x ~f:(return f)
+  end)  
+      
+  let liftA2 = 
+    match X.liftA2 with
+    | `Custom f -> f 
+    | _ -> fun x y ~f -> apply ~f:(map x ~f) y
+    
 
-  include Functor.Make3(X)
-
-  let liftA = map 
-  let liftA2 x y  ~f = apply ~f:(map x ~f) y
-  let liftA3 x y z ~f = apply ~f:(liftA2 x y ~f) z
+        
+  let liftA3 = 
+    match X.liftA3 with 
+    | `Custom f -> f
+    | _ -> fun x y z ~f -> apply ~f:(liftA2 x y ~f) z
+  
+  
+  
+  let discardFirst = 
+    match X.discardFirst with 
+    | `Custom f -> f
+    | _ -> fun x y -> apply ~f:(Fun.id <$ x)  y
+    
+  let discardSecond = 
+    match X.discardSecond with 
+    | `Custom f -> f 
+    | _ -> liftA2 ~f:(fun x _ -> x)
 
   let merge mx my = liftA2 ~f:(fun x y -> x,y) mx my
 
   module Applicative_infix = struct 
     let ( <*> ) f x = apply x ~f 
-    let ( *>  ) x y = (Fun.id <$ x) <*> y
-    let ( <* )  = liftA2 ~f:(fun x _ -> x)
+    let ( *>  ) x y = discardFirst x y
+    let ( <* ) x y = discardSecond x y
     let ( ** ) mx my = merge mx my
   end
   include Applicative_infix
@@ -56,11 +83,18 @@ module Make(X:Minimal) : S with type 'a t := 'a X.t = Make2(struct
   include (X: Minimal with type 'a t := 'a X.t)
 end)
 
+(** This is wrong at the moment - need to reverse the liftA* and discard* 
+    functions too, I think 
+*)
 module Make_backwards3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = Make3(struct
   type ('a,'b,'c) t = ('a,'b,'c) X.t
   let return = X.return   
-  let apply x ~f = X.apply ~f:(X.apply ~f:(X.return (fun x f -> f x)) x) f
+  let apply x ~f = X.(apply ~f:(apply ~f:(return (fun x f -> f x)) x) f)
   let map = X.map
+  let liftA2 = X.liftA2
+  let liftA3 = X.liftA3
+  let discardFirst =X.discardFirst
+  let discardSecond = X.discardSecond
 end)
 
 module Make_backwards2(X:Minimal2) : S2 with type ('a,'b) t := ('a,'b) X.t = Make_backwards3(struct

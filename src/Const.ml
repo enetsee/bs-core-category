@@ -5,11 +5,18 @@ module Make(M : Monoid.S0) : S with module M := M = struct
   
   let getConst x = x
   let const x = x
+
   module MinimalA = struct
     type nonrec 'a t = 'a t
-    let map x ~f:_ = x
+    let map = `Custom (fun x ~f:_ -> x)
     let return _ = M.empty
+
     let apply x ~f = M.combine f x
+
+    let liftA2 = `Using_apply
+    let liftA3 = `Using_apply
+    let discardFirst = `Using_apply
+    let discardSecond = `Using_apply
   end
   
   include Applicative.Make(MinimalA)

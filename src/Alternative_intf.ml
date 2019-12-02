@@ -1,37 +1,41 @@
 (*** -- Minimal definitions -- ***)  
+(*** -- Minimal definitions -- ***)  
 
 module type Minimal = sig 
   include Applicative.Minimal 
-  val emptyA : 'a t
-  val combineA : 'a t -> 'a t -> 'a t
+  val empty : 'a t
+  val alt : 'a t -> 'a t -> 'a t
 end
 
 module type Minimal2 = sig 
   include Applicative.Minimal2
-  val emptyA: ('a,'e) t
-  val combineA : ('a,'e) t -> ('a,'e) t -> ('a,'e) t
+  val empty: ('a,'e) t
+  val alt: ('a,'e) t -> ('a,'e) t -> ('a,'e) t
 end
 
 module type Minimal3 = sig 
   include Applicative.Minimal3
-  val emptyA : ('a,'d,'e) t
-  val combineA : ('a,'d,'e) t -> ('a,'d,'e) t -> ('a,'d,'e) t
+  val empty : ('a,'d,'e) t
+  val alt : ('a,'d,'e) t -> ('a,'d,'e) t -> ('a,'d,'e) t
 end
 
 (*** -- Infix functions -- ***)
 module type Infix = sig
-  type 'a t 
+  include TyCon.S1
   val ( <|> ) : 'a t -> 'a t -> 'a t
+  val ( </> ) : 'a t -> 'a -> 'a t
 end 
 
 module type Infix2 = sig
-  type ('a,'b) t 
+  include TyCon.S2
   val ( <|> ) :  ('a,'e) t -> ('a,'e) t -> ('a,'e) t
+  val ( </> ) : ('a,'e) t -> 'a -> ('a,'e) t
 end 
 
 module type Infix3 = sig
-  type ('a,'b,'c) t 
+  include TyCon.S3
   val ( <|> ) :  ('a,'d,'e) t -> ('a,'d,'e) t -> ('a,'d,'e) t
+  val ( </> ) : ('a,'d,'e) t -> 'a -> ('a,'d,'e) t
 end 
 
 (*** -- Complete definitions --- ***)

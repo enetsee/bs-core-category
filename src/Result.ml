@@ -32,10 +32,12 @@ let result t ~withError ~withOk =
 include Monad.Make2(struct
   type nonrec ('a,'b) t = ('a,'b) t
 
-  let map t ~f = 
+  let map_ t ~f =
     match t with 
     | Ok x -> Ok (f x)
     | Error err -> Error err
+  
+  let map = `Custom map_
 
   let return x = Ok x 
   
@@ -49,7 +51,7 @@ include Monad.Make2(struct
   let select  = `Custom (fun x ~f ->
     match x with 
     | Error err  -> Error err
-    | Ok Either.(First a)  -> map ~f:(fun g -> g a) f
+    | Ok Either.(First a)  -> map_ ~f:(fun g -> g a) f
     | Ok Either.(Second b) -> Ok b
   )
 
@@ -57,4 +59,9 @@ include Monad.Make2(struct
     match x with 
     | Ok y -> f y 
     | Error err -> Error err 
+
+  let liftA2 = `Using_apply
+  let liftA3 = `Using_apply
+  let discardFirst = `Using_apply
+  let discardSecond = `Using_apply
 end)

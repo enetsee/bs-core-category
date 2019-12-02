@@ -1,5 +1,5 @@
 include Monad_intf
-module Either = EitherBase
+
 (*** -- Conversion functors -- ***)
 module S_to_S2 (X : S) : S2 with type ('a,_) t = 'a X.t = struct
   type ('a,_) t = 'a X.t
@@ -24,10 +24,12 @@ end
 
 (*** -- Make functors -- ***)
 module Make3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = struct
-  let bind = X.bind
+let bind = X.bind
+  
   
   include Selective.Make3(struct
     type nonrec ('a,'b,'c) t = ('a,'b,'c) X.t
+    
     let return = X.return 
     
     let map = X.map 
@@ -40,15 +42,20 @@ module Make3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = struct
           bind f ~f:(fun g ->
           bind t ~f:(fun x -> 
           return @@ g x))
-          
+    
+    let liftA2 = X.liftA2
+    let liftA3 = X.liftA3
+    let discardFirst = X.discardFirst
+    let discardSecond = X.discardSecond
+      
     let select = 
       match X.select with
       | `Custom f -> f 
       | `Using_bind -> 
         fun x ~f ->
           bind x ~f:(function
-          | Either.First  a -> map ~f:(fun g -> g a) f (* Execute f *)
-          | Either.Second b -> return b (* Skip f *)
+          | EitherBase.First  a -> bind f ~f:(fun g -> return @@ g a)  (* Execute f *)
+          | EitherBase.Second b -> return b (* Skip f *)
           )
 
   
@@ -117,6 +124,10 @@ module Make_backwards3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t
   let apply = `Custom (fun t ~f -> 
     ap ~f:(ap ~f:(return (fun x f -> f x)) t) f
     )
+  let liftA2 = X.liftA2
+  let liftA3 = X.liftA3
+  let discardFirst = X.discardFirst 
+  let discardSecond = X.discardSecond
 end)
 
 module Make_backwards2(X:Minimal2) : S2 with type ('a,'b) t := ('a,'b) X.t = Make_backwards3(struct
