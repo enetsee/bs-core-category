@@ -1,7 +1,5 @@
-type ('a,'err) t = 
-  | Ok of 'a 
-  | Error of 'err 
-
+type ('a,'err) t = ('a,'err) result
+  
 let bimap x ~f ~g = 
   match x with 
   | Ok y -> Ok (f y)

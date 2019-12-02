@@ -12,6 +12,5 @@ _opam
 node_modules/
 **/lib/
 *.cmj
-*.bs.js
 *.mlast*
 *.mliast*
