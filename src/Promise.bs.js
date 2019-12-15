@@ -2,10 +2,11 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
+var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Monad$CoreCategory = require("./Monad.bs.js");
 
 function oneOf(xs) {
-  return Promise.race(xs);
+  return Promise.race(Belt_List.toArray(xs));
 }
 
 function fail(x) {
@@ -18,7 +19,7 @@ function $$catch(x, f) {
               }));
 }
 
-function $$return(x) {
+function pure(x) {
   return Promise.resolve(x);
 }
 
@@ -26,47 +27,18 @@ function bind(x, f) {
   return x.then(Curry.__1(f));
 }
 
-var include = Monad$CoreCategory.Make({
-      $$return: $$return,
-      bind: bind,
-      apply: /* Using_bind */301992440,
-      map: /* Using_apply */524559571,
-      liftA2: /* Using_apply */524559571,
-      liftA3: /* Using_apply */524559571,
-      discardFirst: /* Using_apply */524559571,
-      discardSecond: /* Using_apply */524559571,
-      select: /* Using_bind */301992440
+var include = Monad$CoreCategory.Make1({
+      pure: pure,
+      bind: bind
     });
 
-function sequence(xs) {
-  return Promise.all(xs);
-}
+var map = include.map;
 
-function sequence2(x2) {
-  return Promise.all(x2);
-}
-
-function sequence3(x3) {
-  return Promise.all(x3);
-}
-
-function sequence4(x4) {
-  return Promise.all(x4);
-}
-
-function sequence5(x5) {
-  return Promise.all(x5);
-}
-
-function sequence6(x6) {
-  return Promise.all(x6);
-}
-
-var select = include.select;
+var replace = include.replace;
 
 var $$void = include.$$void;
 
-var Functor_infix = include.Functor_infix;
+var FunctorInfix = include.FunctorInfix;
 
 var $less$$great = include.$less$$great;
 
@@ -76,25 +48,15 @@ var $less$ = include.$less$;
 
 var $$great = include.$$great;
 
-var $$return$1 = include.$$return;
-
 var apply = include.apply;
 
 var liftA2 = include.liftA2;
 
-var liftA3 = include.liftA3;
+var applyFirst = include.applyFirst;
 
-var discardFirst = include.discardFirst;
+var applySecond = include.applySecond;
 
-var discardSecond = include.discardSecond;
-
-var map = include.map;
-
-var unit = include.unit;
-
-var merge = include.merge;
-
-var Applicative_infix = include.Applicative_infix;
+var ApplyInfix = include.ApplyInfix;
 
 var $less$star$great = include.$less$star$great;
 
@@ -104,7 +66,23 @@ var $less$star = include.$less$star;
 
 var $star$star = include.$star$star;
 
-var Selective_infix = include.Selective_infix;
+var liftA3 = include.liftA3;
+
+var liftA4 = include.liftA4;
+
+var liftA5 = include.liftA5;
+
+var merge = include.merge;
+
+var pure$1 = include.pure;
+
+var when_ = include.when_;
+
+var unless = include.unless;
+
+var select = include.select;
+
+var SelectiveInfix = include.SelectiveInfix;
 
 var $less$star$question = include.$less$star$question;
 
@@ -132,7 +110,7 @@ var whileS = include.whileS;
 
 var bind$1 = include.bind;
 
-var Monad_infix = include.Monad_infix;
+var MonadInfix = include.MonadInfix;
 
 var $great$great$eq = include.$great$great$eq;
 
@@ -153,28 +131,32 @@ var mapM_ = include.mapM_;
 exports.oneOf = oneOf;
 exports.fail = fail;
 exports.$$catch = $$catch;
-exports.select = select;
+exports.map = map;
+exports.replace = replace;
 exports.$$void = $$void;
-exports.Functor_infix = Functor_infix;
+exports.FunctorInfix = FunctorInfix;
 exports.$less$$great = $less$$great;
 exports.$less$amp$great = $less$amp$great;
 exports.$less$ = $less$;
 exports.$$great = $$great;
-exports.$$return = $$return$1;
 exports.apply = apply;
 exports.liftA2 = liftA2;
-exports.liftA3 = liftA3;
-exports.discardFirst = discardFirst;
-exports.discardSecond = discardSecond;
-exports.map = map;
-exports.unit = unit;
-exports.merge = merge;
-exports.Applicative_infix = Applicative_infix;
+exports.applyFirst = applyFirst;
+exports.applySecond = applySecond;
+exports.ApplyInfix = ApplyInfix;
 exports.$less$star$great = $less$star$great;
 exports.$star$great = $star$great;
 exports.$less$star = $less$star;
 exports.$star$star = $star$star;
-exports.Selective_infix = Selective_infix;
+exports.liftA3 = liftA3;
+exports.liftA4 = liftA4;
+exports.liftA5 = liftA5;
+exports.merge = merge;
+exports.pure = pure$1;
+exports.when_ = when_;
+exports.unless = unless;
+exports.select = select;
+exports.SelectiveInfix = SelectiveInfix;
 exports.$less$star$question = $less$star$question;
 exports.$less$pipe$pipe$great = $less$pipe$pipe$great;
 exports.$less$amp$amp$great = $less$amp$amp$great;
@@ -188,7 +170,7 @@ exports.anyS = anyS;
 exports.allS = allS;
 exports.whileS = whileS;
 exports.bind = bind$1;
-exports.Monad_infix = Monad_infix;
+exports.MonadInfix = MonadInfix;
 exports.$great$great$eq = $great$great$eq;
 exports.$great$great$tilde = $great$great$tilde;
 exports.$great$eq$great = $great$eq$great;
@@ -197,10 +179,4 @@ exports.forever = forever;
 exports.sequenceM = sequenceM;
 exports.mapM = mapM;
 exports.mapM_ = mapM_;
-exports.sequence = sequence;
-exports.sequence2 = sequence2;
-exports.sequence3 = sequence3;
-exports.sequence4 = sequence4;
-exports.sequence5 = sequence5;
-exports.sequence6 = sequence6;
 /* include Not a pure module */

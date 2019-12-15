@@ -4,22 +4,8 @@
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Monad$CoreCategory = require("./Monad.bs.js");
-
-function bimap(x, f, g) {
-  if (x.tag) {
-    return /* Error */Block.__(1, [Curry._1(g, x[0])]);
-  } else {
-    return /* Ok */Block.__(0, [Curry._1(f, x[0])]);
-  }
-}
-
-function mapError(x, f) {
-  if (x.tag) {
-    return /* Error */Block.__(1, [Curry._1(f, x[0])]);
-  } else {
-    return /* Ok */Block.__(0, [x[0]]);
-  }
-}
+var Foldable$CoreCategory = require("./Foldable.bs.js");
+var Bifunctor$CoreCategory = require("./Bifunctor.bs.js");
 
 function ok(x) {
   return /* Ok */Block.__(0, [x]);
@@ -45,29 +31,28 @@ function isOk(param) {
   }
 }
 
-function result(t, withError, withOk) {
+function result(t, withErr, withOk) {
   if (t.tag) {
-    return Curry._1(withError, t[0]);
+    return Curry._1(withErr, t[0]);
   } else {
     return Curry._1(withOk, t[0]);
   }
 }
 
-function map_(t, f) {
-  if (t.tag) {
-    return /* Error */Block.__(1, [t[0]]);
+function map(x, f) {
+  if (x.tag) {
+    return /* Error */Block.__(1, [x[0]]);
   } else {
-    return /* Ok */Block.__(0, [Curry._1(f, t[0])]);
+    return /* Ok */Block.__(0, [Curry._1(f, x[0])]);
   }
 }
 
-var map = /* `Custom */[
-  -198771759,
-  map_
-];
-
-function $$return(x) {
-  return /* Ok */Block.__(0, [x]);
+function mapError(x, f) {
+  if (x.tag) {
+    return /* Error */Block.__(1, [Curry._1(f, x[0])]);
+  } else {
+    return /* Ok */Block.__(0, [x[0]]);
+  }
 }
 
 function apply_001(x, f) {
@@ -94,7 +79,7 @@ function select_001(x, f) {
       return /* Ok */Block.__(0, [match[0]]);
     } else {
       var a = match[0];
-      return map_(f, (function (g) {
+      return map(f, (function (g) {
                     return Curry._1(g, a);
                   }));
     }
@@ -106,6 +91,11 @@ var select = /* `Custom */[
   select_001
 ];
 
+var map$1 = /* `Custom */[
+  -198771759,
+  map
+];
+
 function bind(x, f) {
   if (x.tag) {
     return /* Error */Block.__(1, [x[0]]);
@@ -114,23 +104,61 @@ function bind(x, f) {
   }
 }
 
-var include = Monad$CoreCategory.Make2({
-      $$return: $$return,
+var include = Monad$CoreCategory.MakeCustom2({
+      pure: ok,
       bind: bind,
+      map: map$1,
+      replace: /* Derived */-684824643,
       apply: apply,
-      map: map,
-      liftA2: /* Using_apply */524559571,
-      liftA3: /* Using_apply */524559571,
-      discardFirst: /* Using_apply */524559571,
-      discardSecond: /* Using_apply */524559571,
+      liftA2: /* Derived */-684824643,
+      applyFirst: /* Derived */-684824643,
+      applySecond: /* Derived */-684824643,
       select: select
     });
 
-var select$1 = include.select;
+var map$2 = include.map;
+
+function bimap(x, first, second) {
+  if (x.tag) {
+    return /* Error */Block.__(1, [Curry._1(second, x[0])]);
+  } else {
+    return /* Ok */Block.__(0, [Curry._1(first, x[0])]);
+  }
+}
+
+var mapFirst = /* `Custom */[
+  -198771759,
+  map$2
+];
+
+var mapSecond = /* `Custom */[
+  -198771759,
+  mapError
+];
+
+var include$1 = Bifunctor$CoreCategory.MakeCustom2({
+      bimap: bimap,
+      mapFirst: mapFirst,
+      mapSecond: mapSecond
+    });
+
+function foldLeft(t, f, init) {
+  if (t.tag) {
+    return init;
+  } else {
+    return Curry._2(f, init, t[0]);
+  }
+}
+
+var include$2 = Foldable$CoreCategory.Make2({
+      foldLeft: foldLeft
+    });
+
+var replace = include.replace;
 
 var $$void = include.$$void;
 
-var Functor_infix = include.Functor_infix;
+var FunctorInfix = include.FunctorInfix;
 
 var $less$$great = include.$less$$great;
 
@@ -140,25 +168,15 @@ var $less$ = include.$less$;
 
 var $$great = include.$$great;
 
-var $$return$1 = include.$$return;
-
 var apply$1 = include.apply;
 
-var discardFirst = include.discardFirst;
+var applyFirst = include.applyFirst;
 
-var discardSecond = include.discardSecond;
+var applySecond = include.applySecond;
 
 var liftA2 = include.liftA2;
 
-var liftA3 = include.liftA3;
-
-var map$1 = include.map;
-
-var unit = include.unit;
-
-var merge = include.merge;
-
-var Applicative_infix = include.Applicative_infix;
+var ApplyInfix = include.ApplyInfix;
 
 var $less$star$great = include.$less$star$great;
 
@@ -168,7 +186,23 @@ var $less$star = include.$less$star;
 
 var $star$star = include.$star$star;
 
-var Selective_infix = include.Selective_infix;
+var liftA3 = include.liftA3;
+
+var liftA4 = include.liftA4;
+
+var liftA5 = include.liftA5;
+
+var merge = include.merge;
+
+var pure = include.pure;
+
+var when_ = include.when_;
+
+var unless = include.unless;
+
+var select$1 = include.select;
+
+var SelectiveInfix = include.SelectiveInfix;
 
 var $less$star$question = include.$less$star$question;
 
@@ -196,7 +230,7 @@ var whileS = include.whileS;
 
 var bind$1 = include.bind;
 
-var Monad_infix = include.Monad_infix;
+var MonadInfix = include.MonadInfix;
 
 var $great$great$eq = include.$great$great$eq;
 
@@ -214,35 +248,60 @@ var mapM = include.mapM;
 
 var mapM_ = include.mapM_;
 
-exports.bimap = bimap;
-exports.mapError = mapError;
+var bimap$1 = include$1.bimap;
+
+var mapFirst$1 = include$1.mapFirst;
+
+var mapSecond$1 = include$1.mapSecond;
+
+var foldLeft$1 = include$2.foldLeft;
+
+var foldRight = include$2.foldRight;
+
+var foldMap = include$2.foldMap;
+
+var fold = include$2.fold;
+
+var find = include$2.find;
+
+var isEmpty = include$2.isEmpty;
+
+var exists = include$2.exists;
+
+var forAll = include$2.forAll;
+
 exports.ok = ok;
 exports.error = error;
 exports.isError = isError;
 exports.isOk = isOk;
 exports.result = result;
-exports.select = select$1;
+exports.mapError = mapError;
+exports.map = map$2;
+exports.replace = replace;
 exports.$$void = $$void;
-exports.Functor_infix = Functor_infix;
+exports.FunctorInfix = FunctorInfix;
 exports.$less$$great = $less$$great;
 exports.$less$amp$great = $less$amp$great;
 exports.$less$ = $less$;
 exports.$$great = $$great;
-exports.$$return = $$return$1;
 exports.apply = apply$1;
-exports.discardFirst = discardFirst;
-exports.discardSecond = discardSecond;
+exports.applyFirst = applyFirst;
+exports.applySecond = applySecond;
 exports.liftA2 = liftA2;
-exports.liftA3 = liftA3;
-exports.map = map$1;
-exports.unit = unit;
-exports.merge = merge;
-exports.Applicative_infix = Applicative_infix;
+exports.ApplyInfix = ApplyInfix;
 exports.$less$star$great = $less$star$great;
 exports.$star$great = $star$great;
 exports.$less$star = $less$star;
 exports.$star$star = $star$star;
-exports.Selective_infix = Selective_infix;
+exports.liftA3 = liftA3;
+exports.liftA4 = liftA4;
+exports.liftA5 = liftA5;
+exports.merge = merge;
+exports.pure = pure;
+exports.when_ = when_;
+exports.unless = unless;
+exports.select = select$1;
+exports.SelectiveInfix = SelectiveInfix;
 exports.$less$star$question = $less$star$question;
 exports.$less$pipe$pipe$great = $less$pipe$pipe$great;
 exports.$less$amp$amp$great = $less$amp$amp$great;
@@ -256,7 +315,7 @@ exports.anyS = anyS;
 exports.allS = allS;
 exports.whileS = whileS;
 exports.bind = bind$1;
-exports.Monad_infix = Monad_infix;
+exports.MonadInfix = MonadInfix;
 exports.$great$great$eq = $great$great$eq;
 exports.$great$great$tilde = $great$great$tilde;
 exports.$great$eq$great = $great$eq$great;
@@ -265,4 +324,15 @@ exports.forever = forever;
 exports.sequenceM = sequenceM;
 exports.mapM = mapM;
 exports.mapM_ = mapM_;
+exports.bimap = bimap$1;
+exports.mapFirst = mapFirst$1;
+exports.mapSecond = mapSecond$1;
+exports.foldLeft = foldLeft$1;
+exports.foldRight = foldRight;
+exports.foldMap = foldMap;
+exports.fold = fold;
+exports.find = find;
+exports.isEmpty = isEmpty;
+exports.exists = exists;
+exports.forAll = forAll;
 /* include Not a pure module */

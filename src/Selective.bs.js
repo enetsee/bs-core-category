@@ -5,34 +5,37 @@ var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
-var Fun$CoreCategory = require("./Fun.bs.js");
 var EitherBase$CoreCategory = require("./EitherBase.bs.js");
 var Applicative$CoreCategory = require("./Applicative.bs.js");
 
-function S_to_S2(X) {
+function S1_to_S2(X) {
   return {
-          select: X.select,
+          map: X.map,
+          replace: X.replace,
           $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
+          FunctorInfix: X.FunctorInfix,
           $less$$great: X.$less$$great,
           $less$amp$great: X.$less$amp$great,
           $less$: X.$less$,
           $$great: X.$$great,
-          $$return: X.$$return,
           apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
+          applyFirst: X.applyFirst,
+          applySecond: X.applySecond,
           liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
+          ApplyInfix: X.ApplyInfix,
           $less$star$great: X.$less$star$great,
           $star$great: X.$star$great,
           $less$star: X.$less$star,
           $star$star: X.$star$star,
-          Selective_infix: X.Selective_infix,
+          liftA3: X.liftA3,
+          liftA4: X.liftA4,
+          liftA5: X.liftA5,
+          merge: X.merge,
+          pure: X.pure,
+          when_: X.when_,
+          unless: X.unless,
+          select: X.select,
+          SelectiveInfix: X.SelectiveInfix,
           $less$star$question: X.$less$star$question,
           $less$pipe$pipe$great: X.$less$pipe$pipe$great,
           $less$amp$amp$great: X.$less$amp$amp$great,
@@ -48,30 +51,34 @@ function S_to_S2(X) {
         };
 }
 
-function S2_to_S(X) {
+function S2_to_S1(X) {
   return {
-          select: X.select,
+          map: X.map,
+          replace: X.replace,
           $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
+          FunctorInfix: X.FunctorInfix,
           $less$$great: X.$less$$great,
           $less$amp$great: X.$less$amp$great,
           $less$: X.$less$,
           $$great: X.$$great,
-          $$return: X.$$return,
           apply: X.apply,
           liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
+          applyFirst: X.applyFirst,
+          applySecond: X.applySecond,
+          ApplyInfix: X.ApplyInfix,
           $less$star$great: X.$less$star$great,
           $star$great: X.$star$great,
           $less$star: X.$less$star,
           $star$star: X.$star$star,
-          Selective_infix: X.Selective_infix,
+          liftA3: X.liftA3,
+          liftA4: X.liftA4,
+          liftA5: X.liftA5,
+          merge: X.merge,
+          pure: X.pure,
+          when_: X.when_,
+          unless: X.unless,
+          select: X.select,
+          SelectiveInfix: X.SelectiveInfix,
           $less$star$question: X.$less$star$question,
           $less$pipe$pipe$great: X.$less$pipe$pipe$great,
           $less$amp$amp$great: X.$less$amp$amp$great,
@@ -88,103 +95,28 @@ function S2_to_S(X) {
 }
 
 function S2_to_S3(X) {
-  return {
-          select: X.select,
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great,
-          $$return: X.$$return,
-          apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
-          $less$star$great: X.$less$star$great,
-          $star$great: X.$star$great,
-          $less$star: X.$less$star,
-          $star$star: X.$star$star,
-          Selective_infix: X.Selective_infix,
-          $less$star$question: X.$less$star$question,
-          $less$pipe$pipe$great: X.$less$pipe$pipe$great,
-          $less$amp$amp$great: X.$less$amp$amp$great,
-          orS: X.orS,
-          andS: X.andS,
-          whenS: X.whenS,
-          branch: X.branch,
-          ifS: X.ifS,
-          fromOptionS: X.fromOptionS,
-          anyS: X.anyS,
-          allS: X.allS,
-          whileS: X.whileS
-        };
+  return X;
 }
 
 function S3_to_S2(X) {
-  return {
-          select: X.select,
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great,
-          $$return: X.$$return,
-          apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
-          $less$star$great: X.$less$star$great,
-          $star$great: X.$star$great,
-          $less$star: X.$less$star,
-          $star$star: X.$star$star,
-          Selective_infix: X.Selective_infix,
-          $less$star$question: X.$less$star$question,
-          $less$pipe$pipe$great: X.$less$pipe$pipe$great,
-          $less$amp$amp$great: X.$less$amp$amp$great,
-          orS: X.orS,
-          andS: X.andS,
-          whenS: X.whenS,
-          branch: X.branch,
-          ifS: X.ifS,
-          fromOptionS: X.fromOptionS,
-          anyS: X.anyS,
-          allS: X.allS,
-          whileS: X.whileS
-        };
+  return X;
 }
 
-function Make3(X) {
-  var select = X.select;
-  var include = Applicative$CoreCategory.Make3({
-        $$return: X.$$return,
-        apply: X.apply,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond
-      });
-  var $less$$great = include.$less$$great;
-  var $$return = include.$$return;
+function MakeCustom3(X) {
+  var include = Applicative$CoreCategory.MakeCustom3(X);
   var map = include.map;
+  var $less$$great = include.$less$$great;
+  var pure = include.pure;
+  var select = X.select;
   var branch = function (t, first, second) {
+    var arg = function (x) {
+      return x;
+    };
     var x = Curry._2(map, t, (function (param) {
-            return EitherBase$CoreCategory.bimap(param, Fun$CoreCategory.id, EitherBase$CoreCategory.first);
+            return Curry._3(EitherBase$CoreCategory.bimap, param, arg, EitherBase$CoreCategory.first);
           }));
-    var f = Curry._2(map, first, (function (param, param$1) {
-            return Fun$CoreCategory.compose(EitherBase$CoreCategory.second, param, param$1);
+    var f = Curry._2(map, first, (function (g, x) {
+            return EitherBase$CoreCategory.second(Curry._1(g, x));
           }));
     return Curry._2(select, Curry._2(select, x, f), second);
   };
@@ -195,16 +127,20 @@ function Make3(X) {
                       } else {
                         return /* Second */Block.__(1, [/* () */0]);
                       }
-                    })), Curry._2(map, t, Fun$CoreCategory.$$const), Curry._2(map, f, Fun$CoreCategory.$$const));
+                    })), Curry._2(map, t, (function (x, param) {
+                      return x;
+                    })), Curry._2(map, f, (function (x, param) {
+                      return x;
+                    })));
   };
   var whenS = function (x, act) {
-    return ifS(x, act, Curry._1($$return, /* () */0));
+    return ifS(x, act, Curry._1(pure, /* () */0));
   };
   var orS = function (x, y) {
-    return ifS(x, Curry._1($$return, true), y);
+    return ifS(x, Curry._1(pure, true), y);
   };
   var andS = function (x, y) {
-    return ifS(x, y, Curry._1($$return, false));
+    return ifS(x, y, Curry._1(pure, false));
   };
   var fromOptionS = function (x, mx) {
     var y = Curry._2(map, mx, (function (param) {
@@ -214,23 +150,25 @@ function Make3(X) {
               return EitherBase$CoreCategory.first(/* () */0);
             }
           }));
-    return Curry._2(select, y, Curry._2($less$$great, Fun$CoreCategory.$$const, x));
+    return Curry._2(select, y, Curry._2($less$$great, (function (x, param) {
+                      return x;
+                    }), x));
   };
   var $less$star$question = Curry.__2(select);
   var $less$pipe$pipe$great = orS;
   var $less$amp$amp$great = andS;
-  var Selective_infix = {
+  var SelectiveInfix = {
     $less$star$question: $less$star$question,
     $less$pipe$pipe$great: $less$pipe$pipe$great,
     $less$amp$amp$great: $less$amp$amp$great
   };
   var anyS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return, false), (function (accu, x) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, false), (function (accu, x) {
                   return orS(accu, Curry._1(pred, x));
                 }));
   };
   var allS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return, true), (function (accu, x) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, true), (function (accu, x) {
                   return andS(accu, Curry._1(pred, x));
                 }));
   };
@@ -238,28 +176,423 @@ function Make3(X) {
     return whenS(x, whileS(x));
   };
   return {
-          select: select,
+          map: map,
+          replace: include.replace,
           $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
+          FunctorInfix: include.FunctorInfix,
           $less$$great: $less$$great,
           $less$amp$great: include.$less$amp$great,
           $less$: include.$less$,
           $$great: include.$$great,
-          $$return: $$return,
           apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
           liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          map: map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
+          ApplyInfix: include.ApplyInfix,
           $less$star$great: include.$less$star$great,
           $star$great: include.$star$great,
           $less$star: include.$less$star,
           $star$star: include.$star$star,
-          Selective_infix: Selective_infix,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          select: select,
+          SelectiveInfix: SelectiveInfix,
+          $less$star$question: $less$star$question,
+          $less$pipe$pipe$great: $less$pipe$pipe$great,
+          $less$amp$amp$great: $less$amp$amp$great,
+          orS: orS,
+          andS: andS,
+          whenS: whenS,
+          branch: branch,
+          ifS: ifS,
+          fromOptionS: fromOptionS,
+          anyS: anyS,
+          allS: allS,
+          whileS: whileS
+        };
+}
+
+function MakeCustom2(X) {
+  var select = X.select;
+  var X_pure = X.pure;
+  var X_apply = X.apply;
+  var X_map = X.map;
+  var X_replace = X.replace;
+  var X_liftA2 = X.liftA2;
+  var X_applyFirst = X.applyFirst;
+  var X_applySecond = X.applySecond;
+  var X$1 = {
+    pure: X_pure,
+    apply: X_apply,
+    map: X_map,
+    replace: X_replace,
+    liftA2: X_liftA2,
+    applyFirst: X_applyFirst,
+    applySecond: X_applySecond,
+    select: select
+  };
+  var include = Applicative$CoreCategory.MakeCustom3(X$1);
+  var map = include.map;
+  var $less$$great = include.$less$$great;
+  var pure = include.pure;
+  var branch = function (t, first, second) {
+    var arg = function (x) {
+      return x;
+    };
+    var x = Curry._2(map, t, (function (param) {
+            return Curry._3(EitherBase$CoreCategory.bimap, param, arg, EitherBase$CoreCategory.first);
+          }));
+    var f = Curry._2(map, first, (function (g, x) {
+            return EitherBase$CoreCategory.second(Curry._1(g, x));
+          }));
+    return Curry._2(select, Curry._2(select, x, f), second);
+  };
+  var ifS = function (x, t, f) {
+    return branch(Curry._2(map, x, (function (b) {
+                      if (b) {
+                        return /* First */Block.__(0, [/* () */0]);
+                      } else {
+                        return /* Second */Block.__(1, [/* () */0]);
+                      }
+                    })), Curry._2(map, t, (function (x, param) {
+                      return x;
+                    })), Curry._2(map, f, (function (x, param) {
+                      return x;
+                    })));
+  };
+  var whenS = function (x, act) {
+    return ifS(x, act, Curry._1(pure, /* () */0));
+  };
+  var orS = function (x, y) {
+    return ifS(x, Curry._1(pure, true), y);
+  };
+  var andS = function (x, y) {
+    return ifS(x, y, Curry._1(pure, false));
+  };
+  var fromOptionS = function (x, mx) {
+    var y = Curry._2(map, mx, (function (param) {
+            if (param !== undefined) {
+              return EitherBase$CoreCategory.second(Caml_option.valFromOption(param));
+            } else {
+              return EitherBase$CoreCategory.first(/* () */0);
+            }
+          }));
+    return Curry._2(select, y, Curry._2($less$$great, (function (x, param) {
+                      return x;
+                    }), x));
+  };
+  var $less$star$question = Curry.__2(select);
+  var $less$pipe$pipe$great = orS;
+  var $less$amp$amp$great = andS;
+  var SelectiveInfix = {
+    $less$star$question: $less$star$question,
+    $less$pipe$pipe$great: $less$pipe$pipe$great,
+    $less$amp$amp$great: $less$amp$amp$great
+  };
+  var anyS = function (xs, pred) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, false), (function (accu, x) {
+                  return orS(accu, Curry._1(pred, x));
+                }));
+  };
+  var allS = function (xs, pred) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, true), (function (accu, x) {
+                  return andS(accu, Curry._1(pred, x));
+                }));
+  };
+  var whileS = function (x) {
+    return whenS(x, whileS(x));
+  };
+  return {
+          map: map,
+          replace: include.replace,
+          $$void: include.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $less$$great,
+          $less$amp$great: include.$less$amp$great,
+          $less$: include.$less$,
+          $$great: include.$$great,
+          apply: include.apply,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          liftA2: include.liftA2,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: include.$less$star$great,
+          $star$great: include.$star$great,
+          $less$star: include.$less$star,
+          $star$star: include.$star$star,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          select: select,
+          SelectiveInfix: SelectiveInfix,
+          $less$star$question: $less$star$question,
+          $less$pipe$pipe$great: $less$pipe$pipe$great,
+          $less$amp$amp$great: $less$amp$amp$great,
+          orS: orS,
+          andS: andS,
+          whenS: whenS,
+          branch: branch,
+          ifS: ifS,
+          fromOptionS: fromOptionS,
+          anyS: anyS,
+          allS: allS,
+          whileS: whileS
+        };
+}
+
+function MakeCustom1(X) {
+  var select = X.select;
+  var X_pure = X.pure;
+  var X_apply = X.apply;
+  var X_map = X.map;
+  var X_replace = X.replace;
+  var X_liftA2 = X.liftA2;
+  var X_applyFirst = X.applyFirst;
+  var X_applySecond = X.applySecond;
+  var X$1 = {
+    pure: X_pure,
+    apply: X_apply,
+    map: X_map,
+    replace: X_replace,
+    liftA2: X_liftA2,
+    applyFirst: X_applyFirst,
+    applySecond: X_applySecond,
+    select: select
+  };
+  var include = Applicative$CoreCategory.MakeCustom3(X$1);
+  var map = include.map;
+  var $less$$great = include.$less$$great;
+  var pure = include.pure;
+  var branch = function (t, first, second) {
+    var arg = function (x) {
+      return x;
+    };
+    var x = Curry._2(map, t, (function (param) {
+            return Curry._3(EitherBase$CoreCategory.bimap, param, arg, EitherBase$CoreCategory.first);
+          }));
+    var f = Curry._2(map, first, (function (g, x) {
+            return EitherBase$CoreCategory.second(Curry._1(g, x));
+          }));
+    return Curry._2(select, Curry._2(select, x, f), second);
+  };
+  var ifS = function (x, t, f) {
+    return branch(Curry._2(map, x, (function (b) {
+                      if (b) {
+                        return /* First */Block.__(0, [/* () */0]);
+                      } else {
+                        return /* Second */Block.__(1, [/* () */0]);
+                      }
+                    })), Curry._2(map, t, (function (x, param) {
+                      return x;
+                    })), Curry._2(map, f, (function (x, param) {
+                      return x;
+                    })));
+  };
+  var whenS = function (x, act) {
+    return ifS(x, act, Curry._1(pure, /* () */0));
+  };
+  var orS = function (x, y) {
+    return ifS(x, Curry._1(pure, true), y);
+  };
+  var andS = function (x, y) {
+    return ifS(x, y, Curry._1(pure, false));
+  };
+  var fromOptionS = function (x, mx) {
+    var y = Curry._2(map, mx, (function (param) {
+            if (param !== undefined) {
+              return EitherBase$CoreCategory.second(Caml_option.valFromOption(param));
+            } else {
+              return EitherBase$CoreCategory.first(/* () */0);
+            }
+          }));
+    return Curry._2(select, y, Curry._2($less$$great, (function (x, param) {
+                      return x;
+                    }), x));
+  };
+  var $less$star$question = Curry.__2(select);
+  var $less$pipe$pipe$great = orS;
+  var $less$amp$amp$great = andS;
+  var SelectiveInfix = {
+    $less$star$question: $less$star$question,
+    $less$pipe$pipe$great: $less$pipe$pipe$great,
+    $less$amp$amp$great: $less$amp$amp$great
+  };
+  var anyS = function (xs, pred) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, false), (function (accu, x) {
+                  return orS(accu, Curry._1(pred, x));
+                }));
+  };
+  var allS = function (xs, pred) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, true), (function (accu, x) {
+                  return andS(accu, Curry._1(pred, x));
+                }));
+  };
+  var whileS = function (x) {
+    return whenS(x, whileS(x));
+  };
+  return {
+          map: map,
+          replace: include.replace,
+          $$void: include.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $less$$great,
+          $less$amp$great: include.$less$amp$great,
+          $less$: include.$less$,
+          $$great: include.$$great,
+          apply: include.apply,
+          liftA2: include.liftA2,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: include.$less$star$great,
+          $star$great: include.$star$great,
+          $less$star: include.$less$star,
+          $star$star: include.$star$star,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          select: select,
+          SelectiveInfix: SelectiveInfix,
+          $less$star$question: $less$star$question,
+          $less$pipe$pipe$great: $less$pipe$pipe$great,
+          $less$amp$amp$great: $less$amp$amp$great,
+          orS: orS,
+          andS: andS,
+          whenS: whenS,
+          branch: branch,
+          ifS: ifS,
+          fromOptionS: fromOptionS,
+          anyS: anyS,
+          allS: allS,
+          whileS: whileS
+        };
+}
+
+function Make3(X) {
+  var select = X.select;
+  var X_pure = X.pure;
+  var X_apply = X.apply;
+  var X$1 = {
+    pure: X_pure,
+    apply: X_apply,
+    map: /* Derived */-684824643,
+    replace: /* Derived */-684824643,
+    liftA2: /* Derived */-684824643,
+    applyFirst: /* Derived */-684824643,
+    applySecond: /* Derived */-684824643,
+    select: select
+  };
+  var include = Applicative$CoreCategory.MakeCustom3(X$1);
+  var map = include.map;
+  var $less$$great = include.$less$$great;
+  var pure = include.pure;
+  var branch = function (t, first, second) {
+    var arg = function (x) {
+      return x;
+    };
+    var x = Curry._2(map, t, (function (param) {
+            return Curry._3(EitherBase$CoreCategory.bimap, param, arg, EitherBase$CoreCategory.first);
+          }));
+    var f = Curry._2(map, first, (function (g, x) {
+            return EitherBase$CoreCategory.second(Curry._1(g, x));
+          }));
+    return Curry._2(select, Curry._2(select, x, f), second);
+  };
+  var ifS = function (x, t, f) {
+    return branch(Curry._2(map, x, (function (b) {
+                      if (b) {
+                        return /* First */Block.__(0, [/* () */0]);
+                      } else {
+                        return /* Second */Block.__(1, [/* () */0]);
+                      }
+                    })), Curry._2(map, t, (function (x, param) {
+                      return x;
+                    })), Curry._2(map, f, (function (x, param) {
+                      return x;
+                    })));
+  };
+  var whenS = function (x, act) {
+    return ifS(x, act, Curry._1(pure, /* () */0));
+  };
+  var orS = function (x, y) {
+    return ifS(x, Curry._1(pure, true), y);
+  };
+  var andS = function (x, y) {
+    return ifS(x, y, Curry._1(pure, false));
+  };
+  var fromOptionS = function (x, mx) {
+    var y = Curry._2(map, mx, (function (param) {
+            if (param !== undefined) {
+              return EitherBase$CoreCategory.second(Caml_option.valFromOption(param));
+            } else {
+              return EitherBase$CoreCategory.first(/* () */0);
+            }
+          }));
+    return Curry._2(select, y, Curry._2($less$$great, (function (x, param) {
+                      return x;
+                    }), x));
+  };
+  var $less$star$question = Curry.__2(select);
+  var $less$pipe$pipe$great = orS;
+  var $less$amp$amp$great = andS;
+  var SelectiveInfix = {
+    $less$star$question: $less$star$question,
+    $less$pipe$pipe$great: $less$pipe$pipe$great,
+    $less$amp$amp$great: $less$amp$amp$great
+  };
+  var anyS = function (xs, pred) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, false), (function (accu, x) {
+                  return orS(accu, Curry._1(pred, x));
+                }));
+  };
+  var allS = function (xs, pred) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, true), (function (accu, x) {
+                  return andS(accu, Curry._1(pred, x));
+                }));
+  };
+  var whileS = function (x) {
+    return whenS(x, whileS(x));
+  };
+  return {
+          map: map,
+          replace: include.replace,
+          $$void: include.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $less$$great,
+          $less$amp$great: include.$less$amp$great,
+          $less$: include.$less$,
+          $$great: include.$$great,
+          apply: include.apply,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          liftA2: include.liftA2,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: include.$less$star$great,
+          $star$great: include.$star$great,
+          $less$star: include.$less$star,
+          $star$star: include.$star$star,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          select: select,
+          SelectiveInfix: SelectiveInfix,
           $less$star$question: $less$star$question,
           $less$pipe$pipe$great: $less$pipe$pipe$great,
           $less$amp$amp$great: $less$amp$amp$great,
@@ -277,24 +610,31 @@ function Make3(X) {
 
 function Make2(X) {
   var select = X.select;
-  var include = Applicative$CoreCategory.Make3({
-        $$return: X.$$return,
-        apply: X.apply,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond
-      });
-  var $less$$great = include.$less$$great;
-  var $$return = include.$$return;
+  var X_pure = X.pure;
+  var X_apply = X.apply;
+  var X$1 = {
+    pure: X_pure,
+    apply: X_apply,
+    map: /* Derived */-684824643,
+    replace: /* Derived */-684824643,
+    liftA2: /* Derived */-684824643,
+    applyFirst: /* Derived */-684824643,
+    applySecond: /* Derived */-684824643,
+    select: select
+  };
+  var include = Applicative$CoreCategory.MakeCustom3(X$1);
   var map = include.map;
+  var $less$$great = include.$less$$great;
+  var pure = include.pure;
   var branch = function (t, first, second) {
+    var arg = function (x) {
+      return x;
+    };
     var x = Curry._2(map, t, (function (param) {
-            return EitherBase$CoreCategory.bimap(param, Fun$CoreCategory.id, EitherBase$CoreCategory.first);
+            return Curry._3(EitherBase$CoreCategory.bimap, param, arg, EitherBase$CoreCategory.first);
           }));
-    var f = Curry._2(map, first, (function (param, param$1) {
-            return Fun$CoreCategory.compose(EitherBase$CoreCategory.second, param, param$1);
+    var f = Curry._2(map, first, (function (g, x) {
+            return EitherBase$CoreCategory.second(Curry._1(g, x));
           }));
     return Curry._2(select, Curry._2(select, x, f), second);
   };
@@ -305,16 +645,20 @@ function Make2(X) {
                       } else {
                         return /* Second */Block.__(1, [/* () */0]);
                       }
-                    })), Curry._2(map, t, Fun$CoreCategory.$$const), Curry._2(map, f, Fun$CoreCategory.$$const));
+                    })), Curry._2(map, t, (function (x, param) {
+                      return x;
+                    })), Curry._2(map, f, (function (x, param) {
+                      return x;
+                    })));
   };
   var whenS = function (x, act) {
-    return ifS(x, act, Curry._1($$return, /* () */0));
+    return ifS(x, act, Curry._1(pure, /* () */0));
   };
   var orS = function (x, y) {
-    return ifS(x, Curry._1($$return, true), y);
+    return ifS(x, Curry._1(pure, true), y);
   };
   var andS = function (x, y) {
-    return ifS(x, y, Curry._1($$return, false));
+    return ifS(x, y, Curry._1(pure, false));
   };
   var fromOptionS = function (x, mx) {
     var y = Curry._2(map, mx, (function (param) {
@@ -324,23 +668,25 @@ function Make2(X) {
               return EitherBase$CoreCategory.first(/* () */0);
             }
           }));
-    return Curry._2(select, y, Curry._2($less$$great, Fun$CoreCategory.$$const, x));
+    return Curry._2(select, y, Curry._2($less$$great, (function (x, param) {
+                      return x;
+                    }), x));
   };
   var $less$star$question = Curry.__2(select);
   var $less$pipe$pipe$great = orS;
   var $less$amp$amp$great = andS;
-  var Selective_infix = {
+  var SelectiveInfix = {
     $less$star$question: $less$star$question,
     $less$pipe$pipe$great: $less$pipe$pipe$great,
     $less$amp$amp$great: $less$amp$amp$great
   };
   var anyS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return, false), (function (accu, x) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, false), (function (accu, x) {
                   return orS(accu, Curry._1(pred, x));
                 }));
   };
   var allS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return, true), (function (accu, x) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, true), (function (accu, x) {
                   return andS(accu, Curry._1(pred, x));
                 }));
   };
@@ -348,28 +694,32 @@ function Make2(X) {
     return whenS(x, whileS(x));
   };
   return {
-          select: select,
+          map: map,
+          replace: include.replace,
           $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
+          FunctorInfix: include.FunctorInfix,
           $less$$great: $less$$great,
           $less$amp$great: include.$less$amp$great,
           $less$: include.$less$,
           $$great: include.$$great,
-          $$return: $$return,
           apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
           liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          map: map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
+          ApplyInfix: include.ApplyInfix,
           $less$star$great: include.$less$star$great,
           $star$great: include.$star$great,
           $less$star: include.$less$star,
           $star$star: include.$star$star,
-          Selective_infix: Selective_infix,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          select: select,
+          SelectiveInfix: SelectiveInfix,
           $less$star$question: $less$star$question,
           $less$pipe$pipe$great: $less$pipe$pipe$great,
           $less$amp$amp$great: $less$amp$amp$great,
@@ -385,26 +735,33 @@ function Make2(X) {
         };
 }
 
-function Make(X) {
+function Make1(X) {
   var select = X.select;
-  var include = Applicative$CoreCategory.Make3({
-        $$return: X.$$return,
-        apply: X.apply,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond
-      });
-  var $less$$great = include.$less$$great;
-  var $$return = include.$$return;
+  var X_pure = X.pure;
+  var X_apply = X.apply;
+  var X$1 = {
+    pure: X_pure,
+    apply: X_apply,
+    map: /* Derived */-684824643,
+    replace: /* Derived */-684824643,
+    liftA2: /* Derived */-684824643,
+    applyFirst: /* Derived */-684824643,
+    applySecond: /* Derived */-684824643,
+    select: select
+  };
+  var include = Applicative$CoreCategory.MakeCustom3(X$1);
   var map = include.map;
+  var $less$$great = include.$less$$great;
+  var pure = include.pure;
   var branch = function (t, first, second) {
+    var arg = function (x) {
+      return x;
+    };
     var x = Curry._2(map, t, (function (param) {
-            return EitherBase$CoreCategory.bimap(param, Fun$CoreCategory.id, EitherBase$CoreCategory.first);
+            return Curry._3(EitherBase$CoreCategory.bimap, param, arg, EitherBase$CoreCategory.first);
           }));
-    var f = Curry._2(map, first, (function (param, param$1) {
-            return Fun$CoreCategory.compose(EitherBase$CoreCategory.second, param, param$1);
+    var f = Curry._2(map, first, (function (g, x) {
+            return EitherBase$CoreCategory.second(Curry._1(g, x));
           }));
     return Curry._2(select, Curry._2(select, x, f), second);
   };
@@ -415,16 +772,20 @@ function Make(X) {
                       } else {
                         return /* Second */Block.__(1, [/* () */0]);
                       }
-                    })), Curry._2(map, t, Fun$CoreCategory.$$const), Curry._2(map, f, Fun$CoreCategory.$$const));
+                    })), Curry._2(map, t, (function (x, param) {
+                      return x;
+                    })), Curry._2(map, f, (function (x, param) {
+                      return x;
+                    })));
   };
   var whenS = function (x, act) {
-    return ifS(x, act, Curry._1($$return, /* () */0));
+    return ifS(x, act, Curry._1(pure, /* () */0));
   };
   var orS = function (x, y) {
-    return ifS(x, Curry._1($$return, true), y);
+    return ifS(x, Curry._1(pure, true), y);
   };
   var andS = function (x, y) {
-    return ifS(x, y, Curry._1($$return, false));
+    return ifS(x, y, Curry._1(pure, false));
   };
   var fromOptionS = function (x, mx) {
     var y = Curry._2(map, mx, (function (param) {
@@ -434,23 +795,25 @@ function Make(X) {
               return EitherBase$CoreCategory.first(/* () */0);
             }
           }));
-    return Curry._2(select, y, Curry._2($less$$great, Fun$CoreCategory.$$const, x));
+    return Curry._2(select, y, Curry._2($less$$great, (function (x, param) {
+                      return x;
+                    }), x));
   };
   var $less$star$question = Curry.__2(select);
   var $less$pipe$pipe$great = orS;
   var $less$amp$amp$great = andS;
-  var Selective_infix = {
+  var SelectiveInfix = {
     $less$star$question: $less$star$question,
     $less$pipe$pipe$great: $less$pipe$pipe$great,
     $less$amp$amp$great: $less$amp$amp$great
   };
   var anyS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return, false), (function (accu, x) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, false), (function (accu, x) {
                   return orS(accu, Curry._1(pred, x));
                 }));
   };
   var allS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return, true), (function (accu, x) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure, true), (function (accu, x) {
                   return andS(accu, Curry._1(pred, x));
                 }));
   };
@@ -458,266 +821,32 @@ function Make(X) {
     return whenS(x, whileS(x));
   };
   return {
-          select: select,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: $less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return,
-          apply: include.apply,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
           map: map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
-          $star$great: include.$star$great,
-          $less$star: include.$less$star,
-          $star$star: include.$star$star,
-          Selective_infix: Selective_infix,
-          $less$star$question: $less$star$question,
-          $less$pipe$pipe$great: $less$pipe$pipe$great,
-          $less$amp$amp$great: $less$amp$amp$great,
-          orS: orS,
-          andS: andS,
-          whenS: whenS,
-          branch: branch,
-          ifS: ifS,
-          fromOptionS: fromOptionS,
-          anyS: anyS,
-          allS: allS,
-          whileS: whileS
-        };
-}
-
-function Make_backwards3(X) {
-  var $$return = X.$$return;
-  var apply = function (x, f) {
-    return Curry._2(X.apply, f, Curry._2(X.apply, x, Curry._1(X.$$return, (function (x, f) {
-                          return Curry._1(f, x);
-                        }))));
-  };
-  var select = X.select;
-  var map = X.map;
-  var liftA2 = X.liftA2;
-  var liftA3 = X.liftA3;
-  var discardFirst = X.discardFirst;
-  var discardSecond = X.discardSecond;
-  var include = Applicative$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply,
-        map: map,
-        liftA2: liftA2,
-        liftA3: liftA3,
-        discardFirst: discardFirst,
-        discardSecond: discardSecond
-      });
-  var $less$$great = include.$less$$great;
-  var $$return$1 = include.$$return;
-  var map$1 = include.map;
-  var branch = function (t, first, second) {
-    var x = Curry._2(map$1, t, (function (param) {
-            return EitherBase$CoreCategory.bimap(param, Fun$CoreCategory.id, EitherBase$CoreCategory.first);
-          }));
-    var f = Curry._2(map$1, first, (function (param, param$1) {
-            return Fun$CoreCategory.compose(EitherBase$CoreCategory.second, param, param$1);
-          }));
-    return Curry._2(select, Curry._2(select, x, f), second);
-  };
-  var ifS = function (x, t, f) {
-    return branch(Curry._2(map$1, x, (function (b) {
-                      if (b) {
-                        return /* First */Block.__(0, [/* () */0]);
-                      } else {
-                        return /* Second */Block.__(1, [/* () */0]);
-                      }
-                    })), Curry._2(map$1, t, Fun$CoreCategory.$$const), Curry._2(map$1, f, Fun$CoreCategory.$$const));
-  };
-  var whenS = function (x, act) {
-    return ifS(x, act, Curry._1($$return$1, /* () */0));
-  };
-  var orS = function (x, y) {
-    return ifS(x, Curry._1($$return$1, true), y);
-  };
-  var andS = function (x, y) {
-    return ifS(x, y, Curry._1($$return$1, false));
-  };
-  var fromOptionS = function (x, mx) {
-    var y = Curry._2(map$1, mx, (function (param) {
-            if (param !== undefined) {
-              return EitherBase$CoreCategory.second(Caml_option.valFromOption(param));
-            } else {
-              return EitherBase$CoreCategory.first(/* () */0);
-            }
-          }));
-    return Curry._2(select, y, Curry._2($less$$great, Fun$CoreCategory.$$const, x));
-  };
-  var $less$star$question = Curry.__2(select);
-  var $less$pipe$pipe$great = orS;
-  var $less$amp$amp$great = andS;
-  var Selective_infix = {
-    $less$star$question: $less$star$question,
-    $less$pipe$pipe$great: $less$pipe$pipe$great,
-    $less$amp$amp$great: $less$amp$amp$great
-  };
-  var anyS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, false), (function (accu, x) {
-                  return orS(accu, Curry._1(pred, x));
-                }));
-  };
-  var allS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, true), (function (accu, x) {
-                  return andS(accu, Curry._1(pred, x));
-                }));
-  };
-  var whileS = function (x) {
-    return whenS(x, whileS(x));
-  };
-  return {
-          select: select,
+          replace: include.replace,
           $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
+          FunctorInfix: include.FunctorInfix,
           $less$$great: $less$$great,
           $less$amp$great: include.$less$amp$great,
           $less$: include.$less$,
           $$great: include.$$great,
-          $$return: $$return$1,
           apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
           liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          map: map$1,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          ApplyInfix: include.ApplyInfix,
           $less$star$great: include.$less$star$great,
           $star$great: include.$star$great,
           $less$star: include.$less$star,
           $star$star: include.$star$star,
-          Selective_infix: Selective_infix,
-          $less$star$question: $less$star$question,
-          $less$pipe$pipe$great: $less$pipe$pipe$great,
-          $less$amp$amp$great: $less$amp$amp$great,
-          orS: orS,
-          andS: andS,
-          whenS: whenS,
-          branch: branch,
-          ifS: ifS,
-          fromOptionS: fromOptionS,
-          anyS: anyS,
-          allS: allS,
-          whileS: whileS
-        };
-}
-
-function Make_backwards2(X) {
-  var $$return = X.$$return;
-  var apply = X.apply;
-  var select = X.select;
-  var apply$1 = function (x, f) {
-    return Curry._2(apply, f, Curry._2(apply, x, Curry._1($$return, (function (x, f) {
-                          return Curry._1(f, x);
-                        }))));
-  };
-  var include = Applicative$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply$1,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond
-      });
-  var $less$$great = include.$less$$great;
-  var $$return$1 = include.$$return;
-  var map = include.map;
-  var branch = function (t, first, second) {
-    var x = Curry._2(map, t, (function (param) {
-            return EitherBase$CoreCategory.bimap(param, Fun$CoreCategory.id, EitherBase$CoreCategory.first);
-          }));
-    var f = Curry._2(map, first, (function (param, param$1) {
-            return Fun$CoreCategory.compose(EitherBase$CoreCategory.second, param, param$1);
-          }));
-    return Curry._2(select, Curry._2(select, x, f), second);
-  };
-  var ifS = function (x, t, f) {
-    return branch(Curry._2(map, x, (function (b) {
-                      if (b) {
-                        return /* First */Block.__(0, [/* () */0]);
-                      } else {
-                        return /* Second */Block.__(1, [/* () */0]);
-                      }
-                    })), Curry._2(map, t, Fun$CoreCategory.$$const), Curry._2(map, f, Fun$CoreCategory.$$const));
-  };
-  var whenS = function (x, act) {
-    return ifS(x, act, Curry._1($$return$1, /* () */0));
-  };
-  var orS = function (x, y) {
-    return ifS(x, Curry._1($$return$1, true), y);
-  };
-  var andS = function (x, y) {
-    return ifS(x, y, Curry._1($$return$1, false));
-  };
-  var fromOptionS = function (x, mx) {
-    var y = Curry._2(map, mx, (function (param) {
-            if (param !== undefined) {
-              return EitherBase$CoreCategory.second(Caml_option.valFromOption(param));
-            } else {
-              return EitherBase$CoreCategory.first(/* () */0);
-            }
-          }));
-    return Curry._2(select, y, Curry._2($less$$great, Fun$CoreCategory.$$const, x));
-  };
-  var $less$star$question = Curry.__2(select);
-  var $less$pipe$pipe$great = orS;
-  var $less$amp$amp$great = andS;
-  var Selective_infix = {
-    $less$star$question: $less$star$question,
-    $less$pipe$pipe$great: $less$pipe$pipe$great,
-    $less$amp$amp$great: $less$amp$amp$great
-  };
-  var anyS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, false), (function (accu, x) {
-                  return orS(accu, Curry._1(pred, x));
-                }));
-  };
-  var allS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, true), (function (accu, x) {
-                  return andS(accu, Curry._1(pred, x));
-                }));
-  };
-  var whileS = function (x) {
-    return whenS(x, whileS(x));
-  };
-  return {
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
           select: select,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: $less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return$1,
-          apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          map: map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
-          $star$great: include.$star$great,
-          $less$star: include.$less$star,
-          $star$star: include.$star$star,
-          Selective_infix: Selective_infix,
+          SelectiveInfix: SelectiveInfix,
           $less$star$question: $less$star$question,
           $less$pipe$pipe$great: $less$pipe$pipe$great,
           $less$amp$amp$great: $less$amp$amp$great,
@@ -733,131 +862,14 @@ function Make_backwards2(X) {
         };
 }
 
-function Make_backwards(X) {
-  var $$return = X.$$return;
-  var apply = X.apply;
-  var select = X.select;
-  var apply$1 = function (x, f) {
-    return Curry._2(apply, f, Curry._2(apply, x, Curry._1($$return, (function (x, f) {
-                          return Curry._1(f, x);
-                        }))));
-  };
-  var include = Applicative$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply$1,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond
-      });
-  var $less$$great = include.$less$$great;
-  var $$return$1 = include.$$return;
-  var map = include.map;
-  var branch = function (t, first, second) {
-    var x = Curry._2(map, t, (function (param) {
-            return EitherBase$CoreCategory.bimap(param, Fun$CoreCategory.id, EitherBase$CoreCategory.first);
-          }));
-    var f = Curry._2(map, first, (function (param, param$1) {
-            return Fun$CoreCategory.compose(EitherBase$CoreCategory.second, param, param$1);
-          }));
-    return Curry._2(select, Curry._2(select, x, f), second);
-  };
-  var ifS = function (x, t, f) {
-    return branch(Curry._2(map, x, (function (b) {
-                      if (b) {
-                        return /* First */Block.__(0, [/* () */0]);
-                      } else {
-                        return /* Second */Block.__(1, [/* () */0]);
-                      }
-                    })), Curry._2(map, t, Fun$CoreCategory.$$const), Curry._2(map, f, Fun$CoreCategory.$$const));
-  };
-  var whenS = function (x, act) {
-    return ifS(x, act, Curry._1($$return$1, /* () */0));
-  };
-  var orS = function (x, y) {
-    return ifS(x, Curry._1($$return$1, true), y);
-  };
-  var andS = function (x, y) {
-    return ifS(x, y, Curry._1($$return$1, false));
-  };
-  var fromOptionS = function (x, mx) {
-    var y = Curry._2(map, mx, (function (param) {
-            if (param !== undefined) {
-              return EitherBase$CoreCategory.second(Caml_option.valFromOption(param));
-            } else {
-              return EitherBase$CoreCategory.first(/* () */0);
-            }
-          }));
-    return Curry._2(select, y, Curry._2($less$$great, Fun$CoreCategory.$$const, x));
-  };
-  var $less$star$question = Curry.__2(select);
-  var $less$pipe$pipe$great = orS;
-  var $less$amp$amp$great = andS;
-  var Selective_infix = {
-    $less$star$question: $less$star$question,
-    $less$pipe$pipe$great: $less$pipe$pipe$great,
-    $less$amp$amp$great: $less$amp$amp$great
-  };
-  var anyS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, false), (function (accu, x) {
-                  return orS(accu, Curry._1(pred, x));
-                }));
-  };
-  var allS = function (xs, pred) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, true), (function (accu, x) {
-                  return andS(accu, Curry._1(pred, x));
-                }));
-  };
-  var whileS = function (x) {
-    return whenS(x, whileS(x));
-  };
-  return {
-          select: select,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: $less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return$1,
-          apply: include.apply,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          map: map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
-          $star$great: include.$star$great,
-          $less$star: include.$less$star,
-          $star$star: include.$star$star,
-          Selective_infix: Selective_infix,
-          $less$star$question: $less$star$question,
-          $less$pipe$pipe$great: $less$pipe$pipe$great,
-          $less$amp$amp$great: $less$amp$amp$great,
-          orS: orS,
-          andS: andS,
-          whenS: whenS,
-          branch: branch,
-          ifS: ifS,
-          fromOptionS: fromOptionS,
-          anyS: anyS,
-          allS: allS,
-          whileS: whileS
-        };
-}
-
-exports.S_to_S2 = S_to_S2;
-exports.S2_to_S = S2_to_S;
+exports.S1_to_S2 = S1_to_S2;
+exports.S2_to_S1 = S2_to_S1;
 exports.S2_to_S3 = S2_to_S3;
 exports.S3_to_S2 = S3_to_S2;
-exports.Make = Make;
+exports.MakeCustom1 = MakeCustom1;
+exports.MakeCustom2 = MakeCustom2;
+exports.MakeCustom3 = MakeCustom3;
+exports.Make1 = Make1;
 exports.Make2 = Make2;
 exports.Make3 = Make3;
-exports.Make_backwards = Make_backwards;
-exports.Make_backwards2 = Make_backwards2;
-exports.Make_backwards3 = Make_backwards3;
-/* Fun-CoreCategory Not a pure module */
+/* EitherBase-CoreCategory Not a pure module */

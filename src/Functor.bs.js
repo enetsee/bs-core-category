@@ -3,56 +3,39 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 
-function S_to_S2(X) {
-  return {
-          map: X.map,
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great
-        };
+function S1_to_S2(X) {
+  return X;
 }
 
-function S2_to_S(X) {
-  return {
-          map: X.map,
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great
-        };
+function S2_to_S1(X) {
+  return X;
 }
 
 function S2_to_S3(X) {
-  return {
-          map: X.map,
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great
-        };
+  return X;
 }
 
 function S3_to_S2(X) {
-  return {
-          map: X.map,
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great
-        };
+  return X;
 }
 
-function Make3(X) {
+function MakeCustom3(X) {
   var map = X.map;
+  var match = X.replace;
+  var replace;
+  var exit = 0;
+  if (typeof match === "number" || match[0] !== -198771759) {
+    exit = 1;
+  } else {
+    replace = match[1];
+  }
+  if (exit === 1) {
+    replace = (function (t, $$const) {
+        return Curry._2(map, t, (function (param) {
+                      return $$const;
+                    }));
+      });
+  }
   var $less$$great = function (f, x) {
     return Curry._2(map, x, f);
   };
@@ -67,7 +50,7 @@ function Make3(X) {
                   return x;
                 }));
   };
-  var Functor_infix = {
+  var FunctorInfix = {
     $less$$great: $less$$great,
     $less$amp$great: $less$amp$great,
     $less$: $less$,
@@ -80,8 +63,166 @@ function Make3(X) {
   };
   return {
           map: map,
+          replace: replace,
           $$void: $$void,
-          Functor_infix: Functor_infix,
+          FunctorInfix: FunctorInfix,
+          $less$$great: $less$$great,
+          $less$amp$great: $less$amp$great,
+          $less$: $less$,
+          $$great: $$great
+        };
+}
+
+function MakeCustom2(X) {
+  var map = X.map;
+  var replace = X.replace;
+  var replace$1;
+  var exit = 0;
+  if (typeof replace === "number" || replace[0] !== -198771759) {
+    exit = 1;
+  } else {
+    replace$1 = replace[1];
+  }
+  if (exit === 1) {
+    replace$1 = (function (t, $$const) {
+        return Curry._2(map, t, (function (param) {
+                      return $$const;
+                    }));
+      });
+  }
+  var $less$$great = function (f, x) {
+    return Curry._2(map, x, f);
+  };
+  var $less$amp$great = Curry.__2(map);
+  var $less$ = function (x, t) {
+    return Curry._2(map, t, (function (param) {
+                  return x;
+                }));
+  };
+  var $$great = function (t, x) {
+    return Curry._2(map, t, (function (param) {
+                  return x;
+                }));
+  };
+  var FunctorInfix = {
+    $less$$great: $less$$great,
+    $less$amp$great: $less$amp$great,
+    $less$: $less$,
+    $$great: $$great
+  };
+  var $$void = function (t) {
+    return Curry._2(map, t, (function (param) {
+                  return /* () */0;
+                }));
+  };
+  return {
+          map: map,
+          replace: replace$1,
+          $$void: $$void,
+          FunctorInfix: FunctorInfix,
+          $less$$great: $less$$great,
+          $less$amp$great: $less$amp$great,
+          $less$: $less$,
+          $$great: $$great
+        };
+}
+
+function MakeCustom1(X) {
+  var map = X.map;
+  var replace = X.replace;
+  var replace$1;
+  var exit = 0;
+  if (typeof replace === "number" || replace[0] !== -198771759) {
+    exit = 1;
+  } else {
+    replace$1 = replace[1];
+  }
+  if (exit === 1) {
+    replace$1 = (function (t, $$const) {
+        return Curry._2(map, t, (function (param) {
+                      return $$const;
+                    }));
+      });
+  }
+  var $less$$great = function (f, x) {
+    return Curry._2(map, x, f);
+  };
+  var $less$amp$great = Curry.__2(map);
+  var $less$ = function (x, t) {
+    return Curry._2(map, t, (function (param) {
+                  return x;
+                }));
+  };
+  var $$great = function (t, x) {
+    return Curry._2(map, t, (function (param) {
+                  return x;
+                }));
+  };
+  var FunctorInfix = {
+    $less$$great: $less$$great,
+    $less$amp$great: $less$amp$great,
+    $less$: $less$,
+    $$great: $$great
+  };
+  var $$void = function (t) {
+    return Curry._2(map, t, (function (param) {
+                  return /* () */0;
+                }));
+  };
+  return {
+          map: map,
+          replace: replace$1,
+          $$void: $$void,
+          FunctorInfix: FunctorInfix,
+          $less$$great: $less$$great,
+          $less$amp$great: $less$amp$great,
+          $less$: $less$,
+          $$great: $$great
+        };
+}
+
+function Make3(X) {
+  var map = X.map;
+  var replace;
+  var exit = 0;
+  exit = 1;
+  if (exit === 1) {
+    replace = (function (t, $$const) {
+        return Curry._2(map, t, (function (param) {
+                      return $$const;
+                    }));
+      });
+  }
+  var $less$$great = function (f, x) {
+    return Curry._2(map, x, f);
+  };
+  var $less$amp$great = Curry.__2(map);
+  var $less$ = function (x, t) {
+    return Curry._2(map, t, (function (param) {
+                  return x;
+                }));
+  };
+  var $$great = function (t, x) {
+    return Curry._2(map, t, (function (param) {
+                  return x;
+                }));
+  };
+  var FunctorInfix = {
+    $less$$great: $less$$great,
+    $less$amp$great: $less$amp$great,
+    $less$: $less$,
+    $$great: $$great
+  };
+  var $$void = function (t) {
+    return Curry._2(map, t, (function (param) {
+                  return /* () */0;
+                }));
+  };
+  return {
+          map: map,
+          replace: replace,
+          $$void: $$void,
+          FunctorInfix: FunctorInfix,
           $less$$great: $less$$great,
           $less$amp$great: $less$amp$great,
           $less$: $less$,
@@ -91,6 +232,16 @@ function Make3(X) {
 
 function Make2(X) {
   var map = X.map;
+  var replace;
+  var exit = 0;
+  exit = 1;
+  if (exit === 1) {
+    replace = (function (t, $$const) {
+        return Curry._2(map, t, (function (param) {
+                      return $$const;
+                    }));
+      });
+  }
   var $less$$great = function (f, x) {
     return Curry._2(map, x, f);
   };
@@ -105,7 +256,7 @@ function Make2(X) {
                   return x;
                 }));
   };
-  var Functor_infix = {
+  var FunctorInfix = {
     $less$$great: $less$$great,
     $less$amp$great: $less$amp$great,
     $less$: $less$,
@@ -118,8 +269,9 @@ function Make2(X) {
   };
   return {
           map: map,
+          replace: replace,
           $$void: $$void,
-          Functor_infix: Functor_infix,
+          FunctorInfix: FunctorInfix,
           $less$$great: $less$$great,
           $less$amp$great: $less$amp$great,
           $less$: $less$,
@@ -127,8 +279,18 @@ function Make2(X) {
         };
 }
 
-function Make(X) {
+function Make1(X) {
   var map = X.map;
+  var replace;
+  var exit = 0;
+  exit = 1;
+  if (exit === 1) {
+    replace = (function (t, $$const) {
+        return Curry._2(map, t, (function (param) {
+                      return $$const;
+                    }));
+      });
+  }
   var $less$$great = function (f, x) {
     return Curry._2(map, x, f);
   };
@@ -143,7 +305,7 @@ function Make(X) {
                   return x;
                 }));
   };
-  var Functor_infix = {
+  var FunctorInfix = {
     $less$$great: $less$$great,
     $less$amp$great: $less$amp$great,
     $less$: $less$,
@@ -156,8 +318,9 @@ function Make(X) {
   };
   return {
           map: map,
+          replace: replace,
           $$void: $$void,
-          Functor_infix: Functor_infix,
+          FunctorInfix: FunctorInfix,
           $less$$great: $less$$great,
           $less$amp$great: $less$amp$great,
           $less$: $less$,
@@ -165,11 +328,14 @@ function Make(X) {
         };
 }
 
-exports.S_to_S2 = S_to_S2;
-exports.S2_to_S = S2_to_S;
+exports.S1_to_S2 = S1_to_S2;
+exports.S2_to_S1 = S2_to_S1;
 exports.S2_to_S3 = S2_to_S3;
 exports.S3_to_S2 = S3_to_S2;
-exports.Make = Make;
+exports.MakeCustom1 = MakeCustom1;
+exports.MakeCustom2 = MakeCustom2;
+exports.MakeCustom3 = MakeCustom3;
+exports.Make1 = Make1;
 exports.Make2 = Make2;
 exports.Make3 = Make3;
 /* No side effect */

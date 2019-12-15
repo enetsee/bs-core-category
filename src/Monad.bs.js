@@ -4,34 +4,36 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Caml_exceptions = require("bs-platform/lib/js/caml_exceptions.js");
-var Fun$CoreCategory = require("./Fun.bs.js");
 var Selective$CoreCategory = require("./Selective.bs.js");
-var Monad_intf$CoreCategory = require("./Monad_intf.bs.js");
 
-function S_to_S2(X) {
+function S1_to_S2(X) {
   return {
-          select: X.select,
+          map: X.map,
+          replace: X.replace,
           $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
+          FunctorInfix: X.FunctorInfix,
           $less$$great: X.$less$$great,
           $less$amp$great: X.$less$amp$great,
           $less$: X.$less$,
           $$great: X.$$great,
-          $$return: X.$$return,
           apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
+          applyFirst: X.applyFirst,
+          applySecond: X.applySecond,
           liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
+          ApplyInfix: X.ApplyInfix,
           $less$star$great: X.$less$star$great,
           $star$great: X.$star$great,
           $less$star: X.$less$star,
           $star$star: X.$star$star,
-          Selective_infix: X.Selective_infix,
+          liftA3: X.liftA3,
+          liftA4: X.liftA4,
+          liftA5: X.liftA5,
+          merge: X.merge,
+          pure: X.pure,
+          when_: X.when_,
+          unless: X.unless,
+          select: X.select,
+          SelectiveInfix: X.SelectiveInfix,
           $less$star$question: X.$less$star$question,
           $less$pipe$pipe$great: X.$less$pipe$pipe$great,
           $less$amp$amp$great: X.$less$amp$amp$great,
@@ -45,7 +47,7 @@ function S_to_S2(X) {
           allS: X.allS,
           whileS: X.whileS,
           bind: X.bind,
-          Monad_infix: X.Monad_infix,
+          MonadInfix: X.MonadInfix,
           $great$great$eq: X.$great$great$eq,
           $great$great$tilde: X.$great$great$tilde,
           $great$eq$great: X.$great$eq$great,
@@ -57,30 +59,34 @@ function S_to_S2(X) {
         };
 }
 
-function S2_to_S(X) {
+function S2_to_S1(X) {
   return {
-          select: X.select,
+          map: X.map,
+          replace: X.replace,
           $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
+          FunctorInfix: X.FunctorInfix,
           $less$$great: X.$less$$great,
           $less$amp$great: X.$less$amp$great,
           $less$: X.$less$,
           $$great: X.$$great,
-          $$return: X.$$return,
           apply: X.apply,
           liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
+          applyFirst: X.applyFirst,
+          applySecond: X.applySecond,
+          ApplyInfix: X.ApplyInfix,
           $less$star$great: X.$less$star$great,
           $star$great: X.$star$great,
           $less$star: X.$less$star,
           $star$star: X.$star$star,
-          Selective_infix: X.Selective_infix,
+          liftA3: X.liftA3,
+          liftA4: X.liftA4,
+          liftA5: X.liftA5,
+          merge: X.merge,
+          pure: X.pure,
+          when_: X.when_,
+          unless: X.unless,
+          select: X.select,
+          SelectiveInfix: X.SelectiveInfix,
           $less$star$question: X.$less$star$question,
           $less$pipe$pipe$great: X.$less$pipe$pipe$great,
           $less$amp$amp$great: X.$less$amp$amp$great,
@@ -94,7 +100,7 @@ function S2_to_S(X) {
           allS: X.allS,
           whileS: X.whileS,
           bind: X.bind,
-          Monad_infix: X.Monad_infix,
+          MonadInfix: X.MonadInfix,
           $great$great$eq: X.$great$great$eq,
           $great$great$tilde: X.$great$great$tilde,
           $great$eq$great: X.$great$eq$great,
@@ -107,184 +113,115 @@ function S2_to_S(X) {
 }
 
 function S2_to_S3(X) {
-  return {
-          select: X.select,
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great,
-          $$return: X.$$return,
-          apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
-          $less$star$great: X.$less$star$great,
-          $star$great: X.$star$great,
-          $less$star: X.$less$star,
-          $star$star: X.$star$star,
-          Selective_infix: X.Selective_infix,
-          $less$star$question: X.$less$star$question,
-          $less$pipe$pipe$great: X.$less$pipe$pipe$great,
-          $less$amp$amp$great: X.$less$amp$amp$great,
-          orS: X.orS,
-          andS: X.andS,
-          whenS: X.whenS,
-          branch: X.branch,
-          ifS: X.ifS,
-          fromOptionS: X.fromOptionS,
-          anyS: X.anyS,
-          allS: X.allS,
-          whileS: X.whileS,
-          bind: X.bind,
-          Monad_infix: X.Monad_infix,
-          $great$great$eq: X.$great$great$eq,
-          $great$great$tilde: X.$great$great$tilde,
-          $great$eq$great: X.$great$eq$great,
-          join: X.join,
-          forever: X.forever,
-          sequenceM: X.sequenceM,
-          mapM: X.mapM,
-          mapM_: X.mapM_
-        };
+  return X;
 }
 
 function S3_to_S2(X) {
-  return {
-          select: X.select,
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great,
-          $$return: X.$$return,
-          apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
-          $less$star$great: X.$less$star$great,
-          $star$great: X.$star$great,
-          $less$star: X.$less$star,
-          $star$star: X.$star$star,
-          Selective_infix: X.Selective_infix,
-          $less$star$question: X.$less$star$question,
-          $less$pipe$pipe$great: X.$less$pipe$pipe$great,
-          $less$amp$amp$great: X.$less$amp$amp$great,
-          orS: X.orS,
-          andS: X.andS,
-          whenS: X.whenS,
-          branch: X.branch,
-          ifS: X.ifS,
-          fromOptionS: X.fromOptionS,
-          anyS: X.anyS,
-          allS: X.allS,
-          whileS: X.whileS,
-          bind: X.bind,
-          Monad_infix: X.Monad_infix,
-          $great$great$eq: X.$great$great$eq,
-          $great$great$tilde: X.$great$great$tilde,
-          $great$eq$great: X.$great$eq$great,
-          join: X.join,
-          forever: X.forever,
-          sequenceM: X.sequenceM,
-          mapM: X.mapM,
-          mapM_: X.mapM_
-        };
+  return X;
 }
 
-function Make3(X) {
+function MakeCustom3(X) {
   var bind = X.bind;
-  var $$return = X.$$return;
-  var map = X.map;
+  var pure = X.pure;
   var match = X.apply;
-  var apply = typeof match === "number" ? (function (t, f) {
+  var apply;
+  var exit = 0;
+  if (typeof match === "number" || match[0] !== -198771759) {
+    exit = 1;
+  } else {
+    apply = match[1];
+  }
+  if (exit === 1) {
+    apply = (function (t, f) {
         return Curry._2(bind, f, (function (g) {
                       return Curry._2(bind, t, (function (x) {
-                                    return Curry._1($$return, Curry._1(g, x));
+                                    return Curry._1(pure, Curry._1(g, x));
                                   }));
                     }));
-      }) : match[1];
-  var liftA2 = X.liftA2;
-  var liftA3 = X.liftA3;
-  var discardFirst = X.discardFirst;
-  var discardSecond = X.discardSecond;
+      });
+  }
   var match$1 = X.select;
-  var select = typeof match$1 === "number" ? (function (x, f) {
+  var select;
+  var exit$1 = 0;
+  if (typeof match$1 === "number" || match$1[0] !== -198771759) {
+    exit$1 = 1;
+  } else {
+    select = match$1[1];
+  }
+  if (exit$1 === 1) {
+    select = (function (x, f) {
         return Curry._2(bind, x, (function (param) {
                       if (param.tag) {
-                        return Curry._1($$return, param[0]);
+                        return Curry._1(pure, param[0]);
                       } else {
                         var a = param[0];
                         return Curry._2(bind, f, (function (g) {
-                                      return Curry._1($$return, Curry._1(g, a));
+                                      return Curry._1(pure, Curry._1(g, a));
                                     }));
                       }
                     }));
-      }) : match$1[1];
-  var include = Selective$CoreCategory.Make3({
-        $$return: $$return,
+      });
+  }
+  var include = Selective$CoreCategory.MakeCustom3({
+        pure: pure,
         apply: apply,
-        map: map,
-        liftA2: liftA2,
-        liftA3: liftA3,
-        discardFirst: discardFirst,
-        discardSecond: discardSecond,
+        map: X.map,
+        replace: X.replace,
+        liftA2: X.liftA2,
+        applyFirst: X.applyFirst,
+        applySecond: X.applySecond,
         select: select
       });
-  var $$return$1 = include.$$return;
+  var pure$1 = include.pure;
   var $great$great$eq = Curry.__2(bind);
   var $great$great$tilde = function (m, n) {
     return Curry._2(bind, m, (function (param) {
-                  return Fun$CoreCategory.$$const(n, param);
+                  return n;
                 }));
   };
   var $great$eq$great = function (f, g, a) {
     return Curry._2(bind, Curry._1(f, a), g);
   };
-  var Monad_infix = {
+  var MonadInfix = {
     $great$great$eq: $great$great$eq,
     $great$great$tilde: $great$great$tilde,
     $great$eq$great: $great$eq$great
   };
   var join = function (tt) {
-    return Curry._2(bind, tt, Fun$CoreCategory.id);
+    return Curry._2(bind, tt, (function (x) {
+                  return x;
+                }));
   };
   var sequenceM = function (ts) {
     var op = function (n, m) {
       return Curry._2(bind, m, (function (x) {
                     return Curry._2(bind, n, (function (xs) {
-                                  return Curry._1($$return$1, /* :: */[
+                                  return Curry._1(pure$1, /* :: */[
                                               x,
                                               xs
                                             ]);
                                 }));
                   }));
     };
-    return Belt_List.reduceReverse(ts, Curry._1($$return$1, /* [] */0), op);
+    return Belt_List.reduceReverse(ts, Curry._1(pure$1, /* [] */0), op);
   };
-  var Undefined = Caml_exceptions.create("Monad-CoreCategory.Make3(X).Undefined");
+  var Undefined = Caml_exceptions.create("Monad-CoreCategory.MakeCustom3(X).Undefined");
   var forever = function (f) {
     var z = function (param) {
       throw Undefined;
     };
-    var kcell = /* record */[/* contents */Fun$CoreCategory.id];
+    var kcell = {
+      contents: (function (x) {
+          return x;
+        })
+    };
     var aux = function (param) {
-      return Curry._1(kcell[0], Curry._2(bind, Curry._1(f, (kcell[0] = Fun$CoreCategory.id, /* () */0)), chained));
+      return Curry._1(kcell.contents, Curry._2(bind, Curry._1(f, (kcell.contents = (function (x) {
+                              return x;
+                            }), /* () */0)), chained));
     };
     var chained = function (param) {
-      kcell[0] = aux;
+      kcell.contents = aux;
       return z;
     };
     return aux(z);
@@ -293,35 +230,39 @@ function Make3(X) {
     return sequenceM(Belt_List.map(xs, f));
   };
   var mapM_ = function (xs, f) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, /* () */0), (function (accu, x) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure$1, /* () */0), (function (accu, x) {
                   return Curry._2(bind, Curry._1(f, x), (function (param) {
                                 return accu;
                               }));
                 }));
   };
   return {
-          select: include.select,
+          map: include.map,
+          replace: include.replace,
           $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
+          FunctorInfix: include.FunctorInfix,
           $less$$great: include.$less$$great,
           $less$amp$great: include.$less$amp$great,
           $less$: include.$less$,
           $$great: include.$$great,
-          $$return: $$return$1,
           apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
           liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          map: include.map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
+          ApplyInfix: include.ApplyInfix,
           $less$star$great: include.$less$star$great,
           $star$great: include.$star$great,
           $less$star: include.$less$star,
           $star$star: include.$star$star,
-          Selective_infix: include.Selective_infix,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure$1,
+          when_: include.when_,
+          unless: include.unless,
+          select: include.select,
+          SelectiveInfix: include.SelectiveInfix,
           $less$star$question: include.$less$star$question,
           $less$pipe$pipe$great: include.$less$pipe$pipe$great,
           $less$amp$amp$great: include.$less$amp$amp$great,
@@ -335,7 +276,501 @@ function Make3(X) {
           allS: include.allS,
           whileS: include.whileS,
           bind: bind,
-          Monad_infix: Monad_infix,
+          MonadInfix: MonadInfix,
+          $great$great$eq: $great$great$eq,
+          $great$great$tilde: $great$great$tilde,
+          $great$eq$great: $great$eq$great,
+          join: join,
+          forever: forever,
+          sequenceM: sequenceM,
+          mapM: mapM,
+          mapM_: mapM_
+        };
+}
+
+function MakeCustom2(X) {
+  var pure = X.pure;
+  var bind = X.bind;
+  var apply = X.apply;
+  var select = X.select;
+  var apply$1;
+  var exit = 0;
+  if (typeof apply === "number" || apply[0] !== -198771759) {
+    exit = 1;
+  } else {
+    apply$1 = apply[1];
+  }
+  if (exit === 1) {
+    apply$1 = (function (t, f) {
+        return Curry._2(bind, f, (function (g) {
+                      return Curry._2(bind, t, (function (x) {
+                                    return Curry._1(pure, Curry._1(g, x));
+                                  }));
+                    }));
+      });
+  }
+  var select$1;
+  var exit$1 = 0;
+  if (typeof select === "number" || select[0] !== -198771759) {
+    exit$1 = 1;
+  } else {
+    select$1 = select[1];
+  }
+  if (exit$1 === 1) {
+    select$1 = (function (x, f) {
+        return Curry._2(bind, x, (function (param) {
+                      if (param.tag) {
+                        return Curry._1(pure, param[0]);
+                      } else {
+                        var a = param[0];
+                        return Curry._2(bind, f, (function (g) {
+                                      return Curry._1(pure, Curry._1(g, a));
+                                    }));
+                      }
+                    }));
+      });
+  }
+  var include = Selective$CoreCategory.MakeCustom3({
+        pure: pure,
+        apply: apply$1,
+        map: X.map,
+        replace: X.replace,
+        liftA2: X.liftA2,
+        applyFirst: X.applyFirst,
+        applySecond: X.applySecond,
+        select: select$1
+      });
+  var pure$1 = include.pure;
+  var $great$great$eq = Curry.__2(bind);
+  var $great$great$tilde = function (m, n) {
+    return Curry._2(bind, m, (function (param) {
+                  return n;
+                }));
+  };
+  var $great$eq$great = function (f, g, a) {
+    return Curry._2(bind, Curry._1(f, a), g);
+  };
+  var MonadInfix = {
+    $great$great$eq: $great$great$eq,
+    $great$great$tilde: $great$great$tilde,
+    $great$eq$great: $great$eq$great
+  };
+  var join = function (tt) {
+    return Curry._2(bind, tt, (function (x) {
+                  return x;
+                }));
+  };
+  var sequenceM = function (ts) {
+    var op = function (n, m) {
+      return Curry._2(bind, m, (function (x) {
+                    return Curry._2(bind, n, (function (xs) {
+                                  return Curry._1(pure$1, /* :: */[
+                                              x,
+                                              xs
+                                            ]);
+                                }));
+                  }));
+    };
+    return Belt_List.reduceReverse(ts, Curry._1(pure$1, /* [] */0), op);
+  };
+  var Undefined = Caml_exceptions.create("Monad-CoreCategory.MakeCustom3(X).Undefined");
+  var forever = function (f) {
+    var z = function (param) {
+      throw Undefined;
+    };
+    var kcell = {
+      contents: (function (x) {
+          return x;
+        })
+    };
+    var aux = function (param) {
+      return Curry._1(kcell.contents, Curry._2(bind, Curry._1(f, (kcell.contents = (function (x) {
+                              return x;
+                            }), /* () */0)), chained));
+    };
+    var chained = function (param) {
+      kcell.contents = aux;
+      return z;
+    };
+    return aux(z);
+  };
+  var mapM = function (xs, f) {
+    return sequenceM(Belt_List.map(xs, f));
+  };
+  var mapM_ = function (xs, f) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure$1, /* () */0), (function (accu, x) {
+                  return Curry._2(bind, Curry._1(f, x), (function (param) {
+                                return accu;
+                              }));
+                }));
+  };
+  return {
+          map: include.map,
+          replace: include.replace,
+          $$void: include.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: include.$less$$great,
+          $less$amp$great: include.$less$amp$great,
+          $less$: include.$less$,
+          $$great: include.$$great,
+          apply: include.apply,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          liftA2: include.liftA2,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: include.$less$star$great,
+          $star$great: include.$star$great,
+          $less$star: include.$less$star,
+          $star$star: include.$star$star,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure$1,
+          when_: include.when_,
+          unless: include.unless,
+          select: include.select,
+          SelectiveInfix: include.SelectiveInfix,
+          $less$star$question: include.$less$star$question,
+          $less$pipe$pipe$great: include.$less$pipe$pipe$great,
+          $less$amp$amp$great: include.$less$amp$amp$great,
+          orS: include.orS,
+          andS: include.andS,
+          whenS: include.whenS,
+          branch: include.branch,
+          ifS: include.ifS,
+          fromOptionS: include.fromOptionS,
+          anyS: include.anyS,
+          allS: include.allS,
+          whileS: include.whileS,
+          bind: bind,
+          MonadInfix: MonadInfix,
+          $great$great$eq: $great$great$eq,
+          $great$great$tilde: $great$great$tilde,
+          $great$eq$great: $great$eq$great,
+          join: join,
+          forever: forever,
+          sequenceM: sequenceM,
+          mapM: mapM,
+          mapM_: mapM_
+        };
+}
+
+function MakeCustom1(X) {
+  var pure = X.pure;
+  var bind = X.bind;
+  var apply = X.apply;
+  var select = X.select;
+  var apply$1;
+  var exit = 0;
+  if (typeof apply === "number" || apply[0] !== -198771759) {
+    exit = 1;
+  } else {
+    apply$1 = apply[1];
+  }
+  if (exit === 1) {
+    apply$1 = (function (t, f) {
+        return Curry._2(bind, f, (function (g) {
+                      return Curry._2(bind, t, (function (x) {
+                                    return Curry._1(pure, Curry._1(g, x));
+                                  }));
+                    }));
+      });
+  }
+  var select$1;
+  var exit$1 = 0;
+  if (typeof select === "number" || select[0] !== -198771759) {
+    exit$1 = 1;
+  } else {
+    select$1 = select[1];
+  }
+  if (exit$1 === 1) {
+    select$1 = (function (x, f) {
+        return Curry._2(bind, x, (function (param) {
+                      if (param.tag) {
+                        return Curry._1(pure, param[0]);
+                      } else {
+                        var a = param[0];
+                        return Curry._2(bind, f, (function (g) {
+                                      return Curry._1(pure, Curry._1(g, a));
+                                    }));
+                      }
+                    }));
+      });
+  }
+  var include = Selective$CoreCategory.MakeCustom3({
+        pure: pure,
+        apply: apply$1,
+        map: X.map,
+        replace: X.replace,
+        liftA2: X.liftA2,
+        applyFirst: X.applyFirst,
+        applySecond: X.applySecond,
+        select: select$1
+      });
+  var pure$1 = include.pure;
+  var $great$great$eq = Curry.__2(bind);
+  var $great$great$tilde = function (m, n) {
+    return Curry._2(bind, m, (function (param) {
+                  return n;
+                }));
+  };
+  var $great$eq$great = function (f, g, a) {
+    return Curry._2(bind, Curry._1(f, a), g);
+  };
+  var MonadInfix = {
+    $great$great$eq: $great$great$eq,
+    $great$great$tilde: $great$great$tilde,
+    $great$eq$great: $great$eq$great
+  };
+  var join = function (tt) {
+    return Curry._2(bind, tt, (function (x) {
+                  return x;
+                }));
+  };
+  var sequenceM = function (ts) {
+    var op = function (n, m) {
+      return Curry._2(bind, m, (function (x) {
+                    return Curry._2(bind, n, (function (xs) {
+                                  return Curry._1(pure$1, /* :: */[
+                                              x,
+                                              xs
+                                            ]);
+                                }));
+                  }));
+    };
+    return Belt_List.reduceReverse(ts, Curry._1(pure$1, /* [] */0), op);
+  };
+  var Undefined = Caml_exceptions.create("Monad-CoreCategory.MakeCustom3(X).Undefined");
+  var forever = function (f) {
+    var z = function (param) {
+      throw Undefined;
+    };
+    var kcell = {
+      contents: (function (x) {
+          return x;
+        })
+    };
+    var aux = function (param) {
+      return Curry._1(kcell.contents, Curry._2(bind, Curry._1(f, (kcell.contents = (function (x) {
+                              return x;
+                            }), /* () */0)), chained));
+    };
+    var chained = function (param) {
+      kcell.contents = aux;
+      return z;
+    };
+    return aux(z);
+  };
+  var mapM = function (xs, f) {
+    return sequenceM(Belt_List.map(xs, f));
+  };
+  var mapM_ = function (xs, f) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure$1, /* () */0), (function (accu, x) {
+                  return Curry._2(bind, Curry._1(f, x), (function (param) {
+                                return accu;
+                              }));
+                }));
+  };
+  return {
+          map: include.map,
+          replace: include.replace,
+          $$void: include.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: include.$less$$great,
+          $less$amp$great: include.$less$amp$great,
+          $less$: include.$less$,
+          $$great: include.$$great,
+          apply: include.apply,
+          liftA2: include.liftA2,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: include.$less$star$great,
+          $star$great: include.$star$great,
+          $less$star: include.$less$star,
+          $star$star: include.$star$star,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure$1,
+          when_: include.when_,
+          unless: include.unless,
+          select: include.select,
+          SelectiveInfix: include.SelectiveInfix,
+          $less$star$question: include.$less$star$question,
+          $less$pipe$pipe$great: include.$less$pipe$pipe$great,
+          $less$amp$amp$great: include.$less$amp$amp$great,
+          orS: include.orS,
+          andS: include.andS,
+          whenS: include.whenS,
+          branch: include.branch,
+          ifS: include.ifS,
+          fromOptionS: include.fromOptionS,
+          anyS: include.anyS,
+          allS: include.allS,
+          whileS: include.whileS,
+          bind: bind,
+          MonadInfix: MonadInfix,
+          $great$great$eq: $great$great$eq,
+          $great$great$tilde: $great$great$tilde,
+          $great$eq$great: $great$eq$great,
+          join: join,
+          forever: forever,
+          sequenceM: sequenceM,
+          mapM: mapM,
+          mapM_: mapM_
+        };
+}
+
+function Make3(X) {
+  var pure = X.pure;
+  var bind = X.bind;
+  var apply;
+  var exit = 0;
+  exit = 1;
+  if (exit === 1) {
+    apply = (function (t, f) {
+        return Curry._2(bind, f, (function (g) {
+                      return Curry._2(bind, t, (function (x) {
+                                    return Curry._1(pure, Curry._1(g, x));
+                                  }));
+                    }));
+      });
+  }
+  var select;
+  var exit$1 = 0;
+  exit$1 = 1;
+  if (exit$1 === 1) {
+    select = (function (x, f) {
+        return Curry._2(bind, x, (function (param) {
+                      if (param.tag) {
+                        return Curry._1(pure, param[0]);
+                      } else {
+                        var a = param[0];
+                        return Curry._2(bind, f, (function (g) {
+                                      return Curry._1(pure, Curry._1(g, a));
+                                    }));
+                      }
+                    }));
+      });
+  }
+  var include = Selective$CoreCategory.MakeCustom3({
+        pure: pure,
+        apply: apply,
+        map: /* Derived */-684824643,
+        replace: /* Derived */-684824643,
+        liftA2: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643,
+        select: select
+      });
+  var pure$1 = include.pure;
+  var $great$great$eq = Curry.__2(bind);
+  var $great$great$tilde = function (m, n) {
+    return Curry._2(bind, m, (function (param) {
+                  return n;
+                }));
+  };
+  var $great$eq$great = function (f, g, a) {
+    return Curry._2(bind, Curry._1(f, a), g);
+  };
+  var MonadInfix = {
+    $great$great$eq: $great$great$eq,
+    $great$great$tilde: $great$great$tilde,
+    $great$eq$great: $great$eq$great
+  };
+  var join = function (tt) {
+    return Curry._2(bind, tt, (function (x) {
+                  return x;
+                }));
+  };
+  var sequenceM = function (ts) {
+    var op = function (n, m) {
+      return Curry._2(bind, m, (function (x) {
+                    return Curry._2(bind, n, (function (xs) {
+                                  return Curry._1(pure$1, /* :: */[
+                                              x,
+                                              xs
+                                            ]);
+                                }));
+                  }));
+    };
+    return Belt_List.reduceReverse(ts, Curry._1(pure$1, /* [] */0), op);
+  };
+  var Undefined = Caml_exceptions.create("Monad-CoreCategory.MakeCustom3(X).Undefined");
+  var forever = function (f) {
+    var z = function (param) {
+      throw Undefined;
+    };
+    var kcell = {
+      contents: (function (x) {
+          return x;
+        })
+    };
+    var aux = function (param) {
+      return Curry._1(kcell.contents, Curry._2(bind, Curry._1(f, (kcell.contents = (function (x) {
+                              return x;
+                            }), /* () */0)), chained));
+    };
+    var chained = function (param) {
+      kcell.contents = aux;
+      return z;
+    };
+    return aux(z);
+  };
+  var mapM = function (xs, f) {
+    return sequenceM(Belt_List.map(xs, f));
+  };
+  var mapM_ = function (xs, f) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure$1, /* () */0), (function (accu, x) {
+                  return Curry._2(bind, Curry._1(f, x), (function (param) {
+                                return accu;
+                              }));
+                }));
+  };
+  return {
+          map: include.map,
+          replace: include.replace,
+          $$void: include.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: include.$less$$great,
+          $less$amp$great: include.$less$amp$great,
+          $less$: include.$less$,
+          $$great: include.$$great,
+          apply: include.apply,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          liftA2: include.liftA2,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: include.$less$star$great,
+          $star$great: include.$star$great,
+          $less$star: include.$less$star,
+          $star$star: include.$star$star,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure$1,
+          when_: include.when_,
+          unless: include.unless,
+          select: include.select,
+          SelectiveInfix: include.SelectiveInfix,
+          $less$star$question: include.$less$star$question,
+          $less$pipe$pipe$great: include.$less$pipe$pipe$great,
+          $less$amp$amp$great: include.$less$amp$amp$great,
+          orS: include.orS,
+          andS: include.andS,
+          whenS: include.whenS,
+          branch: include.branch,
+          ifS: include.ifS,
+          fromOptionS: include.fromOptionS,
+          anyS: include.anyS,
+          allS: include.allS,
+          whileS: include.whileS,
+          bind: bind,
+          MonadInfix: MonadInfix,
           $great$great$eq: $great$great$eq,
           $great$great$tilde: $great$great$tilde,
           $great$eq$great: $great$eq$great,
@@ -348,81 +783,97 @@ function Make3(X) {
 }
 
 function Make2(X) {
-  var $$return = X.$$return;
+  var pure = X.pure;
   var bind = X.bind;
-  var apply = X.apply;
-  var select = X.select;
-  var apply$1 = typeof apply === "number" ? (function (t, f) {
+  var apply;
+  var exit = 0;
+  exit = 1;
+  if (exit === 1) {
+    apply = (function (t, f) {
         return Curry._2(bind, f, (function (g) {
                       return Curry._2(bind, t, (function (x) {
-                                    return Curry._1($$return, Curry._1(g, x));
+                                    return Curry._1(pure, Curry._1(g, x));
                                   }));
                     }));
-      }) : apply[1];
-  var select$1 = typeof select === "number" ? (function (x, f) {
+      });
+  }
+  var select;
+  var exit$1 = 0;
+  exit$1 = 1;
+  if (exit$1 === 1) {
+    select = (function (x, f) {
         return Curry._2(bind, x, (function (param) {
                       if (param.tag) {
-                        return Curry._1($$return, param[0]);
+                        return Curry._1(pure, param[0]);
                       } else {
                         var a = param[0];
                         return Curry._2(bind, f, (function (g) {
-                                      return Curry._1($$return, Curry._1(g, a));
+                                      return Curry._1(pure, Curry._1(g, a));
                                     }));
                       }
                     }));
-      }) : select[1];
-  var include = Selective$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply$1,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond,
-        select: select$1
       });
-  var $$return$1 = include.$$return;
+  }
+  var include = Selective$CoreCategory.MakeCustom3({
+        pure: pure,
+        apply: apply,
+        map: /* Derived */-684824643,
+        replace: /* Derived */-684824643,
+        liftA2: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643,
+        select: select
+      });
+  var pure$1 = include.pure;
   var $great$great$eq = Curry.__2(bind);
   var $great$great$tilde = function (m, n) {
     return Curry._2(bind, m, (function (param) {
-                  return Fun$CoreCategory.$$const(n, param);
+                  return n;
                 }));
   };
   var $great$eq$great = function (f, g, a) {
     return Curry._2(bind, Curry._1(f, a), g);
   };
-  var Monad_infix = {
+  var MonadInfix = {
     $great$great$eq: $great$great$eq,
     $great$great$tilde: $great$great$tilde,
     $great$eq$great: $great$eq$great
   };
   var join = function (tt) {
-    return Curry._2(bind, tt, Fun$CoreCategory.id);
+    return Curry._2(bind, tt, (function (x) {
+                  return x;
+                }));
   };
   var sequenceM = function (ts) {
     var op = function (n, m) {
       return Curry._2(bind, m, (function (x) {
                     return Curry._2(bind, n, (function (xs) {
-                                  return Curry._1($$return$1, /* :: */[
+                                  return Curry._1(pure$1, /* :: */[
                                               x,
                                               xs
                                             ]);
                                 }));
                   }));
     };
-    return Belt_List.reduceReverse(ts, Curry._1($$return$1, /* [] */0), op);
+    return Belt_List.reduceReverse(ts, Curry._1(pure$1, /* [] */0), op);
   };
-  var Undefined = Caml_exceptions.create("Monad-CoreCategory.Make3(X).Undefined");
+  var Undefined = Caml_exceptions.create("Monad-CoreCategory.MakeCustom3(X).Undefined");
   var forever = function (f) {
     var z = function (param) {
       throw Undefined;
     };
-    var kcell = /* record */[/* contents */Fun$CoreCategory.id];
+    var kcell = {
+      contents: (function (x) {
+          return x;
+        })
+    };
     var aux = function (param) {
-      return Curry._1(kcell[0], Curry._2(bind, Curry._1(f, (kcell[0] = Fun$CoreCategory.id, /* () */0)), chained));
+      return Curry._1(kcell.contents, Curry._2(bind, Curry._1(f, (kcell.contents = (function (x) {
+                              return x;
+                            }), /* () */0)), chained));
     };
     var chained = function (param) {
-      kcell[0] = aux;
+      kcell.contents = aux;
       return z;
     };
     return aux(z);
@@ -431,35 +882,39 @@ function Make2(X) {
     return sequenceM(Belt_List.map(xs, f));
   };
   var mapM_ = function (xs, f) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, /* () */0), (function (accu, x) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure$1, /* () */0), (function (accu, x) {
                   return Curry._2(bind, Curry._1(f, x), (function (param) {
                                 return accu;
                               }));
                 }));
   };
   return {
-          select: include.select,
+          map: include.map,
+          replace: include.replace,
           $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
+          FunctorInfix: include.FunctorInfix,
           $less$$great: include.$less$$great,
           $less$amp$great: include.$less$amp$great,
           $less$: include.$less$,
           $$great: include.$$great,
-          $$return: $$return$1,
           apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
           liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          map: include.map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
+          ApplyInfix: include.ApplyInfix,
           $less$star$great: include.$less$star$great,
           $star$great: include.$star$great,
           $less$star: include.$less$star,
           $star$star: include.$star$star,
-          Selective_infix: include.Selective_infix,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure$1,
+          when_: include.when_,
+          unless: include.unless,
+          select: include.select,
+          SelectiveInfix: include.SelectiveInfix,
           $less$star$question: include.$less$star$question,
           $less$pipe$pipe$great: include.$less$pipe$pipe$great,
           $less$amp$amp$great: include.$less$amp$amp$great,
@@ -473,7 +928,7 @@ function Make2(X) {
           allS: include.allS,
           whileS: include.whileS,
           bind: bind,
-          Monad_infix: Monad_infix,
+          MonadInfix: MonadInfix,
           $great$great$eq: $great$great$eq,
           $great$great$tilde: $great$great$tilde,
           $great$eq$great: $great$eq$great,
@@ -485,82 +940,98 @@ function Make2(X) {
         };
 }
 
-function Make(X) {
-  var $$return = X.$$return;
+function Make1(X) {
+  var pure = X.pure;
   var bind = X.bind;
-  var apply = X.apply;
-  var select = X.select;
-  var apply$1 = typeof apply === "number" ? (function (t, f) {
+  var apply;
+  var exit = 0;
+  exit = 1;
+  if (exit === 1) {
+    apply = (function (t, f) {
         return Curry._2(bind, f, (function (g) {
                       return Curry._2(bind, t, (function (x) {
-                                    return Curry._1($$return, Curry._1(g, x));
+                                    return Curry._1(pure, Curry._1(g, x));
                                   }));
                     }));
-      }) : apply[1];
-  var select$1 = typeof select === "number" ? (function (x, f) {
+      });
+  }
+  var select;
+  var exit$1 = 0;
+  exit$1 = 1;
+  if (exit$1 === 1) {
+    select = (function (x, f) {
         return Curry._2(bind, x, (function (param) {
                       if (param.tag) {
-                        return Curry._1($$return, param[0]);
+                        return Curry._1(pure, param[0]);
                       } else {
                         var a = param[0];
                         return Curry._2(bind, f, (function (g) {
-                                      return Curry._1($$return, Curry._1(g, a));
+                                      return Curry._1(pure, Curry._1(g, a));
                                     }));
                       }
                     }));
-      }) : select[1];
-  var include = Selective$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply$1,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond,
-        select: select$1
       });
-  var $$return$1 = include.$$return;
+  }
+  var include = Selective$CoreCategory.MakeCustom3({
+        pure: pure,
+        apply: apply,
+        map: /* Derived */-684824643,
+        replace: /* Derived */-684824643,
+        liftA2: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643,
+        select: select
+      });
+  var pure$1 = include.pure;
   var $great$great$eq = Curry.__2(bind);
   var $great$great$tilde = function (m, n) {
     return Curry._2(bind, m, (function (param) {
-                  return Fun$CoreCategory.$$const(n, param);
+                  return n;
                 }));
   };
   var $great$eq$great = function (f, g, a) {
     return Curry._2(bind, Curry._1(f, a), g);
   };
-  var Monad_infix = {
+  var MonadInfix = {
     $great$great$eq: $great$great$eq,
     $great$great$tilde: $great$great$tilde,
     $great$eq$great: $great$eq$great
   };
   var join = function (tt) {
-    return Curry._2(bind, tt, Fun$CoreCategory.id);
+    return Curry._2(bind, tt, (function (x) {
+                  return x;
+                }));
   };
   var sequenceM = function (ts) {
     var op = function (n, m) {
       return Curry._2(bind, m, (function (x) {
                     return Curry._2(bind, n, (function (xs) {
-                                  return Curry._1($$return$1, /* :: */[
+                                  return Curry._1(pure$1, /* :: */[
                                               x,
                                               xs
                                             ]);
                                 }));
                   }));
     };
-    return Belt_List.reduceReverse(ts, Curry._1($$return$1, /* [] */0), op);
+    return Belt_List.reduceReverse(ts, Curry._1(pure$1, /* [] */0), op);
   };
-  var Undefined = Caml_exceptions.create("Monad-CoreCategory.Make3(X).Undefined");
+  var Undefined = Caml_exceptions.create("Monad-CoreCategory.MakeCustom3(X).Undefined");
   var forever = function (f) {
     var z = function (param) {
       throw Undefined;
     };
-    var kcell = /* record */[/* contents */Fun$CoreCategory.id];
+    var kcell = {
+      contents: (function (x) {
+          return x;
+        })
+    };
     var aux = function (param) {
-      return Curry._1(kcell[0], Curry._2(bind, Curry._1(f, (kcell[0] = Fun$CoreCategory.id, /* () */0)), chained));
+      return Curry._1(kcell.contents, Curry._2(bind, Curry._1(f, (kcell.contents = (function (x) {
+                              return x;
+                            }), /* () */0)), chained));
     };
     var chained = function (param) {
-      kcell[0] = aux;
+      kcell.contents = aux;
       return z;
     };
     return aux(z);
@@ -569,35 +1040,39 @@ function Make(X) {
     return sequenceM(Belt_List.map(xs, f));
   };
   var mapM_ = function (xs, f) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, /* () */0), (function (accu, x) {
+    return Belt_List.reduceReverse(xs, Curry._1(pure$1, /* () */0), (function (accu, x) {
                   return Curry._2(bind, Curry._1(f, x), (function (param) {
                                 return accu;
                               }));
                 }));
   };
   return {
-          select: include.select,
+          map: include.map,
+          replace: include.replace,
           $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
+          FunctorInfix: include.FunctorInfix,
           $less$$great: include.$less$$great,
           $less$amp$great: include.$less$amp$great,
           $less$: include.$less$,
           $$great: include.$$great,
-          $$return: $$return$1,
           apply: include.apply,
           liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          map: include.map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          ApplyInfix: include.ApplyInfix,
           $less$star$great: include.$less$star$great,
           $star$great: include.$star$great,
           $less$star: include.$less$star,
           $star$star: include.$star$star,
-          Selective_infix: include.Selective_infix,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure$1,
+          when_: include.when_,
+          unless: include.unless,
+          select: include.select,
+          SelectiveInfix: include.SelectiveInfix,
           $less$star$question: include.$less$star$question,
           $less$pipe$pipe$great: include.$less$pipe$pipe$great,
           $less$amp$amp$great: include.$less$amp$amp$great,
@@ -611,7 +1086,7 @@ function Make(X) {
           allS: include.allS,
           whileS: include.whileS,
           bind: bind,
-          Monad_infix: Monad_infix,
+          MonadInfix: MonadInfix,
           $great$great$eq: $great$great$eq,
           $great$great$tilde: $great$great$tilde,
           $great$eq$great: $great$eq$great,
@@ -623,484 +1098,14 @@ function Make(X) {
         };
 }
 
-function Make_backwards3(X) {
-  var $$return = X.$$return;
-  var select = X.select;
-  var map = X.map;
-  var bind = X.bind;
-  var match = X.apply;
-  var ap = typeof match === "number" ? (function (t, f) {
-        return Curry._2(bind, f, (function (g) {
-                      return Curry._2(bind, t, (function (x) {
-                                    return Curry._1($$return, Curry._1(g, x));
-                                  }));
-                    }));
-      }) : match[1];
-  var apply_001 = function (t, f) {
-    return Curry._2(ap, f, Curry._2(ap, t, Curry._1($$return, (function (x, f) {
-                          return Curry._1(f, x);
-                        }))));
-  };
-  var apply = /* `Custom */[
-    -198771759,
-    apply_001
-  ];
-  var liftA2 = X.liftA2;
-  var liftA3 = X.liftA3;
-  var discardFirst = X.discardFirst;
-  var discardSecond = X.discardSecond;
-  var apply$1 = typeof apply === "number" ? (function (t, f) {
-        return Curry._2(bind, f, (function (g) {
-                      return Curry._2(bind, t, (function (x) {
-                                    return Curry._1($$return, Curry._1(g, x));
-                                  }));
-                    }));
-      }) : apply_001;
-  var select$1 = typeof select === "number" ? (function (x, f) {
-        return Curry._2(bind, x, (function (param) {
-                      if (param.tag) {
-                        return Curry._1($$return, param[0]);
-                      } else {
-                        var a = param[0];
-                        return Curry._2(bind, f, (function (g) {
-                                      return Curry._1($$return, Curry._1(g, a));
-                                    }));
-                      }
-                    }));
-      }) : select[1];
-  var include = Selective$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply$1,
-        map: map,
-        liftA2: liftA2,
-        liftA3: liftA3,
-        discardFirst: discardFirst,
-        discardSecond: discardSecond,
-        select: select$1
-      });
-  var $$return$1 = include.$$return;
-  var $great$great$eq = Curry.__2(bind);
-  var $great$great$tilde = function (m, n) {
-    return Curry._2(bind, m, (function (param) {
-                  return Fun$CoreCategory.$$const(n, param);
-                }));
-  };
-  var $great$eq$great = function (f, g, a) {
-    return Curry._2(bind, Curry._1(f, a), g);
-  };
-  var Monad_infix = {
-    $great$great$eq: $great$great$eq,
-    $great$great$tilde: $great$great$tilde,
-    $great$eq$great: $great$eq$great
-  };
-  var join = function (tt) {
-    return Curry._2(bind, tt, Fun$CoreCategory.id);
-  };
-  var sequenceM = function (ts) {
-    var op = function (n, m) {
-      return Curry._2(bind, m, (function (x) {
-                    return Curry._2(bind, n, (function (xs) {
-                                  return Curry._1($$return$1, /* :: */[
-                                              x,
-                                              xs
-                                            ]);
-                                }));
-                  }));
-    };
-    return Belt_List.reduceReverse(ts, Curry._1($$return$1, /* [] */0), op);
-  };
-  var Undefined = Caml_exceptions.create("Monad-CoreCategory.Make3(X).Undefined");
-  var forever = function (f) {
-    var z = function (param) {
-      throw Undefined;
-    };
-    var kcell = /* record */[/* contents */Fun$CoreCategory.id];
-    var aux = function (param) {
-      return Curry._1(kcell[0], Curry._2(bind, Curry._1(f, (kcell[0] = Fun$CoreCategory.id, /* () */0)), chained));
-    };
-    var chained = function (param) {
-      kcell[0] = aux;
-      return z;
-    };
-    return aux(z);
-  };
-  var mapM = function (xs, f) {
-    return sequenceM(Belt_List.map(xs, f));
-  };
-  var mapM_ = function (xs, f) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, /* () */0), (function (accu, x) {
-                  return Curry._2(bind, Curry._1(f, x), (function (param) {
-                                return accu;
-                              }));
-                }));
-  };
-  return {
-          select: include.select,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return$1,
-          apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          map: include.map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
-          $star$great: include.$star$great,
-          $less$star: include.$less$star,
-          $star$star: include.$star$star,
-          Selective_infix: include.Selective_infix,
-          $less$star$question: include.$less$star$question,
-          $less$pipe$pipe$great: include.$less$pipe$pipe$great,
-          $less$amp$amp$great: include.$less$amp$amp$great,
-          orS: include.orS,
-          andS: include.andS,
-          whenS: include.whenS,
-          branch: include.branch,
-          ifS: include.ifS,
-          fromOptionS: include.fromOptionS,
-          anyS: include.anyS,
-          allS: include.allS,
-          whileS: include.whileS,
-          bind: bind,
-          Monad_infix: Monad_infix,
-          $great$great$eq: $great$great$eq,
-          $great$great$tilde: $great$great$tilde,
-          $great$eq$great: $great$eq$great,
-          join: join,
-          forever: forever,
-          sequenceM: sequenceM,
-          mapM: mapM,
-          mapM_: mapM_
-        };
-}
-
-function Make_backwards2(X) {
-  var $$return = X.$$return;
-  var bind = X.bind;
-  var apply = X.apply;
-  var select = X.select;
-  var ap = typeof apply === "number" ? (function (t, f) {
-        return Curry._2(bind, f, (function (g) {
-                      return Curry._2(bind, t, (function (x) {
-                                    return Curry._1($$return, Curry._1(g, x));
-                                  }));
-                    }));
-      }) : apply[1];
-  var apply_001 = function (t, f) {
-    return Curry._2(ap, f, Curry._2(ap, t, Curry._1($$return, (function (x, f) {
-                          return Curry._1(f, x);
-                        }))));
-  };
-  var apply$1 = /* `Custom */[
-    -198771759,
-    apply_001
-  ];
-  var apply$2 = typeof apply$1 === "number" ? (function (t, f) {
-        return Curry._2(bind, f, (function (g) {
-                      return Curry._2(bind, t, (function (x) {
-                                    return Curry._1($$return, Curry._1(g, x));
-                                  }));
-                    }));
-      }) : apply_001;
-  var select$1 = typeof select === "number" ? (function (x, f) {
-        return Curry._2(bind, x, (function (param) {
-                      if (param.tag) {
-                        return Curry._1($$return, param[0]);
-                      } else {
-                        var a = param[0];
-                        return Curry._2(bind, f, (function (g) {
-                                      return Curry._1($$return, Curry._1(g, a));
-                                    }));
-                      }
-                    }));
-      }) : select[1];
-  var include = Selective$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply$2,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond,
-        select: select$1
-      });
-  var $$return$1 = include.$$return;
-  var $great$great$eq = Curry.__2(bind);
-  var $great$great$tilde = function (m, n) {
-    return Curry._2(bind, m, (function (param) {
-                  return Fun$CoreCategory.$$const(n, param);
-                }));
-  };
-  var $great$eq$great = function (f, g, a) {
-    return Curry._2(bind, Curry._1(f, a), g);
-  };
-  var Monad_infix = {
-    $great$great$eq: $great$great$eq,
-    $great$great$tilde: $great$great$tilde,
-    $great$eq$great: $great$eq$great
-  };
-  var join = function (tt) {
-    return Curry._2(bind, tt, Fun$CoreCategory.id);
-  };
-  var sequenceM = function (ts) {
-    var op = function (n, m) {
-      return Curry._2(bind, m, (function (x) {
-                    return Curry._2(bind, n, (function (xs) {
-                                  return Curry._1($$return$1, /* :: */[
-                                              x,
-                                              xs
-                                            ]);
-                                }));
-                  }));
-    };
-    return Belt_List.reduceReverse(ts, Curry._1($$return$1, /* [] */0), op);
-  };
-  var Undefined = Caml_exceptions.create("Monad-CoreCategory.Make3(X).Undefined");
-  var forever = function (f) {
-    var z = function (param) {
-      throw Undefined;
-    };
-    var kcell = /* record */[/* contents */Fun$CoreCategory.id];
-    var aux = function (param) {
-      return Curry._1(kcell[0], Curry._2(bind, Curry._1(f, (kcell[0] = Fun$CoreCategory.id, /* () */0)), chained));
-    };
-    var chained = function (param) {
-      kcell[0] = aux;
-      return z;
-    };
-    return aux(z);
-  };
-  var mapM = function (xs, f) {
-    return sequenceM(Belt_List.map(xs, f));
-  };
-  var mapM_ = function (xs, f) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, /* () */0), (function (accu, x) {
-                  return Curry._2(bind, Curry._1(f, x), (function (param) {
-                                return accu;
-                              }));
-                }));
-  };
-  return {
-          select: include.select,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return$1,
-          apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          map: include.map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
-          $star$great: include.$star$great,
-          $less$star: include.$less$star,
-          $star$star: include.$star$star,
-          Selective_infix: include.Selective_infix,
-          $less$star$question: include.$less$star$question,
-          $less$pipe$pipe$great: include.$less$pipe$pipe$great,
-          $less$amp$amp$great: include.$less$amp$amp$great,
-          orS: include.orS,
-          andS: include.andS,
-          whenS: include.whenS,
-          branch: include.branch,
-          ifS: include.ifS,
-          fromOptionS: include.fromOptionS,
-          anyS: include.anyS,
-          allS: include.allS,
-          whileS: include.whileS,
-          bind: bind,
-          Monad_infix: Monad_infix,
-          $great$great$eq: $great$great$eq,
-          $great$great$tilde: $great$great$tilde,
-          $great$eq$great: $great$eq$great,
-          join: join,
-          forever: forever,
-          sequenceM: sequenceM,
-          mapM: mapM,
-          mapM_: mapM_
-        };
-}
-
-function Make_backwards(X) {
-  var $$return = X.$$return;
-  var bind = X.bind;
-  var apply = X.apply;
-  var select = X.select;
-  var ap = typeof apply === "number" ? (function (t, f) {
-        return Curry._2(bind, f, (function (g) {
-                      return Curry._2(bind, t, (function (x) {
-                                    return Curry._1($$return, Curry._1(g, x));
-                                  }));
-                    }));
-      }) : apply[1];
-  var apply_001 = function (t, f) {
-    return Curry._2(ap, f, Curry._2(ap, t, Curry._1($$return, (function (x, f) {
-                          return Curry._1(f, x);
-                        }))));
-  };
-  var apply$1 = /* `Custom */[
-    -198771759,
-    apply_001
-  ];
-  var apply$2 = typeof apply$1 === "number" ? (function (t, f) {
-        return Curry._2(bind, f, (function (g) {
-                      return Curry._2(bind, t, (function (x) {
-                                    return Curry._1($$return, Curry._1(g, x));
-                                  }));
-                    }));
-      }) : apply_001;
-  var select$1 = typeof select === "number" ? (function (x, f) {
-        return Curry._2(bind, x, (function (param) {
-                      if (param.tag) {
-                        return Curry._1($$return, param[0]);
-                      } else {
-                        var a = param[0];
-                        return Curry._2(bind, f, (function (g) {
-                                      return Curry._1($$return, Curry._1(g, a));
-                                    }));
-                      }
-                    }));
-      }) : select[1];
-  var include = Selective$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply$2,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond,
-        select: select$1
-      });
-  var $$return$1 = include.$$return;
-  var $great$great$eq = Curry.__2(bind);
-  var $great$great$tilde = function (m, n) {
-    return Curry._2(bind, m, (function (param) {
-                  return Fun$CoreCategory.$$const(n, param);
-                }));
-  };
-  var $great$eq$great = function (f, g, a) {
-    return Curry._2(bind, Curry._1(f, a), g);
-  };
-  var Monad_infix = {
-    $great$great$eq: $great$great$eq,
-    $great$great$tilde: $great$great$tilde,
-    $great$eq$great: $great$eq$great
-  };
-  var join = function (tt) {
-    return Curry._2(bind, tt, Fun$CoreCategory.id);
-  };
-  var sequenceM = function (ts) {
-    var op = function (n, m) {
-      return Curry._2(bind, m, (function (x) {
-                    return Curry._2(bind, n, (function (xs) {
-                                  return Curry._1($$return$1, /* :: */[
-                                              x,
-                                              xs
-                                            ]);
-                                }));
-                  }));
-    };
-    return Belt_List.reduceReverse(ts, Curry._1($$return$1, /* [] */0), op);
-  };
-  var Undefined = Caml_exceptions.create("Monad-CoreCategory.Make3(X).Undefined");
-  var forever = function (f) {
-    var z = function (param) {
-      throw Undefined;
-    };
-    var kcell = /* record */[/* contents */Fun$CoreCategory.id];
-    var aux = function (param) {
-      return Curry._1(kcell[0], Curry._2(bind, Curry._1(f, (kcell[0] = Fun$CoreCategory.id, /* () */0)), chained));
-    };
-    var chained = function (param) {
-      kcell[0] = aux;
-      return z;
-    };
-    return aux(z);
-  };
-  var mapM = function (xs, f) {
-    return sequenceM(Belt_List.map(xs, f));
-  };
-  var mapM_ = function (xs, f) {
-    return Belt_List.reduceReverse(xs, Curry._1($$return$1, /* () */0), (function (accu, x) {
-                  return Curry._2(bind, Curry._1(f, x), (function (param) {
-                                return accu;
-                              }));
-                }));
-  };
-  return {
-          select: include.select,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return$1,
-          apply: include.apply,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          map: include.map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
-          $star$great: include.$star$great,
-          $less$star: include.$less$star,
-          $star$star: include.$star$star,
-          Selective_infix: include.Selective_infix,
-          $less$star$question: include.$less$star$question,
-          $less$pipe$pipe$great: include.$less$pipe$pipe$great,
-          $less$amp$amp$great: include.$less$amp$amp$great,
-          orS: include.orS,
-          andS: include.andS,
-          whenS: include.whenS,
-          branch: include.branch,
-          ifS: include.ifS,
-          fromOptionS: include.fromOptionS,
-          anyS: include.anyS,
-          allS: include.allS,
-          whileS: include.whileS,
-          bind: bind,
-          Monad_infix: Monad_infix,
-          $great$great$eq: $great$great$eq,
-          $great$great$tilde: $great$great$tilde,
-          $great$eq$great: $great$eq$great,
-          join: join,
-          forever: forever,
-          sequenceM: sequenceM,
-          mapM: mapM,
-          mapM_: mapM_
-        };
-}
-
-var Either = Monad_intf$CoreCategory.Either;
-
-exports.Either = Either;
-exports.S_to_S2 = S_to_S2;
-exports.S2_to_S = S2_to_S;
+exports.S1_to_S2 = S1_to_S2;
+exports.S2_to_S1 = S2_to_S1;
 exports.S2_to_S3 = S2_to_S3;
 exports.S3_to_S2 = S3_to_S2;
-exports.Make3 = Make3;
+exports.MakeCustom1 = MakeCustom1;
+exports.MakeCustom2 = MakeCustom2;
+exports.MakeCustom3 = MakeCustom3;
+exports.Make1 = Make1;
 exports.Make2 = Make2;
-exports.Make = Make;
-exports.Make_backwards3 = Make_backwards3;
-exports.Make_backwards2 = Make_backwards2;
-exports.Make_backwards = Make_backwards;
-/* Fun-CoreCategory Not a pure module */
+exports.Make3 = Make3;
+/* Selective-CoreCategory Not a pure module */

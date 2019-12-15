@@ -3,55 +3,381 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
-var Bool$CoreCategory = require("./Bool.bs.js");
+var Monoid$CoreCategory = require("./Monoid.bs.js");
 
-function S_to_S2(X) {
-  return {
-          foldLeft: X.foldLeft,
-          foldRight: X.foldRight,
-          foldMap: X.foldMap,
-          exists: X.exists,
-          forall: X.forall,
-          find: X.find
-        };
+function S1_to_S2(X) {
+  return X;
 }
 
-function S2_to_S(X) {
-  return {
-          foldLeft: X.foldLeft,
-          foldRight: X.foldRight,
-          foldMap: X.foldMap,
-          exists: X.exists,
-          forall: X.forall,
-          find: X.find
-        };
+function S2_to_S1(X) {
+  return X;
 }
 
 function S2_to_S3(X) {
-  return {
-          foldLeft: X.foldLeft,
-          foldRight: X.foldRight,
-          foldMap: X.foldMap,
-          exists: X.exists,
-          forall: X.forall,
-          find: X.find
-        };
+  return X;
 }
 
 function S3_to_S2(X) {
+  return X;
+}
+
+function MakeCustom3(X) {
+  var foldLeft = X.foldLeft;
+  var foldRight_ = function (x, f, init) {
+    var f$prime = function (k, x, z) {
+      return Curry._1(k, Curry._2(f, x, z));
+    };
+    return Curry._4(foldLeft, x, f$prime, (function (x) {
+                  return x;
+                }), init);
+  };
+  var match = X.foldRight;
+  var foldRight = typeof match === "number" || match[0] !== -198771759 ? foldRight_ : match[1];
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
+                }), empty);
+  };
+  var match$1 = X.foldMap;
+  var foldMap = typeof match$1 === "number" || match$1[0] !== -198771759 ? foldMap_ : match$1[1];
+  var exists = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.Or, init, x, pred);
+  };
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.And, init, x, pred);
+  };
+  var find = function (x, pred) {
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  if (accu !== undefined) {
+                    return accu;
+                  } else if (Curry._1(pred, x)) {
+                    return Caml_option.some(x);
+                  } else {
+                    return ;
+                  }
+                }), undefined);
+  };
+  var fold = function (M, t) {
+    return Curry._4(foldMap, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
   return {
-          foldLeft: X.foldLeft,
-          foldRight: X.foldRight,
-          foldMap: X.foldMap,
-          exists: X.exists,
-          forall: X.forall,
-          find: X.find
+          foldLeft: foldLeft,
+          foldRight: foldRight,
+          foldMap: foldMap,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
+          exists: exists,
+          forAll: forAll
+        };
+}
+
+function MakeCustom2(X) {
+  var foldLeft = X.foldLeft;
+  var foldRight = X.foldRight;
+  var foldMap = X.foldMap;
+  var foldRight_ = function (x, f, init) {
+    var f$prime = function (k, x, z) {
+      return Curry._1(k, Curry._2(f, x, z));
+    };
+    return Curry._4(foldLeft, x, f$prime, (function (x) {
+                  return x;
+                }), init);
+  };
+  var foldRight$1 = typeof foldRight === "number" || foldRight[0] !== -198771759 ? foldRight_ : foldRight[1];
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight$1, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
+                }), empty);
+  };
+  var foldMap$1 = typeof foldMap === "number" || foldMap[0] !== -198771759 ? foldMap_ : foldMap[1];
+  var exists = function (init, x, pred) {
+    return Curry._4(foldMap$1, Monoid$CoreCategory.Or, init, x, pred);
+  };
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap$1, Monoid$CoreCategory.And, init, x, pred);
+  };
+  var find = function (x, pred) {
+    return Curry._3(foldRight$1, x, (function (x, accu) {
+                  if (accu !== undefined) {
+                    return accu;
+                  } else if (Curry._1(pred, x)) {
+                    return Caml_option.some(x);
+                  } else {
+                    return ;
+                  }
+                }), undefined);
+  };
+  var fold = function (M, t) {
+    return Curry._4(foldMap$1, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight$1, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
+  return {
+          foldLeft: foldLeft,
+          foldRight: foldRight$1,
+          foldMap: foldMap$1,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
+          exists: exists,
+          forAll: forAll
+        };
+}
+
+function MakeCustom1(X) {
+  var foldLeft = X.foldLeft;
+  var foldRight = X.foldRight;
+  var foldMap = X.foldMap;
+  var foldRight_ = function (x, f, init) {
+    var f$prime = function (k, x, z) {
+      return Curry._1(k, Curry._2(f, x, z));
+    };
+    return Curry._4(foldLeft, x, f$prime, (function (x) {
+                  return x;
+                }), init);
+  };
+  var foldRight$1 = typeof foldRight === "number" || foldRight[0] !== -198771759 ? foldRight_ : foldRight[1];
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight$1, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
+                }), empty);
+  };
+  var foldMap$1 = typeof foldMap === "number" || foldMap[0] !== -198771759 ? foldMap_ : foldMap[1];
+  var exists = function (init, x, pred) {
+    return Curry._4(foldMap$1, Monoid$CoreCategory.Or, init, x, pred);
+  };
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap$1, Monoid$CoreCategory.And, init, x, pred);
+  };
+  var find = function (x, pred) {
+    return Curry._3(foldRight$1, x, (function (x, accu) {
+                  if (accu !== undefined) {
+                    return accu;
+                  } else if (Curry._1(pred, x)) {
+                    return Caml_option.some(x);
+                  } else {
+                    return ;
+                  }
+                }), undefined);
+  };
+  var fold = function (M, t) {
+    return Curry._4(foldMap$1, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight$1, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
+  return {
+          foldLeft: foldLeft,
+          foldRight: foldRight$1,
+          foldMap: foldMap$1,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
+          exists: exists,
+          forAll: forAll
+        };
+}
+
+function MakeCustom3_foldRight(X) {
+  var foldRight = X.foldRight;
+  var foldLeft_ = function (x, f, init) {
+    var f$prime = function (x, k, z) {
+      return Curry._1(k, Curry._2(f, z, x));
+    };
+    return Curry._4(foldRight, x, f$prime, (function (x) {
+                  return x;
+                }), init);
+  };
+  var match = X.foldLeft;
+  var foldLeft = typeof match === "number" || match[0] !== -198771759 ? foldLeft_ : match[1];
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
+                }), empty);
+  };
+  var match$1 = X.foldMap;
+  var foldMap = typeof match$1 === "number" || match$1[0] !== -198771759 ? foldMap_ : match$1[1];
+  var exists = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.Or, init, x, pred);
+  };
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.And, init, x, pred);
+  };
+  var find = function (x, pred) {
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  if (accu !== undefined) {
+                    return accu;
+                  } else if (Curry._1(pred, x)) {
+                    return Caml_option.some(x);
+                  } else {
+                    return ;
+                  }
+                }), undefined);
+  };
+  var fold = function (M, t) {
+    return Curry._4(foldMap, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
+  return {
+          foldLeft: foldLeft,
+          foldRight: foldRight,
+          foldMap: foldMap,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
+          exists: exists,
+          forAll: forAll
+        };
+}
+
+function MakeCustom2_foldRight(X) {
+  var foldRight = X.foldRight;
+  var foldLeft = X.foldLeft;
+  var foldMap = X.foldMap;
+  var foldLeft_ = function (x, f, init) {
+    var f$prime = function (x, k, z) {
+      return Curry._1(k, Curry._2(f, z, x));
+    };
+    return Curry._4(foldRight, x, f$prime, (function (x) {
+                  return x;
+                }), init);
+  };
+  var foldLeft$1 = typeof foldLeft === "number" || foldLeft[0] !== -198771759 ? foldLeft_ : foldLeft[1];
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
+                }), empty);
+  };
+  var foldMap$1 = typeof foldMap === "number" || foldMap[0] !== -198771759 ? foldMap_ : foldMap[1];
+  var exists = function (init, x, pred) {
+    return Curry._4(foldMap$1, Monoid$CoreCategory.Or, init, x, pred);
+  };
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap$1, Monoid$CoreCategory.And, init, x, pred);
+  };
+  var find = function (x, pred) {
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  if (accu !== undefined) {
+                    return accu;
+                  } else if (Curry._1(pred, x)) {
+                    return Caml_option.some(x);
+                  } else {
+                    return ;
+                  }
+                }), undefined);
+  };
+  var fold = function (M, t) {
+    return Curry._4(foldMap$1, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
+  return {
+          foldLeft: foldLeft$1,
+          foldRight: foldRight,
+          foldMap: foldMap$1,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
+          exists: exists,
+          forAll: forAll
+        };
+}
+
+function MakeCustom1_foldRight(X) {
+  var foldRight = X.foldRight;
+  var foldLeft = X.foldLeft;
+  var foldMap = X.foldMap;
+  var foldLeft_ = function (x, f, init) {
+    var f$prime = function (x, k, z) {
+      return Curry._1(k, Curry._2(f, z, x));
+    };
+    return Curry._4(foldRight, x, f$prime, (function (x) {
+                  return x;
+                }), init);
+  };
+  var foldLeft$1 = typeof foldLeft === "number" || foldLeft[0] !== -198771759 ? foldLeft_ : foldLeft[1];
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
+                }), empty);
+  };
+  var foldMap$1 = typeof foldMap === "number" || foldMap[0] !== -198771759 ? foldMap_ : foldMap[1];
+  var exists = function (init, x, pred) {
+    return Curry._4(foldMap$1, Monoid$CoreCategory.Or, init, x, pred);
+  };
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap$1, Monoid$CoreCategory.And, init, x, pred);
+  };
+  var find = function (x, pred) {
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  if (accu !== undefined) {
+                    return accu;
+                  } else if (Curry._1(pred, x)) {
+                    return Caml_option.some(x);
+                  } else {
+                    return ;
+                  }
+                }), undefined);
+  };
+  var fold = function (M, t) {
+    return Curry._4(foldMap$1, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
+  return {
+          foldLeft: foldLeft$1,
+          foldRight: foldRight,
+          foldMap: foldMap$1,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
+          exists: exists,
+          forAll: forAll
         };
 }
 
 function Make3(X) {
   var foldLeft = X.foldLeft;
-  var foldRight = function (x, f, init) {
+  var foldRight_ = function (x, f, init) {
     var f$prime = function (k, x, z) {
       return Curry._1(k, Curry._2(f, x, z));
     };
@@ -59,20 +385,22 @@ function Make3(X) {
                   return x;
                 }), init);
   };
-  var foldMap = function (M, $staropt$star, x, f) {
-    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.empty;
-    return foldRight(x, (function (x, accu) {
-                  return Curry._2(M.combine, accu, Curry._1(f, x));
+  var foldRight = foldRight_;
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
                 }), empty);
   };
+  var foldMap = foldMap_;
   var exists = function (init, x, pred) {
-    return foldMap(Bool$CoreCategory.Or, init, x, pred);
+    return Curry._4(foldMap, Monoid$CoreCategory.Or, init, x, pred);
   };
-  var forall = function (init, x, pred) {
-    return foldMap(Bool$CoreCategory.And, init, x, pred);
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.And, init, x, pred);
   };
   var find = function (x, pred) {
-    return foldRight(x, (function (x, accu) {
+    return Curry._3(foldRight, x, (function (x, accu) {
                   if (accu !== undefined) {
                     return accu;
                   } else if (Curry._1(pred, x)) {
@@ -82,19 +410,31 @@ function Make3(X) {
                   }
                 }), undefined);
   };
+  var fold = function (M, t) {
+    return Curry._4(foldMap, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
   return {
           foldLeft: foldLeft,
           foldRight: foldRight,
           foldMap: foldMap,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
           exists: exists,
-          forall: forall,
-          find: find
+          forAll: forAll
         };
 }
 
 function Make2(X) {
   var foldLeft = X.foldLeft;
-  var foldRight = function (x, f, init) {
+  var foldRight_ = function (x, f, init) {
     var f$prime = function (k, x, z) {
       return Curry._1(k, Curry._2(f, x, z));
     };
@@ -102,20 +442,22 @@ function Make2(X) {
                   return x;
                 }), init);
   };
-  var foldMap = function (M, $staropt$star, x, f) {
-    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.empty;
-    return foldRight(x, (function (x, accu) {
-                  return Curry._2(M.combine, accu, Curry._1(f, x));
+  var foldRight = foldRight_;
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
                 }), empty);
   };
+  var foldMap = foldMap_;
   var exists = function (init, x, pred) {
-    return foldMap(Bool$CoreCategory.Or, init, x, pred);
+    return Curry._4(foldMap, Monoid$CoreCategory.Or, init, x, pred);
   };
-  var forall = function (init, x, pred) {
-    return foldMap(Bool$CoreCategory.And, init, x, pred);
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.And, init, x, pred);
   };
   var find = function (x, pred) {
-    return foldRight(x, (function (x, accu) {
+    return Curry._3(foldRight, x, (function (x, accu) {
                   if (accu !== undefined) {
                     return accu;
                   } else if (Curry._1(pred, x)) {
@@ -125,19 +467,31 @@ function Make2(X) {
                   }
                 }), undefined);
   };
+  var fold = function (M, t) {
+    return Curry._4(foldMap, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
   return {
           foldLeft: foldLeft,
           foldRight: foldRight,
           foldMap: foldMap,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
           exists: exists,
-          forall: forall,
-          find: find
+          forAll: forAll
         };
 }
 
-function Make(X) {
+function Make1(X) {
   var foldLeft = X.foldLeft;
-  var foldRight = function (x, f, init) {
+  var foldRight_ = function (x, f, init) {
     var f$prime = function (k, x, z) {
       return Curry._1(k, Curry._2(f, x, z));
     };
@@ -145,20 +499,22 @@ function Make(X) {
                   return x;
                 }), init);
   };
-  var foldMap = function (M, $staropt$star, x, f) {
-    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.empty;
-    return foldRight(x, (function (x, accu) {
-                  return Curry._2(M.combine, accu, Curry._1(f, x));
+  var foldRight = foldRight_;
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
                 }), empty);
   };
+  var foldMap = foldMap_;
   var exists = function (init, x, pred) {
-    return foldMap(Bool$CoreCategory.Or, init, x, pred);
+    return Curry._4(foldMap, Monoid$CoreCategory.Or, init, x, pred);
   };
-  var forall = function (init, x, pred) {
-    return foldMap(Bool$CoreCategory.And, init, x, pred);
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.And, init, x, pred);
   };
   var find = function (x, pred) {
-    return foldRight(x, (function (x, accu) {
+    return Curry._3(foldRight, x, (function (x, accu) {
                   if (accu !== undefined) {
                     return accu;
                   } else if (Curry._1(pred, x)) {
@@ -168,21 +524,213 @@ function Make(X) {
                   }
                 }), undefined);
   };
+  var fold = function (M, t) {
+    return Curry._4(foldMap, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
   return {
           foldLeft: foldLeft,
           foldRight: foldRight,
           foldMap: foldMap,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
           exists: exists,
-          forall: forall,
-          find: find
+          forAll: forAll
         };
 }
 
-exports.S_to_S2 = S_to_S2;
-exports.S2_to_S = S2_to_S;
+function Make3_foldRight(X) {
+  var foldRight = X.foldRight;
+  var foldLeft_ = function (x, f, init) {
+    var f$prime = function (x, k, z) {
+      return Curry._1(k, Curry._2(f, z, x));
+    };
+    return Curry._4(foldRight, x, f$prime, (function (x) {
+                  return x;
+                }), init);
+  };
+  var foldLeft = foldLeft_;
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
+                }), empty);
+  };
+  var foldMap = foldMap_;
+  var exists = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.Or, init, x, pred);
+  };
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.And, init, x, pred);
+  };
+  var find = function (x, pred) {
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  if (accu !== undefined) {
+                    return accu;
+                  } else if (Curry._1(pred, x)) {
+                    return Caml_option.some(x);
+                  } else {
+                    return ;
+                  }
+                }), undefined);
+  };
+  var fold = function (M, t) {
+    return Curry._4(foldMap, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
+  return {
+          foldLeft: foldLeft,
+          foldRight: foldRight,
+          foldMap: foldMap,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
+          exists: exists,
+          forAll: forAll
+        };
+}
+
+function Make2_foldRight(X) {
+  var foldRight = X.foldRight;
+  var foldLeft_ = function (x, f, init) {
+    var f$prime = function (x, k, z) {
+      return Curry._1(k, Curry._2(f, z, x));
+    };
+    return Curry._4(foldRight, x, f$prime, (function (x) {
+                  return x;
+                }), init);
+  };
+  var foldLeft = foldLeft_;
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
+                }), empty);
+  };
+  var foldMap = foldMap_;
+  var exists = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.Or, init, x, pred);
+  };
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.And, init, x, pred);
+  };
+  var find = function (x, pred) {
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  if (accu !== undefined) {
+                    return accu;
+                  } else if (Curry._1(pred, x)) {
+                    return Caml_option.some(x);
+                  } else {
+                    return ;
+                  }
+                }), undefined);
+  };
+  var fold = function (M, t) {
+    return Curry._4(foldMap, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
+  return {
+          foldLeft: foldLeft,
+          foldRight: foldRight,
+          foldMap: foldMap,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
+          exists: exists,
+          forAll: forAll
+        };
+}
+
+function Make1_foldRight(X) {
+  var foldRight = X.foldRight;
+  var foldLeft_ = function (x, f, init) {
+    var f$prime = function (x, k, z) {
+      return Curry._1(k, Curry._2(f, z, x));
+    };
+    return Curry._4(foldRight, x, f$prime, (function (x) {
+                  return x;
+                }), init);
+  };
+  var foldLeft = foldLeft_;
+  var foldMap_ = function (M, $staropt$star, x, f) {
+    var empty = $staropt$star !== undefined ? Caml_option.valFromOption($staropt$star) : M.mempty;
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  return Curry._2(M.append, accu, Curry._1(f, x));
+                }), empty);
+  };
+  var foldMap = foldMap_;
+  var exists = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.Or, init, x, pred);
+  };
+  var forAll = function (init, x, pred) {
+    return Curry._4(foldMap, Monoid$CoreCategory.And, init, x, pred);
+  };
+  var find = function (x, pred) {
+    return Curry._3(foldRight, x, (function (x, accu) {
+                  if (accu !== undefined) {
+                    return accu;
+                  } else if (Curry._1(pred, x)) {
+                    return Caml_option.some(x);
+                  } else {
+                    return ;
+                  }
+                }), undefined);
+  };
+  var fold = function (M, t) {
+    return Curry._4(foldMap, M, undefined, t, (function (x) {
+                  return x;
+                }));
+  };
+  var isEmpty = function (t) {
+    return Curry._3(foldRight, t, (function (param, param$1) {
+                  return false;
+                }), true);
+  };
+  return {
+          foldLeft: foldLeft,
+          foldRight: foldRight,
+          foldMap: foldMap,
+          fold: fold,
+          find: find,
+          isEmpty: isEmpty,
+          exists: exists,
+          forAll: forAll
+        };
+}
+
+exports.S1_to_S2 = S1_to_S2;
+exports.S2_to_S1 = S2_to_S1;
 exports.S2_to_S3 = S2_to_S3;
 exports.S3_to_S2 = S3_to_S2;
-exports.Make3 = Make3;
+exports.MakeCustom1 = MakeCustom1;
+exports.MakeCustom2 = MakeCustom2;
+exports.MakeCustom3 = MakeCustom3;
+exports.MakeCustom1_foldRight = MakeCustom1_foldRight;
+exports.MakeCustom2_foldRight = MakeCustom2_foldRight;
+exports.MakeCustom3_foldRight = MakeCustom3_foldRight;
+exports.Make1 = Make1;
 exports.Make2 = Make2;
-exports.Make = Make;
-/* Bool-CoreCategory Not a pure module */
+exports.Make3 = Make3;
+exports.Make1_foldRight = Make1_foldRight;
+exports.Make2_foldRight = Make2_foldRight;
+exports.Make3_foldRight = Make3_foldRight;
+/* Monoid-CoreCategory Not a pure module */

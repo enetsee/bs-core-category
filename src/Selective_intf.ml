@@ -1,7 +1,7 @@
 (*** -- Minimal definitions -- ***)  
 
-module type Minimal = sig 
-  include Applicative.Minimal 
+module type Minimal1 = sig 
+  include Applicative.Minimal1 
   val select : ('a,'b) EitherBase.t t -> f:('a -> 'b) t -> 'b t
 end
 
@@ -15,8 +15,26 @@ module type Minimal3 = sig
   val select : (('a,'b) EitherBase.t,'d,'e) t -> f:(('a -> 'b),'d,'e) t -> ('b,'d,'e) t
 end
 
+(*** -- Custom definitions -- ***)  
+
+module type Custom1 = sig 
+  include Applicative.Custom1 
+  val select : ('a,'b) EitherBase.t t -> f:('a -> 'b) t -> 'b t
+end
+
+module type Custom2 = sig 
+  include Applicative.Custom2
+  val select : (('a,'b) EitherBase.t,'e) t -> f:(('a -> 'b),'e) t -> ('b,'e) t
+end
+
+module type Custom3 = sig 
+  include Applicative.Custom3
+  val select : (('a,'b) EitherBase.t,'d,'e) t -> f:(('a -> 'b),'d,'e) t -> ('b,'d,'e) t
+end
+
 (*** -- Infix functions -- ***)
-module type Infix = sig
+
+module type Infix1 = sig
   include TyCon.S1
   val ( <*? ) : ('a,'b) EitherBase.t t -> ('a -> 'b) t -> 'b t
   val ( <||> ) : bool t -> bool t -> bool t 
@@ -39,11 +57,13 @@ end
 
 (*** -- Complete definitions --- ***)
 
-module type S = sig 
-  include Minimal 
-  include Applicative.S with type 'a t := 'a t
-  module Selective_infix : Infix with type 'a t := 'a t
-  include Infix with type 'a t := 'a t 
+module type S1 = sig 
+  include Applicative.S1
+  val select : ('a,'b) EitherBase.t t -> f:('a -> 'b) t -> 'b t
+  
+  module SelectiveInfix : Infix1 with type 'a t := 'a t
+  include Infix1 with type 'a t := 'a t 
+
   val orS : bool t -> bool t -> bool t 
   val andS : bool t -> bool t -> bool t 
   val whenS : bool t -> unit t -> unit t 
@@ -57,10 +77,12 @@ end
 
 
 module type S2 = sig 
-  include Minimal2
-  include Applicative.S2 with type ('a,'b) t := ('a,'b) t
-  module Selective_infix : Infix2 with type ('a,'b) t := ('a,'b) t
+  include Applicative.S2
+  val select : (('a,'b) EitherBase.t,'e) t -> f:(('a -> 'b),'e) t -> ('b,'e) t
+  
+  module SelectiveInfix : Infix2 with type ('a,'b) t := ('a,'b) t
   include Infix2 with type ('a,'b) t := ('a,'b) t
+
   val orS : (bool,'e) t -> (bool,'e) t ->(bool,'e) t 
   val andS : (bool,'e) t -> (bool,'e) t  ->(bool,'e) t 
   val whenS : (bool,'e) t -> (unit,'e) t -> (unit,'e) t 
@@ -73,10 +95,12 @@ module type S2 = sig
 end
 
 module type S3 = sig 
-  include Minimal3
-  include Applicative.S3 with type ('a,'b,'c) t := ('a,'b,'c) t
-  module Selective_infix : Infix3 with type ('a,'b,'c) t := ('a,'b,'c) t
+  include Applicative.S3
+  val select : (('a,'b) EitherBase.t,'d,'e) t -> f:(('a -> 'b),'d,'e) t -> ('b,'d,'e) t
+
+  module SelectiveInfix : Infix3 with type ('a,'b,'c) t := ('a,'b,'c) t
   include Infix3 with type ('a,'b,'c) t := ('a,'b,'c) t
+
   val orS :(bool,'d,'e) t -> (bool,'d,'e) t -> (bool,'d,'e) t 
   val andS : (bool,'d,'e) t -> (bool,'d,'e) t -> (bool,'d,'e) t 
   val whenS : (bool,'d,'e) t -> (unit,'d,'e) t -> (unit,'d,'e) t 
@@ -91,33 +115,38 @@ end
 module type Selective = sig 
 
   (*** -- Minimal definitions --- ***)
-  module type Minimal = Minimal
+  module type Minimal1 = Minimal1
   module type Minimal2 = Minimal2
   module type Minimal3 = Minimal3
 
+  (*** -- Custom definitions --- ***)
+  module type Custom1 = Custom1
+  module type Custom2 = Custom2
+  module type Custom3 = Custom3
+
   (*** -- Infix functions --- ***)
-  module type Infix = Infix 
+  module type Infix1 = Infix1 
   module type Infix2 = Infix2 
   module type Infix3 = Infix3 
 
   (*** -- Complete definitions -- ***)
-  module type S = S
+  module type S1 = S1
   module type S2 = S2
   module type S3 = S3
 
   (*** -- Functors  -- ***)  
-  module S_to_S2 (X : S) : S2 with type ('a,_) t = 'a X.t 
-  module S2_to_S (X : S2) : S with type 'a t = ('a,unit) X.t
+  module S1_to_S2 (X : S1) : S2 with type ('a,_) t = 'a X.t 
+  module S2_to_S1 (X : S2) : S1 with type 'a t = ('a,unit) X.t
   module S2_to_S3 (X : S2) : S3 with type ('a, 'b, _) t = ('a, 'b) X.t
   module S3_to_S2 (X : S3) : S2 with type ('a, 'b) t = ('a, 'b,unit) X.t
 
-  module Make(X:Minimal) : S with type 'a t := 'a X.t
+  module MakeCustom1(X:Custom1) : S1 with type 'a t := 'a X.t
+  module MakeCustom2(X:Custom2) : S2 with type ('a,'b) t := ('a,'b) X.t
+  module MakeCustom3(X:Custom3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t
+
+  module Make1(X:Minimal1) : S1 with type 'a t := 'a X.t
   module Make2(X:Minimal2) : S2 with type ('a,'b) t := ('a,'b) X.t
   module Make3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t
-
-  module Make_backwards(X:Minimal) : S with type 'a t := 'a X.t
-  module Make_backwards2(X:Minimal2) : S2 with type ('a,'b) t := ('a,'b) X.t
-  module Make_backwards3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t
 
 end
 

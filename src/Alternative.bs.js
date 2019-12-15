@@ -3,503 +3,623 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
+var Plus$CoreCategory = require("./Plus.bs.js");
 var Applicative$CoreCategory = require("./Applicative.bs.js");
 
-function S_to_S2(X) {
+function S1_to_S2(X) {
   return {
-          empty: X.empty,
+          FunctorInfix: X.FunctorInfix,
           alt: X.alt,
+          AltInfix: X.AltInfix,
+          empty: X.empty,
+          map: X.map,
+          replace: X.replace,
           $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
           $less$$great: X.$less$$great,
           $less$amp$great: X.$less$amp$great,
           $less$: X.$less$,
           $$great: X.$$great,
-          $$return: X.$$return,
           apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
+          applyFirst: X.applyFirst,
+          applySecond: X.applySecond,
           liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
+          ApplyInfix: X.ApplyInfix,
           $less$star$great: X.$less$star$great,
           $star$great: X.$star$great,
           $less$star: X.$less$star,
           $star$star: X.$star$star,
-          Alternative_infix: X.Alternative_infix,
+          liftA3: X.liftA3,
+          liftA4: X.liftA4,
+          liftA5: X.liftA5,
+          merge: X.merge,
+          pure: X.pure,
+          when_: X.when_,
+          unless: X.unless,
+          AlternativeInfix: X.AlternativeInfix,
           $less$pipe$great: X.$less$pipe$great,
           $less$slash$great: X.$less$slash$great,
+          some: X.some,
+          many: X.many,
           optional: X.optional
         };
 }
 
-function S2_to_S(X) {
+function S2_to_S1(X) {
   return {
-          empty: X.empty,
+          FunctorInfix: X.FunctorInfix,
           alt: X.alt,
+          AltInfix: X.AltInfix,
+          empty: X.empty,
+          map: X.map,
+          replace: X.replace,
           $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
           $less$$great: X.$less$$great,
           $less$amp$great: X.$less$amp$great,
           $less$: X.$less$,
           $$great: X.$$great,
-          $$return: X.$$return,
           apply: X.apply,
           liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
+          applyFirst: X.applyFirst,
+          applySecond: X.applySecond,
+          ApplyInfix: X.ApplyInfix,
           $less$star$great: X.$less$star$great,
           $star$great: X.$star$great,
           $less$star: X.$less$star,
           $star$star: X.$star$star,
-          Alternative_infix: X.Alternative_infix,
+          liftA3: X.liftA3,
+          liftA4: X.liftA4,
+          liftA5: X.liftA5,
+          merge: X.merge,
+          pure: X.pure,
+          when_: X.when_,
+          unless: X.unless,
+          AlternativeInfix: X.AlternativeInfix,
           $less$pipe$great: X.$less$pipe$great,
           $less$slash$great: X.$less$slash$great,
+          some: X.some,
+          many: X.many,
           optional: X.optional
         };
 }
 
 function S2_to_S3(X) {
-  return {
-          empty: X.empty,
-          alt: X.alt,
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great,
-          $$return: X.$$return,
-          apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
-          $less$star$great: X.$less$star$great,
-          $star$great: X.$star$great,
-          $less$star: X.$less$star,
-          $star$star: X.$star$star,
-          Alternative_infix: X.Alternative_infix,
-          $less$pipe$great: X.$less$pipe$great,
-          $less$slash$great: X.$less$slash$great,
-          optional: X.optional
-        };
+  return X;
 }
 
 function S3_to_S2(X) {
-  return {
-          empty: X.empty,
-          alt: X.alt,
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great,
-          $$return: X.$$return,
-          apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
-          $less$star$great: X.$less$star$great,
-          $star$great: X.$star$great,
-          $less$star: X.$less$star,
-          $star$star: X.$star$star,
-          Alternative_infix: X.Alternative_infix,
-          $less$pipe$great: X.$less$pipe$great,
-          $less$slash$great: X.$less$slash$great,
-          optional: X.optional
-        };
+  return X;
 }
 
-function Make3(X) {
-  var empty = X.empty;
-  var alt = X.alt;
-  var include = Applicative$CoreCategory.Make3({
-        $$return: X.$$return,
+function MakeCustom3(X) {
+  var include = Applicative$CoreCategory.MakeCustom3({
+        pure: X.pure,
         apply: X.apply,
         map: X.map,
+        replace: X.replace,
         liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond
+        applyFirst: X.applyFirst,
+        applySecond: X.applySecond
       });
-  var $$return = include.$$return;
-  var map = include.map;
+  var $less$star$great = include.$less$star$great;
+  var pure = include.pure;
+  var replace_001 = include.replace;
+  var replace = /* `Custom */[
+    -198771759,
+    replace_001
+  ];
+  var $$let = Plus$CoreCategory.MakeCustom3({
+        map: include.map,
+        replace: replace,
+        alt: X.alt,
+        empty: X.empty
+      });
+  var map = $$let.map;
+  var $less$$great = $$let.$less$$great;
+  var alt = $$let.alt;
   var $less$pipe$great = Curry.__2(alt);
   var $less$slash$great = function (x, y) {
-    return Curry._2(alt, x, Curry._1($$return, y));
+    return Curry._2(alt, x, Curry._1(pure, y));
   };
-  var Alternative_infix = {
+  var AlternativeInfix = {
     $less$pipe$great: $less$pipe$great,
     $less$slash$great: $less$slash$great
+  };
+  var some = function (v) {
+    return Curry._2($less$star$great, Curry._2($less$$great, (function (x, xs) {
+                      return /* :: */[
+                              x,
+                              xs
+                            ];
+                    }), v), many(v));
+  };
+  var many = function (v) {
+    return Curry._2(alt, some(v), Curry._1(pure, /* [] */0));
   };
   var optional = function (x) {
     return Curry._2(alt, Curry._2(map, x, (function (x) {
                       return Caml_option.some(x);
-                    })), Curry._1($$return, undefined));
+                    })), Curry._1(pure, undefined));
   };
   return {
-          empty: empty,
+          FunctorInfix: include.FunctorInfix,
           alt: alt,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return,
-          apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
+          AltInfix: $$let.AltInfix,
+          empty: $$let.empty,
           map: map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          $less$$great: $less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: include.apply,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          liftA2: include.liftA2,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: $less$star$great,
           $star$great: include.$star$great,
           $less$star: include.$less$star,
           $star$star: include.$star$star,
-          Alternative_infix: Alternative_infix,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          AlternativeInfix: AlternativeInfix,
           $less$pipe$great: $less$pipe$great,
           $less$slash$great: $less$slash$great,
+          some: some,
+          many: many,
+          optional: optional
+        };
+}
+
+function MakeCustom2(X) {
+  var include = Applicative$CoreCategory.MakeCustom3({
+        pure: X.pure,
+        apply: X.apply,
+        map: X.map,
+        replace: X.replace,
+        liftA2: X.liftA2,
+        applyFirst: X.applyFirst,
+        applySecond: X.applySecond
+      });
+  var $less$star$great = include.$less$star$great;
+  var pure = include.pure;
+  var replace_001 = include.replace;
+  var replace = /* `Custom */[
+    -198771759,
+    replace_001
+  ];
+  var $$let = Plus$CoreCategory.MakeCustom3({
+        map: include.map,
+        replace: replace,
+        alt: X.alt,
+        empty: X.empty
+      });
+  var map = $$let.map;
+  var $less$$great = $$let.$less$$great;
+  var alt = $$let.alt;
+  var $less$pipe$great = Curry.__2(alt);
+  var $less$slash$great = function (x, y) {
+    return Curry._2(alt, x, Curry._1(pure, y));
+  };
+  var AlternativeInfix = {
+    $less$pipe$great: $less$pipe$great,
+    $less$slash$great: $less$slash$great
+  };
+  var some = function (v) {
+    return Curry._2($less$star$great, Curry._2($less$$great, (function (x, xs) {
+                      return /* :: */[
+                              x,
+                              xs
+                            ];
+                    }), v), many(v));
+  };
+  var many = function (v) {
+    return Curry._2(alt, some(v), Curry._1(pure, /* [] */0));
+  };
+  var optional = function (x) {
+    return Curry._2(alt, Curry._2(map, x, (function (x) {
+                      return Caml_option.some(x);
+                    })), Curry._1(pure, undefined));
+  };
+  return {
+          FunctorInfix: include.FunctorInfix,
+          alt: alt,
+          AltInfix: $$let.AltInfix,
+          empty: $$let.empty,
+          map: map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          $less$$great: $less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: include.apply,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          liftA2: include.liftA2,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: $less$star$great,
+          $star$great: include.$star$great,
+          $less$star: include.$less$star,
+          $star$star: include.$star$star,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          AlternativeInfix: AlternativeInfix,
+          $less$pipe$great: $less$pipe$great,
+          $less$slash$great: $less$slash$great,
+          some: some,
+          many: many,
+          optional: optional
+        };
+}
+
+function MakeCustom1(X) {
+  var include = Applicative$CoreCategory.MakeCustom3({
+        pure: X.pure,
+        apply: X.apply,
+        map: X.map,
+        replace: X.replace,
+        liftA2: X.liftA2,
+        applyFirst: X.applyFirst,
+        applySecond: X.applySecond
+      });
+  var $less$star$great = include.$less$star$great;
+  var pure = include.pure;
+  var replace_001 = include.replace;
+  var replace = /* `Custom */[
+    -198771759,
+    replace_001
+  ];
+  var $$let = Plus$CoreCategory.MakeCustom3({
+        map: include.map,
+        replace: replace,
+        alt: X.alt,
+        empty: X.empty
+      });
+  var map = $$let.map;
+  var $less$$great = $$let.$less$$great;
+  var alt = $$let.alt;
+  var $less$pipe$great = Curry.__2(alt);
+  var $less$slash$great = function (x, y) {
+    return Curry._2(alt, x, Curry._1(pure, y));
+  };
+  var AlternativeInfix = {
+    $less$pipe$great: $less$pipe$great,
+    $less$slash$great: $less$slash$great
+  };
+  var some = function (v) {
+    return Curry._2($less$star$great, Curry._2($less$$great, (function (x, xs) {
+                      return /* :: */[
+                              x,
+                              xs
+                            ];
+                    }), v), many(v));
+  };
+  var many = function (v) {
+    return Curry._2(alt, some(v), Curry._1(pure, /* [] */0));
+  };
+  var optional = function (x) {
+    return Curry._2(alt, Curry._2(map, x, (function (x) {
+                      return Caml_option.some(x);
+                    })), Curry._1(pure, undefined));
+  };
+  return {
+          FunctorInfix: include.FunctorInfix,
+          alt: alt,
+          AltInfix: $$let.AltInfix,
+          empty: $$let.empty,
+          map: map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          $less$$great: $less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: include.apply,
+          liftA2: include.liftA2,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: $less$star$great,
+          $star$great: include.$star$great,
+          $less$star: include.$less$star,
+          $star$star: include.$star$star,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          AlternativeInfix: AlternativeInfix,
+          $less$pipe$great: $less$pipe$great,
+          $less$slash$great: $less$slash$great,
+          some: some,
+          many: many,
+          optional: optional
+        };
+}
+
+function Make3(X) {
+  var include = Applicative$CoreCategory.MakeCustom3({
+        pure: X.pure,
+        apply: X.apply,
+        map: /* Derived */-684824643,
+        replace: /* Derived */-684824643,
+        liftA2: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643
+      });
+  var $less$star$great = include.$less$star$great;
+  var pure = include.pure;
+  var replace_001 = include.replace;
+  var replace = /* `Custom */[
+    -198771759,
+    replace_001
+  ];
+  var $$let = Plus$CoreCategory.MakeCustom3({
+        map: include.map,
+        replace: replace,
+        alt: X.alt,
+        empty: X.empty
+      });
+  var map = $$let.map;
+  var $less$$great = $$let.$less$$great;
+  var alt = $$let.alt;
+  var $less$pipe$great = Curry.__2(alt);
+  var $less$slash$great = function (x, y) {
+    return Curry._2(alt, x, Curry._1(pure, y));
+  };
+  var AlternativeInfix = {
+    $less$pipe$great: $less$pipe$great,
+    $less$slash$great: $less$slash$great
+  };
+  var some = function (v) {
+    return Curry._2($less$star$great, Curry._2($less$$great, (function (x, xs) {
+                      return /* :: */[
+                              x,
+                              xs
+                            ];
+                    }), v), many(v));
+  };
+  var many = function (v) {
+    return Curry._2(alt, some(v), Curry._1(pure, /* [] */0));
+  };
+  var optional = function (x) {
+    return Curry._2(alt, Curry._2(map, x, (function (x) {
+                      return Caml_option.some(x);
+                    })), Curry._1(pure, undefined));
+  };
+  return {
+          FunctorInfix: include.FunctorInfix,
+          alt: alt,
+          AltInfix: $$let.AltInfix,
+          empty: $$let.empty,
+          map: map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          $less$$great: $less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: include.apply,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          liftA2: include.liftA2,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: $less$star$great,
+          $star$great: include.$star$great,
+          $less$star: include.$less$star,
+          $star$star: include.$star$star,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          AlternativeInfix: AlternativeInfix,
+          $less$pipe$great: $less$pipe$great,
+          $less$slash$great: $less$slash$great,
+          some: some,
+          many: many,
           optional: optional
         };
 }
 
 function Make2(X) {
-  var alt = X.alt;
-  var include = Applicative$CoreCategory.Make3({
-        $$return: X.$$return,
+  var include = Applicative$CoreCategory.MakeCustom3({
+        pure: X.pure,
         apply: X.apply,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond
+        map: /* Derived */-684824643,
+        replace: /* Derived */-684824643,
+        liftA2: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643
       });
-  var $$return = include.$$return;
-  var map = include.map;
+  var $less$star$great = include.$less$star$great;
+  var pure = include.pure;
+  var replace_001 = include.replace;
+  var replace = /* `Custom */[
+    -198771759,
+    replace_001
+  ];
+  var $$let = Plus$CoreCategory.MakeCustom3({
+        map: include.map,
+        replace: replace,
+        alt: X.alt,
+        empty: X.empty
+      });
+  var map = $$let.map;
+  var $less$$great = $$let.$less$$great;
+  var alt = $$let.alt;
   var $less$pipe$great = Curry.__2(alt);
   var $less$slash$great = function (x, y) {
-    return Curry._2(alt, x, Curry._1($$return, y));
+    return Curry._2(alt, x, Curry._1(pure, y));
   };
-  var Alternative_infix = {
+  var AlternativeInfix = {
     $less$pipe$great: $less$pipe$great,
     $less$slash$great: $less$slash$great
+  };
+  var some = function (v) {
+    return Curry._2($less$star$great, Curry._2($less$$great, (function (x, xs) {
+                      return /* :: */[
+                              x,
+                              xs
+                            ];
+                    }), v), many(v));
+  };
+  var many = function (v) {
+    return Curry._2(alt, some(v), Curry._1(pure, /* [] */0));
   };
   var optional = function (x) {
     return Curry._2(alt, Curry._2(map, x, (function (x) {
                       return Caml_option.some(x);
-                    })), Curry._1($$return, undefined));
+                    })), Curry._1(pure, undefined));
   };
   return {
-          empty: X.empty,
+          FunctorInfix: include.FunctorInfix,
           alt: alt,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return,
-          apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
+          AltInfix: $$let.AltInfix,
+          empty: $$let.empty,
           map: map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          $less$$great: $less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: include.apply,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          liftA2: include.liftA2,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: $less$star$great,
           $star$great: include.$star$great,
           $less$star: include.$less$star,
           $star$star: include.$star$star,
-          Alternative_infix: Alternative_infix,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          AlternativeInfix: AlternativeInfix,
           $less$pipe$great: $less$pipe$great,
           $less$slash$great: $less$slash$great,
+          some: some,
+          many: many,
           optional: optional
         };
 }
 
-function Make(X) {
-  var alt = X.alt;
-  var include = Applicative$CoreCategory.Make3({
-        $$return: X.$$return,
+function Make1(X) {
+  var include = Applicative$CoreCategory.MakeCustom3({
+        pure: X.pure,
         apply: X.apply,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond
+        map: /* Derived */-684824643,
+        replace: /* Derived */-684824643,
+        liftA2: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643
       });
-  var $$return = include.$$return;
-  var map = include.map;
+  var $less$star$great = include.$less$star$great;
+  var pure = include.pure;
+  var replace_001 = include.replace;
+  var replace = /* `Custom */[
+    -198771759,
+    replace_001
+  ];
+  var $$let = Plus$CoreCategory.MakeCustom3({
+        map: include.map,
+        replace: replace,
+        alt: X.alt,
+        empty: X.empty
+      });
+  var map = $$let.map;
+  var $less$$great = $$let.$less$$great;
+  var alt = $$let.alt;
   var $less$pipe$great = Curry.__2(alt);
   var $less$slash$great = function (x, y) {
-    return Curry._2(alt, x, Curry._1($$return, y));
+    return Curry._2(alt, x, Curry._1(pure, y));
   };
-  var Alternative_infix = {
+  var AlternativeInfix = {
     $less$pipe$great: $less$pipe$great,
     $less$slash$great: $less$slash$great
+  };
+  var some = function (v) {
+    return Curry._2($less$star$great, Curry._2($less$$great, (function (x, xs) {
+                      return /* :: */[
+                              x,
+                              xs
+                            ];
+                    }), v), many(v));
+  };
+  var many = function (v) {
+    return Curry._2(alt, some(v), Curry._1(pure, /* [] */0));
   };
   var optional = function (x) {
     return Curry._2(alt, Curry._2(map, x, (function (x) {
                       return Caml_option.some(x);
-                    })), Curry._1($$return, undefined));
+                    })), Curry._1(pure, undefined));
   };
   return {
-          empty: X.empty,
+          FunctorInfix: include.FunctorInfix,
           alt: alt,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return,
-          apply: include.apply,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
+          AltInfix: $$let.AltInfix,
+          empty: $$let.empty,
           map: map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
-          $star$great: include.$star$great,
-          $less$star: include.$less$star,
-          $star$star: include.$star$star,
-          Alternative_infix: Alternative_infix,
-          $less$pipe$great: $less$pipe$great,
-          $less$slash$great: $less$slash$great,
-          optional: optional
-        };
-}
-
-function Make_backwards3(X) {
-  var $$return = X.$$return;
-  var apply = function (x, f) {
-    return Curry._2(X.apply, f, Curry._2(X.apply, x, Curry._1(X.$$return, (function (x, f) {
-                          return Curry._1(f, x);
-                        }))));
-  };
-  var liftA2 = X.liftA2;
-  var liftA3 = X.liftA3;
-  var discardFirst = X.discardFirst;
-  var discardSecond = X.discardSecond;
-  var map = X.map;
-  var empty = X.empty;
-  var alt = X.alt;
-  var include = Applicative$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply,
-        map: map,
-        liftA2: liftA2,
-        liftA3: liftA3,
-        discardFirst: discardFirst,
-        discardSecond: discardSecond
-      });
-  var $$return$1 = include.$$return;
-  var map$1 = include.map;
-  var $less$pipe$great = Curry.__2(alt);
-  var $less$slash$great = function (x, y) {
-    return Curry._2(alt, x, Curry._1($$return$1, y));
-  };
-  var Alternative_infix = {
-    $less$pipe$great: $less$pipe$great,
-    $less$slash$great: $less$slash$great
-  };
-  var optional = function (x) {
-    return Curry._2(alt, Curry._2(map$1, x, (function (x) {
-                      return Caml_option.some(x);
-                    })), Curry._1($$return$1, undefined));
-  };
-  return {
-          empty: empty,
-          alt: alt,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return$1,
-          apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          map: map$1,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
-          $star$great: include.$star$great,
-          $less$star: include.$less$star,
-          $star$star: include.$star$star,
-          Alternative_infix: Alternative_infix,
-          $less$pipe$great: $less$pipe$great,
-          $less$slash$great: $less$slash$great,
-          optional: optional
-        };
-}
-
-function Make_backwards2(X) {
-  var $$return = X.$$return;
-  var apply = X.apply;
-  var alt = X.alt;
-  var apply$1 = function (x, f) {
-    return Curry._2(apply, f, Curry._2(apply, x, Curry._1($$return, (function (x, f) {
-                          return Curry._1(f, x);
-                        }))));
-  };
-  var include = Applicative$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply$1,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond
-      });
-  var $$return$1 = include.$$return;
-  var map = include.map;
-  var $less$pipe$great = Curry.__2(alt);
-  var $less$slash$great = function (x, y) {
-    return Curry._2(alt, x, Curry._1($$return$1, y));
-  };
-  var Alternative_infix = {
-    $less$pipe$great: $less$pipe$great,
-    $less$slash$great: $less$slash$great
-  };
-  var optional = function (x) {
-    return Curry._2(alt, Curry._2(map, x, (function (x) {
-                      return Caml_option.some(x);
-                    })), Curry._1($$return$1, undefined));
-  };
-  return {
-          empty: X.empty,
-          alt: alt,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return$1,
-          apply: include.apply,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          map: map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
-          $star$great: include.$star$great,
-          $less$star: include.$less$star,
-          $star$star: include.$star$star,
-          Alternative_infix: Alternative_infix,
-          $less$pipe$great: $less$pipe$great,
-          $less$slash$great: $less$slash$great,
-          optional: optional
-        };
-}
-
-function Make_backwards(X) {
-  var $$return = X.$$return;
-  var apply = X.apply;
-  var alt = X.alt;
-  var apply$1 = function (x, f) {
-    return Curry._2(apply, f, Curry._2(apply, x, Curry._1($$return, (function (x, f) {
-                          return Curry._1(f, x);
-                        }))));
-  };
-  var include = Applicative$CoreCategory.Make3({
-        $$return: $$return,
-        apply: apply$1,
-        map: X.map,
-        liftA2: X.liftA2,
-        liftA3: X.liftA3,
-        discardFirst: X.discardFirst,
-        discardSecond: X.discardSecond
-      });
-  var $$return$1 = include.$$return;
-  var map = include.map;
-  var $less$pipe$great = Curry.__2(alt);
-  var $less$slash$great = function (x, y) {
-    return Curry._2(alt, x, Curry._1($$return$1, y));
-  };
-  var Alternative_infix = {
-    $less$pipe$great: $less$pipe$great,
-    $less$slash$great: $less$slash$great
-  };
-  var optional = function (x) {
-    return Curry._2(alt, Curry._2(map, x, (function (x) {
-                      return Caml_option.some(x);
-                    })), Curry._1($$return$1, undefined));
-  };
-  return {
-          empty: X.empty,
-          alt: alt,
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: include.$less$,
-          $$great: include.$$great,
-          $$return: $$return$1,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          $less$$great: $less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
           apply: include.apply,
           liftA2: include.liftA2,
-          liftA3: include.liftA3,
-          discardFirst: include.discardFirst,
-          discardSecond: include.discardSecond,
-          map: map,
-          unit: include.unit,
-          merge: include.merge,
-          Applicative_infix: include.Applicative_infix,
-          $less$star$great: include.$less$star$great,
+          applyFirst: include.applyFirst,
+          applySecond: include.applySecond,
+          ApplyInfix: include.ApplyInfix,
+          $less$star$great: $less$star$great,
           $star$great: include.$star$great,
           $less$star: include.$less$star,
           $star$star: include.$star$star,
-          Alternative_infix: Alternative_infix,
+          liftA3: include.liftA3,
+          liftA4: include.liftA4,
+          liftA5: include.liftA5,
+          merge: include.merge,
+          pure: pure,
+          when_: include.when_,
+          unless: include.unless,
+          AlternativeInfix: AlternativeInfix,
           $less$pipe$great: $less$pipe$great,
           $less$slash$great: $less$slash$great,
+          some: some,
+          many: many,
           optional: optional
         };
 }
 
-exports.S_to_S2 = S_to_S2;
-exports.S2_to_S = S2_to_S;
+exports.S1_to_S2 = S1_to_S2;
+exports.S2_to_S1 = S2_to_S1;
 exports.S2_to_S3 = S2_to_S3;
 exports.S3_to_S2 = S3_to_S2;
-exports.Make = Make;
+exports.MakeCustom1 = MakeCustom1;
+exports.MakeCustom2 = MakeCustom2;
+exports.MakeCustom3 = MakeCustom3;
+exports.Make1 = Make1;
 exports.Make2 = Make2;
 exports.Make3 = Make3;
-exports.Make_backwards = Make_backwards;
-exports.Make_backwards2 = Make_backwards2;
-exports.Make_backwards3 = Make_backwards3;
-/* Applicative-CoreCategory Not a pure module */
+/* No side effect */

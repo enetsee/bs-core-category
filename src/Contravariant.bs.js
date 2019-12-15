@@ -2,76 +2,170 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
-var Fun$CoreCategory = require("./Fun.bs.js");
 
-function S_to_S2(X) {
-  return {
-          contramap: X.contramap,
-          contramapConst: X.contramapConst,
-          Contravariant_infix: X.Contravariant_infix,
-          $great$$less: X.$great$$less,
-          $great$: X.$great$,
-          $great$$$less: X.$great$$$less,
-          $$less: X.$$less
-        };
+function S1_to_S2(X) {
+  return X;
 }
 
-function S2_to_S(X) {
-  return {
-          contramap: X.contramap,
-          contramapConst: X.contramapConst,
-          Contravariant_infix: X.Contravariant_infix,
-          $great$$less: X.$great$$less,
-          $great$: X.$great$,
-          $great$$$less: X.$great$$$less,
-          $$less: X.$$less
-        };
+function S2_to_S1(X) {
+  return X;
 }
 
 function S2_to_S3(X) {
-  return {
-          contramap: X.contramap,
-          contramapConst: X.contramapConst,
-          Contravariant_infix: X.Contravariant_infix,
-          $great$$less: X.$great$$less,
-          $great$: X.$great$,
-          $great$$$less: X.$great$$$less,
-          $$less: X.$$less
-        };
+  return X;
 }
 
 function S3_to_S2(X) {
+  return X;
+}
+
+function MakeCustom3(X) {
+  var cmap = X.cmap;
+  var match = X.creplace;
+  var creplace;
+  var exit = 0;
+  if (typeof match === "number" || match[0] !== -198771759) {
+    exit = 1;
+  } else {
+    creplace = match[1];
+  }
+  if (exit === 1) {
+    creplace = (function (x, $$const) {
+        return Curry._2(cmap, x, (function (param) {
+                      return $$const;
+                    }));
+      });
+  }
+  var $great$$less = function (f, x) {
+    return Curry._2(cmap, x, f);
+  };
+  var $great$$$less = Curry.__2(cmap);
+  var $great$ = function ($$const, t) {
+    return Curry._2(creplace, t, $$const);
+  };
+  var $$less = Curry.__2(creplace);
   return {
-          contramap: X.contramap,
-          contramapConst: X.contramapConst,
-          Contravariant_infix: X.Contravariant_infix,
-          $great$$less: X.$great$$less,
-          $great$: X.$great$,
-          $great$$$less: X.$great$$$less,
-          $$less: X.$$less
+          cmap: cmap,
+          creplace: creplace,
+          ContravariantInfix: {
+            $great$$less: $great$$less,
+            $great$: $great$,
+            $great$$$less: $great$$$less,
+            $$less: $$less
+          },
+          $great$$less: $great$$less,
+          $great$: $great$,
+          $great$$$less: $great$$$less,
+          $$less: $$less
+        };
+}
+
+function MakeCustom2(X) {
+  var cmap = X.cmap;
+  var creplace = X.creplace;
+  var creplace$1;
+  var exit = 0;
+  if (typeof creplace === "number" || creplace[0] !== -198771759) {
+    exit = 1;
+  } else {
+    creplace$1 = creplace[1];
+  }
+  if (exit === 1) {
+    creplace$1 = (function (x, $$const) {
+        return Curry._2(cmap, x, (function (param) {
+                      return $$const;
+                    }));
+      });
+  }
+  var $great$$less = function (f, x) {
+    return Curry._2(cmap, x, f);
+  };
+  var $great$$$less = Curry.__2(cmap);
+  var $great$ = function ($$const, t) {
+    return Curry._2(creplace$1, t, $$const);
+  };
+  var $$less = Curry.__2(creplace$1);
+  return {
+          cmap: cmap,
+          creplace: creplace$1,
+          ContravariantInfix: {
+            $great$$less: $great$$less,
+            $great$: $great$,
+            $great$$$less: $great$$$less,
+            $$less: $$less
+          },
+          $great$$less: $great$$less,
+          $great$: $great$,
+          $great$$$less: $great$$$less,
+          $$less: $$less
+        };
+}
+
+function MakeCustom1(X) {
+  var cmap = X.cmap;
+  var creplace = X.creplace;
+  var creplace$1;
+  var exit = 0;
+  if (typeof creplace === "number" || creplace[0] !== -198771759) {
+    exit = 1;
+  } else {
+    creplace$1 = creplace[1];
+  }
+  if (exit === 1) {
+    creplace$1 = (function (x, $$const) {
+        return Curry._2(cmap, x, (function (param) {
+                      return $$const;
+                    }));
+      });
+  }
+  var $great$$less = function (f, x) {
+    return Curry._2(cmap, x, f);
+  };
+  var $great$$$less = Curry.__2(cmap);
+  var $great$ = function ($$const, t) {
+    return Curry._2(creplace$1, t, $$const);
+  };
+  var $$less = Curry.__2(creplace$1);
+  return {
+          cmap: cmap,
+          creplace: creplace$1,
+          ContravariantInfix: {
+            $great$$less: $great$$less,
+            $great$: $great$,
+            $great$$$less: $great$$$less,
+            $$less: $$less
+          },
+          $great$$less: $great$$less,
+          $great$: $great$,
+          $great$$$less: $great$$$less,
+          $$less: $$less
         };
 }
 
 function Make3(X) {
-  var contramap = X.contramap;
-  var match = X.contramapConst;
-  var contramapConst = typeof match === "number" ? (function (x, c) {
-        return Curry._2(contramap, x, (function (param) {
-                      return Fun$CoreCategory.$$const(c, param);
+  var cmap = X.cmap;
+  var creplace;
+  var exit = 0;
+  exit = 1;
+  if (exit === 1) {
+    creplace = (function (x, $$const) {
+        return Curry._2(cmap, x, (function (param) {
+                      return $$const;
                     }));
-      }) : match[1];
+      });
+  }
   var $great$$less = function (f, x) {
-    return Curry._2(contramap, x, f);
+    return Curry._2(cmap, x, f);
   };
-  var $great$$$less = Curry.__2(contramap);
-  var $great$ = function (x, t) {
-    return Curry._2(contramapConst, t, x);
+  var $great$$$less = Curry.__2(cmap);
+  var $great$ = function ($$const, t) {
+    return Curry._2(creplace, t, $$const);
   };
-  var $$less = Curry.__2(contramapConst);
+  var $$less = Curry.__2(creplace);
   return {
-          contramap: contramap,
-          contramapConst: contramapConst,
-          Contravariant_infix: {
+          cmap: cmap,
+          creplace: creplace,
+          ContravariantInfix: {
             $great$$less: $great$$less,
             $great$: $great$,
             $great$$$less: $great$$$less,
@@ -85,25 +179,29 @@ function Make3(X) {
 }
 
 function Make2(X) {
-  var contramap = X.contramap;
-  var contramapConst = X.contramapConst;
-  var contramapConst$1 = typeof contramapConst === "number" ? (function (x, c) {
-        return Curry._2(contramap, x, (function (param) {
-                      return Fun$CoreCategory.$$const(c, param);
+  var cmap = X.cmap;
+  var creplace;
+  var exit = 0;
+  exit = 1;
+  if (exit === 1) {
+    creplace = (function (x, $$const) {
+        return Curry._2(cmap, x, (function (param) {
+                      return $$const;
                     }));
-      }) : contramapConst[1];
+      });
+  }
   var $great$$less = function (f, x) {
-    return Curry._2(contramap, x, f);
+    return Curry._2(cmap, x, f);
   };
-  var $great$$$less = Curry.__2(contramap);
-  var $great$ = function (x, t) {
-    return Curry._2(contramapConst$1, t, x);
+  var $great$$$less = Curry.__2(cmap);
+  var $great$ = function ($$const, t) {
+    return Curry._2(creplace, t, $$const);
   };
-  var $$less = Curry.__2(contramapConst$1);
+  var $$less = Curry.__2(creplace);
   return {
-          contramap: contramap,
-          contramapConst: contramapConst$1,
-          Contravariant_infix: {
+          cmap: cmap,
+          creplace: creplace,
+          ContravariantInfix: {
             $great$$less: $great$$less,
             $great$: $great$,
             $great$$$less: $great$$$less,
@@ -116,26 +214,30 @@ function Make2(X) {
         };
 }
 
-function Make(X) {
-  var contramap = X.contramap;
-  var contramapConst = X.contramapConst;
-  var contramapConst$1 = typeof contramapConst === "number" ? (function (x, c) {
-        return Curry._2(contramap, x, (function (param) {
-                      return Fun$CoreCategory.$$const(c, param);
+function Make1(X) {
+  var cmap = X.cmap;
+  var creplace;
+  var exit = 0;
+  exit = 1;
+  if (exit === 1) {
+    creplace = (function (x, $$const) {
+        return Curry._2(cmap, x, (function (param) {
+                      return $$const;
                     }));
-      }) : contramapConst[1];
+      });
+  }
   var $great$$less = function (f, x) {
-    return Curry._2(contramap, x, f);
+    return Curry._2(cmap, x, f);
   };
-  var $great$$$less = Curry.__2(contramap);
-  var $great$ = function (x, t) {
-    return Curry._2(contramapConst$1, t, x);
+  var $great$$$less = Curry.__2(cmap);
+  var $great$ = function ($$const, t) {
+    return Curry._2(creplace, t, $$const);
   };
-  var $$less = Curry.__2(contramapConst$1);
+  var $$less = Curry.__2(creplace);
   return {
-          contramap: contramap,
-          contramapConst: contramapConst$1,
-          Contravariant_infix: {
+          cmap: cmap,
+          creplace: creplace,
+          ContravariantInfix: {
             $great$$less: $great$$less,
             $great$: $great$,
             $great$$$less: $great$$$less,
@@ -148,11 +250,14 @@ function Make(X) {
         };
 }
 
-exports.S_to_S2 = S_to_S2;
-exports.S2_to_S = S2_to_S;
+exports.S1_to_S2 = S1_to_S2;
+exports.S2_to_S1 = S2_to_S1;
 exports.S2_to_S3 = S2_to_S3;
 exports.S3_to_S2 = S3_to_S2;
+exports.MakeCustom3 = MakeCustom3;
+exports.MakeCustom2 = MakeCustom2;
+exports.MakeCustom1 = MakeCustom1;
 exports.Make3 = Make3;
 exports.Make2 = Make2;
-exports.Make = Make;
-/* Fun-CoreCategory Not a pure module */
+exports.Make1 = Make1;
+/* No side effect */

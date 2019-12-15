@@ -2,115 +2,80 @@
 'use strict';
 
 var Curry = require("bs-platform/lib/js/curry.js");
-var Fun$CoreCategory = require("./Fun.bs.js");
+var Apply$CoreCategory = require("./Apply.bs.js");
 var Functor$CoreCategory = require("./Functor.bs.js");
 
-function S_to_S2(X) {
+function S1_to_S2(X) {
   return {
+          map: X.map,
+          replace: X.replace,
           $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
+          FunctorInfix: X.FunctorInfix,
           $less$$great: X.$less$$great,
           $less$amp$great: X.$less$amp$great,
           $less$: X.$less$,
           $$great: X.$$great,
-          $$return: X.$$return,
           apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
+          applyFirst: X.applyFirst,
+          applySecond: X.applySecond,
           liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
+          ApplyInfix: X.ApplyInfix,
           $less$star$great: X.$less$star$great,
           $star$great: X.$star$great,
           $less$star: X.$less$star,
-          $star$star: X.$star$star
+          $star$star: X.$star$star,
+          liftA3: X.liftA3,
+          liftA4: X.liftA4,
+          liftA5: X.liftA5,
+          merge: X.merge,
+          pure: X.pure,
+          when_: X.when_,
+          unless: X.unless
         };
 }
 
-function S2_to_S(X) {
+function S2_to_S1(X) {
   return {
+          map: X.map,
+          replace: X.replace,
           $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
+          FunctorInfix: X.FunctorInfix,
           $less$$great: X.$less$$great,
           $less$amp$great: X.$less$amp$great,
           $less$: X.$less$,
           $$great: X.$$great,
-          $$return: X.$$return,
           apply: X.apply,
           liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
+          applyFirst: X.applyFirst,
+          applySecond: X.applySecond,
+          ApplyInfix: X.ApplyInfix,
           $less$star$great: X.$less$star$great,
           $star$great: X.$star$great,
           $less$star: X.$less$star,
-          $star$star: X.$star$star
+          $star$star: X.$star$star,
+          liftA3: X.liftA3,
+          liftA4: X.liftA4,
+          liftA5: X.liftA5,
+          merge: X.merge,
+          pure: X.pure,
+          when_: X.when_,
+          unless: X.unless
         };
 }
 
 function S2_to_S3(X) {
-  return {
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great,
-          $$return: X.$$return,
-          apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
-          $less$star$great: X.$less$star$great,
-          $star$great: X.$star$great,
-          $less$star: X.$less$star,
-          $star$star: X.$star$star
-        };
+  return X;
 }
 
 function S3_to_S2(X) {
-  return {
-          $$void: X.$$void,
-          Functor_infix: X.Functor_infix,
-          $less$$great: X.$less$$great,
-          $less$amp$great: X.$less$amp$great,
-          $less$: X.$less$,
-          $$great: X.$$great,
-          $$return: X.$$return,
-          apply: X.apply,
-          discardFirst: X.discardFirst,
-          discardSecond: X.discardSecond,
-          liftA2: X.liftA2,
-          liftA3: X.liftA3,
-          map: X.map,
-          unit: X.unit,
-          merge: X.merge,
-          Applicative_infix: X.Applicative_infix,
-          $less$star$great: X.$less$star$great,
-          $star$great: X.$star$great,
-          $less$star: X.$less$star,
-          $star$star: X.$star$star
-        };
+  return X;
 }
 
-function Make3(X) {
-  var $$return = X.$$return;
+function MakeCustom3(X) {
+  var pure = X.pure;
+  var pure$1 = X.pure;
   var apply = X.apply;
-  var unit = function (param) {
-    return Curry._1($$return, /* () */0);
-  };
+  var replace = X.replace;
   var match = X.map;
   var map;
   var exit = 0;
@@ -121,768 +86,620 @@ function Make3(X) {
   }
   if (exit === 1) {
     map = (function (x, f) {
-        return Curry._2(apply, x, Curry._1($$return, f));
+        return Curry._2(apply, x, Curry._1(pure$1, f));
       });
   }
-  var include = Functor$CoreCategory.Make3({
-        map: map
+  var include = Functor$CoreCategory.MakeCustom3({
+        map: map,
+        replace: replace
       });
-  var map$1 = include.map;
-  var $less$ = include.$less$;
-  var match$1 = X.liftA2;
-  var liftA2;
-  var exit$1 = 0;
-  if (typeof match$1 === "number" || match$1[0] !== -198771759) {
-    exit$1 = 1;
-  } else {
-    liftA2 = match$1[1];
-  }
-  if (exit$1 === 1) {
-    liftA2 = (function (x, y, f) {
-        return Curry._2(apply, y, Curry._2(map$1, x, f));
+  var $$let = Apply$CoreCategory.MakeCustom3({
+        map: map,
+        replace: replace,
+        apply: apply,
+        liftA2: X.liftA2,
+        applySecond: X.applySecond,
+        applyFirst: X.applyFirst
       });
-  }
-  var match$2 = X.liftA3;
-  var liftA3;
-  var exit$2 = 0;
-  if (typeof match$2 === "number" || match$2[0] !== -198771759) {
-    exit$2 = 1;
-  } else {
-    liftA3 = match$2[1];
-  }
-  if (exit$2 === 1) {
-    liftA3 = (function (x, y, z, f) {
-        return Curry._2(apply, z, Curry._3(liftA2, x, y, f));
-      });
-  }
-  var match$3 = X.discardFirst;
-  var discardFirst;
-  var exit$3 = 0;
-  if (typeof match$3 === "number" || match$3[0] !== -198771759) {
-    exit$3 = 1;
-  } else {
-    discardFirst = match$3[1];
-  }
-  if (exit$3 === 1) {
-    discardFirst = (function (x, y) {
-        return Curry._2(apply, y, Curry._2($less$, Fun$CoreCategory.id, x));
-      });
-  }
-  var match$4 = X.discardSecond;
-  var discardSecond;
-  var exit$4 = 0;
-  if (typeof match$4 === "number" || match$4[0] !== -198771759) {
-    exit$4 = 1;
-  } else {
-    discardSecond = match$4[1];
-  }
-  if (exit$4 === 1) {
-    var arg = function (x, param) {
-      return x;
-    };
-    discardSecond = (function (param) {
-        var func = Curry._1(liftA2, param);
-        return (function (param) {
-            return Curry._2(func, param, arg);
-          });
-      });
-  }
-  var merge = function (mx, my) {
-    return Curry._3(liftA2, mx, my, (function (x, y) {
-                  return /* tuple */[
-                          x,
-                          y
-                        ];
-                }));
+  var when_ = function (t, cond) {
+    if (cond) {
+      return t;
+    } else {
+      return Curry._1(pure, /* () */0);
+    }
   };
-  var $less$star$great = function (f, x) {
-    return Curry._2(apply, x, f);
-  };
-  var $star$great = Curry.__2(discardFirst);
-  var $less$star = Curry.__2(discardSecond);
-  var $star$star = merge;
-  var Applicative_infix = {
-    $less$star$great: $less$star$great,
-    $star$great: $star$great,
-    $less$star: $less$star,
-    $star$star: $star$star
+  var unless = function (t, cond) {
+    if (cond) {
+      return Curry._1(pure, /* () */0);
+    } else {
+      return t;
+    }
   };
   return {
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: $less$,
-          $$great: include.$$great,
-          $$return: $$return,
-          apply: apply,
-          discardFirst: discardFirst,
-          discardSecond: discardSecond,
-          liftA2: liftA2,
-          liftA3: liftA3,
-          map: map$1,
-          unit: unit,
-          merge: merge,
-          Applicative_infix: Applicative_infix,
-          $less$star$great: $less$star$great,
-          $star$great: $star$great,
-          $less$star: $less$star,
-          $star$star: $star$star
+          map: $$let.map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $$let.$less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: $$let.apply,
+          applyFirst: $$let.applyFirst,
+          applySecond: $$let.applySecond,
+          liftA2: $$let.liftA2,
+          ApplyInfix: $$let.ApplyInfix,
+          $less$star$great: $$let.$less$star$great,
+          $star$great: $$let.$star$great,
+          $less$star: $$let.$less$star,
+          $star$star: $$let.$star$star,
+          liftA3: $$let.liftA3,
+          liftA4: $$let.liftA4,
+          liftA5: $$let.liftA5,
+          merge: $$let.merge,
+          pure: pure,
+          when_: when_,
+          unless: unless
+        };
+}
+
+function MakeCustom2(X) {
+  var pure = X.pure;
+  var apply = X.apply;
+  var map = X.map;
+  var replace = X.replace;
+  var map$1;
+  var exit = 0;
+  if (typeof map === "number" || map[0] !== -198771759) {
+    exit = 1;
+  } else {
+    map$1 = map[1];
+  }
+  if (exit === 1) {
+    map$1 = (function (x, f) {
+        return Curry._2(apply, x, Curry._1(pure, f));
+      });
+  }
+  var include = Functor$CoreCategory.MakeCustom3({
+        map: map$1,
+        replace: replace
+      });
+  var $$let = Apply$CoreCategory.MakeCustom3({
+        map: map$1,
+        replace: replace,
+        apply: apply,
+        liftA2: X.liftA2,
+        applySecond: X.applySecond,
+        applyFirst: X.applyFirst
+      });
+  var when_ = function (t, cond) {
+    if (cond) {
+      return t;
+    } else {
+      return Curry._1(pure, /* () */0);
+    }
+  };
+  var unless = function (t, cond) {
+    if (cond) {
+      return Curry._1(pure, /* () */0);
+    } else {
+      return t;
+    }
+  };
+  return {
+          map: $$let.map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $$let.$less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: $$let.apply,
+          applyFirst: $$let.applyFirst,
+          applySecond: $$let.applySecond,
+          liftA2: $$let.liftA2,
+          ApplyInfix: $$let.ApplyInfix,
+          $less$star$great: $$let.$less$star$great,
+          $star$great: $$let.$star$great,
+          $less$star: $$let.$less$star,
+          $star$star: $$let.$star$star,
+          liftA3: $$let.liftA3,
+          liftA4: $$let.liftA4,
+          liftA5: $$let.liftA5,
+          merge: $$let.merge,
+          pure: pure,
+          when_: when_,
+          unless: unless
+        };
+}
+
+function MakeCustom1(X) {
+  var pure = X.pure;
+  var apply = X.apply;
+  var map = X.map;
+  var replace = X.replace;
+  var map$1;
+  var exit = 0;
+  if (typeof map === "number" || map[0] !== -198771759) {
+    exit = 1;
+  } else {
+    map$1 = map[1];
+  }
+  if (exit === 1) {
+    map$1 = (function (x, f) {
+        return Curry._2(apply, x, Curry._1(pure, f));
+      });
+  }
+  var include = Functor$CoreCategory.MakeCustom3({
+        map: map$1,
+        replace: replace
+      });
+  var $$let = Apply$CoreCategory.MakeCustom3({
+        map: map$1,
+        replace: replace,
+        apply: apply,
+        liftA2: X.liftA2,
+        applySecond: X.applySecond,
+        applyFirst: X.applyFirst
+      });
+  var when_ = function (t, cond) {
+    if (cond) {
+      return t;
+    } else {
+      return Curry._1(pure, /* () */0);
+    }
+  };
+  var unless = function (t, cond) {
+    if (cond) {
+      return Curry._1(pure, /* () */0);
+    } else {
+      return t;
+    }
+  };
+  return {
+          map: $$let.map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $$let.$less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: $$let.apply,
+          liftA2: $$let.liftA2,
+          applyFirst: $$let.applyFirst,
+          applySecond: $$let.applySecond,
+          ApplyInfix: $$let.ApplyInfix,
+          $less$star$great: $$let.$less$star$great,
+          $star$great: $$let.$star$great,
+          $less$star: $$let.$less$star,
+          $star$star: $$let.$star$star,
+          liftA3: $$let.liftA3,
+          liftA4: $$let.liftA4,
+          liftA5: $$let.liftA5,
+          merge: $$let.merge,
+          pure: pure,
+          when_: when_,
+          unless: unless
+        };
+}
+
+function Make3(X) {
+  var pure = X.pure;
+  var apply = X.apply;
+  var map;
+  var exit = 0;
+  exit = 1;
+  if (exit === 1) {
+    map = (function (x, f) {
+        return Curry._2(apply, x, Curry._1(pure, f));
+      });
+  }
+  var include = Functor$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643
+      });
+  var $$let = Apply$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643,
+        apply: apply,
+        liftA2: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643
+      });
+  var when_ = function (t, cond) {
+    if (cond) {
+      return t;
+    } else {
+      return Curry._1(pure, /* () */0);
+    }
+  };
+  var unless = function (t, cond) {
+    if (cond) {
+      return Curry._1(pure, /* () */0);
+    } else {
+      return t;
+    }
+  };
+  return {
+          map: $$let.map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $$let.$less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: $$let.apply,
+          applyFirst: $$let.applyFirst,
+          applySecond: $$let.applySecond,
+          liftA2: $$let.liftA2,
+          ApplyInfix: $$let.ApplyInfix,
+          $less$star$great: $$let.$less$star$great,
+          $star$great: $$let.$star$great,
+          $less$star: $$let.$less$star,
+          $star$star: $$let.$star$star,
+          liftA3: $$let.liftA3,
+          liftA4: $$let.liftA4,
+          liftA5: $$let.liftA5,
+          merge: $$let.merge,
+          pure: pure,
+          when_: when_,
+          unless: unless
         };
 }
 
 function Make2(X) {
-  var $$return = X.$$return;
+  var pure = X.pure;
   var apply = X.apply;
-  var map = X.map;
-  var liftA2 = X.liftA2;
-  var liftA3 = X.liftA3;
-  var discardFirst = X.discardFirst;
-  var discardSecond = X.discardSecond;
-  var unit = function (param) {
-    return Curry._1($$return, /* () */0);
-  };
-  var map$1;
+  var map;
   var exit = 0;
-  if (typeof map === "number" || map[0] !== -198771759) {
-    exit = 1;
-  } else {
-    map$1 = map[1];
-  }
+  exit = 1;
   if (exit === 1) {
-    map$1 = (function (x, f) {
-        return Curry._2(apply, x, Curry._1($$return, f));
+    map = (function (x, f) {
+        return Curry._2(apply, x, Curry._1(pure, f));
       });
   }
-  var include = Functor$CoreCategory.Make3({
-        map: map$1
+  var include = Functor$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643
       });
-  var map$2 = include.map;
-  var $less$ = include.$less$;
-  var liftA2$1;
-  var exit$1 = 0;
-  if (typeof liftA2 === "number" || liftA2[0] !== -198771759) {
-    exit$1 = 1;
-  } else {
-    liftA2$1 = liftA2[1];
-  }
-  if (exit$1 === 1) {
-    liftA2$1 = (function (x, y, f) {
-        return Curry._2(apply, y, Curry._2(map$2, x, f));
+  var $$let = Apply$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643,
+        apply: apply,
+        liftA2: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643
       });
-  }
-  var liftA3$1;
-  var exit$2 = 0;
-  if (typeof liftA3 === "number" || liftA3[0] !== -198771759) {
-    exit$2 = 1;
-  } else {
-    liftA3$1 = liftA3[1];
-  }
-  if (exit$2 === 1) {
-    liftA3$1 = (function (x, y, z, f) {
-        return Curry._2(apply, z, Curry._3(liftA2$1, x, y, f));
-      });
-  }
-  var discardFirst$1;
-  var exit$3 = 0;
-  if (typeof discardFirst === "number" || discardFirst[0] !== -198771759) {
-    exit$3 = 1;
-  } else {
-    discardFirst$1 = discardFirst[1];
-  }
-  if (exit$3 === 1) {
-    discardFirst$1 = (function (x, y) {
-        return Curry._2(apply, y, Curry._2($less$, Fun$CoreCategory.id, x));
-      });
-  }
-  var discardSecond$1;
-  var exit$4 = 0;
-  if (typeof discardSecond === "number" || discardSecond[0] !== -198771759) {
-    exit$4 = 1;
-  } else {
-    discardSecond$1 = discardSecond[1];
-  }
-  if (exit$4 === 1) {
-    var arg = function (x, param) {
-      return x;
-    };
-    discardSecond$1 = (function (param) {
-        var func = Curry._1(liftA2$1, param);
-        return (function (param) {
-            return Curry._2(func, param, arg);
-          });
-      });
-  }
-  var merge = function (mx, my) {
-    return Curry._3(liftA2$1, mx, my, (function (x, y) {
-                  return /* tuple */[
-                          x,
-                          y
-                        ];
-                }));
+  var when_ = function (t, cond) {
+    if (cond) {
+      return t;
+    } else {
+      return Curry._1(pure, /* () */0);
+    }
   };
-  var $less$star$great = function (f, x) {
-    return Curry._2(apply, x, f);
-  };
-  var $star$great = Curry.__2(discardFirst$1);
-  var $less$star = Curry.__2(discardSecond$1);
-  var $star$star = merge;
-  var Applicative_infix = {
-    $less$star$great: $less$star$great,
-    $star$great: $star$great,
-    $less$star: $less$star,
-    $star$star: $star$star
+  var unless = function (t, cond) {
+    if (cond) {
+      return Curry._1(pure, /* () */0);
+    } else {
+      return t;
+    }
   };
   return {
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: $less$,
-          $$great: include.$$great,
-          $$return: $$return,
-          apply: apply,
-          discardFirst: discardFirst$1,
-          discardSecond: discardSecond$1,
-          liftA2: liftA2$1,
-          liftA3: liftA3$1,
-          map: map$2,
-          unit: unit,
-          merge: merge,
-          Applicative_infix: Applicative_infix,
-          $less$star$great: $less$star$great,
-          $star$great: $star$great,
-          $less$star: $less$star,
-          $star$star: $star$star
+          map: $$let.map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $$let.$less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: $$let.apply,
+          applyFirst: $$let.applyFirst,
+          applySecond: $$let.applySecond,
+          liftA2: $$let.liftA2,
+          ApplyInfix: $$let.ApplyInfix,
+          $less$star$great: $$let.$less$star$great,
+          $star$great: $$let.$star$great,
+          $less$star: $$let.$less$star,
+          $star$star: $$let.$star$star,
+          liftA3: $$let.liftA3,
+          liftA4: $$let.liftA4,
+          liftA5: $$let.liftA5,
+          merge: $$let.merge,
+          pure: pure,
+          when_: when_,
+          unless: unless
         };
 }
 
-function Make(X) {
-  var $$return = X.$$return;
+function Make1(X) {
+  var pure = X.pure;
   var apply = X.apply;
-  var map = X.map;
-  var liftA2 = X.liftA2;
-  var liftA3 = X.liftA3;
-  var discardFirst = X.discardFirst;
-  var discardSecond = X.discardSecond;
-  var unit = function (param) {
-    return Curry._1($$return, /* () */0);
-  };
-  var map$1;
+  var map;
   var exit = 0;
-  if (typeof map === "number" || map[0] !== -198771759) {
-    exit = 1;
-  } else {
-    map$1 = map[1];
-  }
+  exit = 1;
   if (exit === 1) {
-    map$1 = (function (x, f) {
-        return Curry._2(apply, x, Curry._1($$return, f));
+    map = (function (x, f) {
+        return Curry._2(apply, x, Curry._1(pure, f));
       });
   }
-  var include = Functor$CoreCategory.Make3({
-        map: map$1
+  var include = Functor$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643
       });
-  var map$2 = include.map;
-  var $less$ = include.$less$;
-  var liftA2$1;
-  var exit$1 = 0;
-  if (typeof liftA2 === "number" || liftA2[0] !== -198771759) {
-    exit$1 = 1;
-  } else {
-    liftA2$1 = liftA2[1];
-  }
-  if (exit$1 === 1) {
-    liftA2$1 = (function (x, y, f) {
-        return Curry._2(apply, y, Curry._2(map$2, x, f));
+  var $$let = Apply$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643,
+        apply: apply,
+        liftA2: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643
       });
-  }
-  var liftA3$1;
-  var exit$2 = 0;
-  if (typeof liftA3 === "number" || liftA3[0] !== -198771759) {
-    exit$2 = 1;
-  } else {
-    liftA3$1 = liftA3[1];
-  }
-  if (exit$2 === 1) {
-    liftA3$1 = (function (x, y, z, f) {
-        return Curry._2(apply, z, Curry._3(liftA2$1, x, y, f));
-      });
-  }
-  var discardFirst$1;
-  var exit$3 = 0;
-  if (typeof discardFirst === "number" || discardFirst[0] !== -198771759) {
-    exit$3 = 1;
-  } else {
-    discardFirst$1 = discardFirst[1];
-  }
-  if (exit$3 === 1) {
-    discardFirst$1 = (function (x, y) {
-        return Curry._2(apply, y, Curry._2($less$, Fun$CoreCategory.id, x));
-      });
-  }
-  var discardSecond$1;
-  var exit$4 = 0;
-  if (typeof discardSecond === "number" || discardSecond[0] !== -198771759) {
-    exit$4 = 1;
-  } else {
-    discardSecond$1 = discardSecond[1];
-  }
-  if (exit$4 === 1) {
-    var arg = function (x, param) {
-      return x;
-    };
-    discardSecond$1 = (function (param) {
-        var func = Curry._1(liftA2$1, param);
-        return (function (param) {
-            return Curry._2(func, param, arg);
-          });
-      });
-  }
-  var merge = function (mx, my) {
-    return Curry._3(liftA2$1, mx, my, (function (x, y) {
-                  return /* tuple */[
-                          x,
-                          y
-                        ];
-                }));
+  var when_ = function (t, cond) {
+    if (cond) {
+      return t;
+    } else {
+      return Curry._1(pure, /* () */0);
+    }
   };
-  var $less$star$great = function (f, x) {
-    return Curry._2(apply, x, f);
-  };
-  var $star$great = Curry.__2(discardFirst$1);
-  var $less$star = Curry.__2(discardSecond$1);
-  var $star$star = merge;
-  var Applicative_infix = {
-    $less$star$great: $less$star$great,
-    $star$great: $star$great,
-    $less$star: $less$star,
-    $star$star: $star$star
+  var unless = function (t, cond) {
+    if (cond) {
+      return Curry._1(pure, /* () */0);
+    } else {
+      return t;
+    }
   };
   return {
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: $less$,
-          $$great: include.$$great,
-          $$return: $$return,
-          apply: apply,
-          liftA2: liftA2$1,
-          liftA3: liftA3$1,
-          discardFirst: discardFirst$1,
-          discardSecond: discardSecond$1,
-          map: map$2,
-          unit: unit,
-          merge: merge,
-          Applicative_infix: Applicative_infix,
-          $less$star$great: $less$star$great,
-          $star$great: $star$great,
-          $less$star: $less$star,
-          $star$star: $star$star
+          map: $$let.map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $$let.$less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: $$let.apply,
+          liftA2: $$let.liftA2,
+          applyFirst: $$let.applyFirst,
+          applySecond: $$let.applySecond,
+          ApplyInfix: $$let.ApplyInfix,
+          $less$star$great: $$let.$less$star$great,
+          $star$great: $$let.$star$great,
+          $less$star: $$let.$less$star,
+          $star$star: $$let.$star$star,
+          liftA3: $$let.liftA3,
+          liftA4: $$let.liftA4,
+          liftA5: $$let.liftA5,
+          merge: $$let.merge,
+          pure: pure,
+          when_: when_,
+          unless: unless
         };
 }
 
-function Make_backwards3(X) {
-  var $$return = X.$$return;
+function Backwards3(X) {
+  var pure = X.pure;
   var apply = function (x, f) {
-    return Curry._2(X.apply, f, Curry._2(X.apply, x, Curry._1(X.$$return, (function (x, f) {
+    return Curry._2(X.apply, f, Curry._2(X.apply, x, Curry._1(X.pure, (function (x, f) {
                           return Curry._1(f, x);
                         }))));
   };
-  var map = X.map;
-  var liftA2 = X.liftA2;
-  var liftA3 = X.liftA3;
-  var discardFirst = X.discardFirst;
-  var discardSecond = X.discardSecond;
-  var unit = function (param) {
-    return Curry._1($$return, /* () */0);
-  };
-  var map$1;
+  var map;
   var exit = 0;
-  if (typeof map === "number" || map[0] !== -198771759) {
-    exit = 1;
-  } else {
-    map$1 = map[1];
-  }
+  exit = 1;
   if (exit === 1) {
-    map$1 = (function (x, f) {
-        return apply(x, Curry._1($$return, f));
+    map = (function (x, f) {
+        return apply(x, Curry._1(pure, f));
       });
   }
-  var include = Functor$CoreCategory.Make3({
-        map: map$1
+  var include = Functor$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643
       });
-  var map$2 = include.map;
-  var $less$ = include.$less$;
-  var liftA2$1;
-  var exit$1 = 0;
-  if (typeof liftA2 === "number" || liftA2[0] !== -198771759) {
-    exit$1 = 1;
-  } else {
-    liftA2$1 = liftA2[1];
-  }
-  if (exit$1 === 1) {
-    liftA2$1 = (function (x, y, f) {
-        return apply(y, Curry._2(map$2, x, f));
+  var $$let = Apply$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643,
+        apply: apply,
+        liftA2: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643
       });
-  }
-  var liftA3$1;
-  var exit$2 = 0;
-  if (typeof liftA3 === "number" || liftA3[0] !== -198771759) {
-    exit$2 = 1;
-  } else {
-    liftA3$1 = liftA3[1];
-  }
-  if (exit$2 === 1) {
-    liftA3$1 = (function (x, y, z, f) {
-        return apply(z, Curry._3(liftA2$1, x, y, f));
-      });
-  }
-  var discardFirst$1;
-  var exit$3 = 0;
-  if (typeof discardFirst === "number" || discardFirst[0] !== -198771759) {
-    exit$3 = 1;
-  } else {
-    discardFirst$1 = discardFirst[1];
-  }
-  if (exit$3 === 1) {
-    discardFirst$1 = (function (x, y) {
-        return apply(y, Curry._2($less$, Fun$CoreCategory.id, x));
-      });
-  }
-  var discardSecond$1;
-  var exit$4 = 0;
-  if (typeof discardSecond === "number" || discardSecond[0] !== -198771759) {
-    exit$4 = 1;
-  } else {
-    discardSecond$1 = discardSecond[1];
-  }
-  if (exit$4 === 1) {
-    var arg = function (x, param) {
-      return x;
-    };
-    discardSecond$1 = (function (param) {
-        var func = Curry._1(liftA2$1, param);
-        return (function (param) {
-            return Curry._2(func, param, arg);
-          });
-      });
-  }
-  var merge = function (mx, my) {
-    return Curry._3(liftA2$1, mx, my, (function (x, y) {
-                  return /* tuple */[
-                          x,
-                          y
-                        ];
-                }));
+  var when_ = function (t, cond) {
+    if (cond) {
+      return t;
+    } else {
+      return Curry._1(pure, /* () */0);
+    }
   };
-  var $less$star$great = function (f, x) {
-    return apply(x, f);
-  };
-  var $star$great = Curry.__2(discardFirst$1);
-  var $less$star = Curry.__2(discardSecond$1);
-  var $star$star = merge;
-  var Applicative_infix = {
-    $less$star$great: $less$star$great,
-    $star$great: $star$great,
-    $less$star: $less$star,
-    $star$star: $star$star
+  var unless = function (t, cond) {
+    if (cond) {
+      return Curry._1(pure, /* () */0);
+    } else {
+      return t;
+    }
   };
   return {
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: $less$,
-          $$great: include.$$great,
-          $$return: $$return,
-          apply: apply,
-          discardFirst: discardFirst$1,
-          discardSecond: discardSecond$1,
-          liftA2: liftA2$1,
-          liftA3: liftA3$1,
-          map: map$2,
-          unit: unit,
-          merge: merge,
-          Applicative_infix: Applicative_infix,
-          $less$star$great: $less$star$great,
-          $star$great: $star$great,
-          $less$star: $less$star,
-          $star$star: $star$star
+          map: $$let.map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $$let.$less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: $$let.apply,
+          applyFirst: $$let.applyFirst,
+          applySecond: $$let.applySecond,
+          liftA2: $$let.liftA2,
+          ApplyInfix: $$let.ApplyInfix,
+          $less$star$great: $$let.$less$star$great,
+          $star$great: $$let.$star$great,
+          $less$star: $$let.$less$star,
+          $star$star: $$let.$star$star,
+          liftA3: $$let.liftA3,
+          liftA4: $$let.liftA4,
+          liftA5: $$let.liftA5,
+          merge: $$let.merge,
+          pure: pure,
+          when_: when_,
+          unless: unless
         };
 }
 
-function Make_backwards2(X) {
-  var $$return = X.$$return;
+function Backwards2(X) {
+  var pure = X.pure;
   var apply = X.apply;
-  var map = X.map;
-  var liftA2 = X.liftA2;
-  var liftA3 = X.liftA3;
-  var discardFirst = X.discardFirst;
-  var discardSecond = X.discardSecond;
   var apply$1 = function (x, f) {
-    return Curry._2(apply, f, Curry._2(apply, x, Curry._1($$return, (function (x, f) {
+    return Curry._2(apply, f, Curry._2(apply, x, Curry._1(pure, (function (x, f) {
                           return Curry._1(f, x);
                         }))));
   };
-  var unit = function (param) {
-    return Curry._1($$return, /* () */0);
-  };
-  var map$1;
+  var map;
   var exit = 0;
-  if (typeof map === "number" || map[0] !== -198771759) {
-    exit = 1;
-  } else {
-    map$1 = map[1];
-  }
+  exit = 1;
   if (exit === 1) {
-    map$1 = (function (x, f) {
-        return apply$1(x, Curry._1($$return, f));
+    map = (function (x, f) {
+        return apply$1(x, Curry._1(pure, f));
       });
   }
-  var include = Functor$CoreCategory.Make3({
-        map: map$1
+  var include = Functor$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643
       });
-  var map$2 = include.map;
-  var $less$ = include.$less$;
-  var liftA2$1;
-  var exit$1 = 0;
-  if (typeof liftA2 === "number" || liftA2[0] !== -198771759) {
-    exit$1 = 1;
-  } else {
-    liftA2$1 = liftA2[1];
-  }
-  if (exit$1 === 1) {
-    liftA2$1 = (function (x, y, f) {
-        return apply$1(y, Curry._2(map$2, x, f));
+  var $$let = Apply$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643,
+        apply: apply$1,
+        liftA2: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643
       });
-  }
-  var liftA3$1;
-  var exit$2 = 0;
-  if (typeof liftA3 === "number" || liftA3[0] !== -198771759) {
-    exit$2 = 1;
-  } else {
-    liftA3$1 = liftA3[1];
-  }
-  if (exit$2 === 1) {
-    liftA3$1 = (function (x, y, z, f) {
-        return apply$1(z, Curry._3(liftA2$1, x, y, f));
-      });
-  }
-  var discardFirst$1;
-  var exit$3 = 0;
-  if (typeof discardFirst === "number" || discardFirst[0] !== -198771759) {
-    exit$3 = 1;
-  } else {
-    discardFirst$1 = discardFirst[1];
-  }
-  if (exit$3 === 1) {
-    discardFirst$1 = (function (x, y) {
-        return apply$1(y, Curry._2($less$, Fun$CoreCategory.id, x));
-      });
-  }
-  var discardSecond$1;
-  var exit$4 = 0;
-  if (typeof discardSecond === "number" || discardSecond[0] !== -198771759) {
-    exit$4 = 1;
-  } else {
-    discardSecond$1 = discardSecond[1];
-  }
-  if (exit$4 === 1) {
-    var arg = function (x, param) {
-      return x;
-    };
-    discardSecond$1 = (function (param) {
-        var func = Curry._1(liftA2$1, param);
-        return (function (param) {
-            return Curry._2(func, param, arg);
-          });
-      });
-  }
-  var merge = function (mx, my) {
-    return Curry._3(liftA2$1, mx, my, (function (x, y) {
-                  return /* tuple */[
-                          x,
-                          y
-                        ];
-                }));
+  var when_ = function (t, cond) {
+    if (cond) {
+      return t;
+    } else {
+      return Curry._1(pure, /* () */0);
+    }
   };
-  var $less$star$great = function (f, x) {
-    return apply$1(x, f);
-  };
-  var $star$great = Curry.__2(discardFirst$1);
-  var $less$star = Curry.__2(discardSecond$1);
-  var $star$star = merge;
-  var Applicative_infix = {
-    $less$star$great: $less$star$great,
-    $star$great: $star$great,
-    $less$star: $less$star,
-    $star$star: $star$star
+  var unless = function (t, cond) {
+    if (cond) {
+      return Curry._1(pure, /* () */0);
+    } else {
+      return t;
+    }
   };
   return {
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: $less$,
-          $$great: include.$$great,
-          $$return: $$return,
-          apply: apply$1,
-          discardFirst: discardFirst$1,
-          discardSecond: discardSecond$1,
-          liftA2: liftA2$1,
-          liftA3: liftA3$1,
-          map: map$2,
-          unit: unit,
-          merge: merge,
-          Applicative_infix: Applicative_infix,
-          $less$star$great: $less$star$great,
-          $star$great: $star$great,
-          $less$star: $less$star,
-          $star$star: $star$star
+          map: $$let.map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $$let.$less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: $$let.apply,
+          applyFirst: $$let.applyFirst,
+          applySecond: $$let.applySecond,
+          liftA2: $$let.liftA2,
+          ApplyInfix: $$let.ApplyInfix,
+          $less$star$great: $$let.$less$star$great,
+          $star$great: $$let.$star$great,
+          $less$star: $$let.$less$star,
+          $star$star: $$let.$star$star,
+          liftA3: $$let.liftA3,
+          liftA4: $$let.liftA4,
+          liftA5: $$let.liftA5,
+          merge: $$let.merge,
+          pure: pure,
+          when_: when_,
+          unless: unless
         };
 }
 
-function Make_backwards(X) {
-  var $$return = X.$$return;
+function Backwards1(X) {
+  var pure = X.pure;
   var apply = X.apply;
-  var map = X.map;
-  var liftA2 = X.liftA2;
-  var liftA3 = X.liftA3;
-  var discardFirst = X.discardFirst;
-  var discardSecond = X.discardSecond;
   var apply$1 = function (x, f) {
-    return Curry._2(apply, f, Curry._2(apply, x, Curry._1($$return, (function (x, f) {
+    return Curry._2(apply, f, Curry._2(apply, x, Curry._1(pure, (function (x, f) {
                           return Curry._1(f, x);
                         }))));
   };
-  var unit = function (param) {
-    return Curry._1($$return, /* () */0);
-  };
-  var map$1;
+  var map;
   var exit = 0;
-  if (typeof map === "number" || map[0] !== -198771759) {
-    exit = 1;
-  } else {
-    map$1 = map[1];
-  }
+  exit = 1;
   if (exit === 1) {
-    map$1 = (function (x, f) {
-        return apply$1(x, Curry._1($$return, f));
+    map = (function (x, f) {
+        return apply$1(x, Curry._1(pure, f));
       });
   }
-  var include = Functor$CoreCategory.Make3({
-        map: map$1
+  var include = Functor$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643
       });
-  var map$2 = include.map;
-  var $less$ = include.$less$;
-  var liftA2$1;
-  var exit$1 = 0;
-  if (typeof liftA2 === "number" || liftA2[0] !== -198771759) {
-    exit$1 = 1;
-  } else {
-    liftA2$1 = liftA2[1];
-  }
-  if (exit$1 === 1) {
-    liftA2$1 = (function (x, y, f) {
-        return apply$1(y, Curry._2(map$2, x, f));
+  var $$let = Apply$CoreCategory.MakeCustom3({
+        map: map,
+        replace: /* Derived */-684824643,
+        apply: apply$1,
+        liftA2: /* Derived */-684824643,
+        applySecond: /* Derived */-684824643,
+        applyFirst: /* Derived */-684824643
       });
-  }
-  var liftA3$1;
-  var exit$2 = 0;
-  if (typeof liftA3 === "number" || liftA3[0] !== -198771759) {
-    exit$2 = 1;
-  } else {
-    liftA3$1 = liftA3[1];
-  }
-  if (exit$2 === 1) {
-    liftA3$1 = (function (x, y, z, f) {
-        return apply$1(z, Curry._3(liftA2$1, x, y, f));
-      });
-  }
-  var discardFirst$1;
-  var exit$3 = 0;
-  if (typeof discardFirst === "number" || discardFirst[0] !== -198771759) {
-    exit$3 = 1;
-  } else {
-    discardFirst$1 = discardFirst[1];
-  }
-  if (exit$3 === 1) {
-    discardFirst$1 = (function (x, y) {
-        return apply$1(y, Curry._2($less$, Fun$CoreCategory.id, x));
-      });
-  }
-  var discardSecond$1;
-  var exit$4 = 0;
-  if (typeof discardSecond === "number" || discardSecond[0] !== -198771759) {
-    exit$4 = 1;
-  } else {
-    discardSecond$1 = discardSecond[1];
-  }
-  if (exit$4 === 1) {
-    var arg = function (x, param) {
-      return x;
-    };
-    discardSecond$1 = (function (param) {
-        var func = Curry._1(liftA2$1, param);
-        return (function (param) {
-            return Curry._2(func, param, arg);
-          });
-      });
-  }
-  var merge = function (mx, my) {
-    return Curry._3(liftA2$1, mx, my, (function (x, y) {
-                  return /* tuple */[
-                          x,
-                          y
-                        ];
-                }));
+  var when_ = function (t, cond) {
+    if (cond) {
+      return t;
+    } else {
+      return Curry._1(pure, /* () */0);
+    }
   };
-  var $less$star$great = function (f, x) {
-    return apply$1(x, f);
-  };
-  var $star$great = Curry.__2(discardFirst$1);
-  var $less$star = Curry.__2(discardSecond$1);
-  var $star$star = merge;
-  var Applicative_infix = {
-    $less$star$great: $less$star$great,
-    $star$great: $star$great,
-    $less$star: $less$star,
-    $star$star: $star$star
+  var unless = function (t, cond) {
+    if (cond) {
+      return Curry._1(pure, /* () */0);
+    } else {
+      return t;
+    }
   };
   return {
-          $$void: include.$$void,
-          Functor_infix: include.Functor_infix,
-          $less$$great: include.$less$$great,
-          $less$amp$great: include.$less$amp$great,
-          $less$: $less$,
-          $$great: include.$$great,
-          $$return: $$return,
-          apply: apply$1,
-          liftA2: liftA2$1,
-          liftA3: liftA3$1,
-          discardFirst: discardFirst$1,
-          discardSecond: discardSecond$1,
-          map: map$2,
-          unit: unit,
-          merge: merge,
-          Applicative_infix: Applicative_infix,
-          $less$star$great: $less$star$great,
-          $star$great: $star$great,
-          $less$star: $less$star,
-          $star$star: $star$star
+          map: $$let.map,
+          replace: $$let.replace,
+          $$void: $$let.$$void,
+          FunctorInfix: include.FunctorInfix,
+          $less$$great: $$let.$less$$great,
+          $less$amp$great: $$let.$less$amp$great,
+          $less$: $$let.$less$,
+          $$great: $$let.$$great,
+          apply: $$let.apply,
+          liftA2: $$let.liftA2,
+          applyFirst: $$let.applyFirst,
+          applySecond: $$let.applySecond,
+          ApplyInfix: $$let.ApplyInfix,
+          $less$star$great: $$let.$less$star$great,
+          $star$great: $$let.$star$great,
+          $less$star: $$let.$less$star,
+          $star$star: $$let.$star$star,
+          liftA3: $$let.liftA3,
+          liftA4: $$let.liftA4,
+          liftA5: $$let.liftA5,
+          merge: $$let.merge,
+          pure: pure,
+          when_: when_,
+          unless: unless
         };
 }
 
-exports.S_to_S2 = S_to_S2;
-exports.S2_to_S = S2_to_S;
+exports.S1_to_S2 = S1_to_S2;
+exports.S2_to_S1 = S2_to_S1;
 exports.S2_to_S3 = S2_to_S3;
 exports.S3_to_S2 = S3_to_S2;
-exports.Make = Make;
+exports.MakeCustom1 = MakeCustom1;
+exports.MakeCustom2 = MakeCustom2;
+exports.MakeCustom3 = MakeCustom3;
+exports.Make1 = Make1;
 exports.Make2 = Make2;
 exports.Make3 = Make3;
-exports.Make_backwards = Make_backwards;
-exports.Make_backwards2 = Make_backwards2;
-exports.Make_backwards3 = Make_backwards3;
-/* Fun-CoreCategory Not a pure module */
+exports.Backwards1 = Backwards1;
+exports.Backwards2 = Backwards2;
+exports.Backwards3 = Backwards3;
+/* No side effect */

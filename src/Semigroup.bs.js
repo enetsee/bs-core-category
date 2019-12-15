@@ -3,88 +3,149 @@
 
 var Curry = require("bs-platform/lib/js/curry.js");
 
-function Make0(X) {
-  var combine = X.combine;
-  var Semigroup_infix = {
-    $less$great: combine
-  };
-  return {
-          combine: combine,
-          Semigroup_infix: Semigroup_infix,
-          $less$great: combine
-        };
+function S0_to_S1(X) {
+  return X;
 }
 
-function MakeDual0(X) {
-  var combine = function (x, y) {
-    return Curry._2(X.combine, y, x);
-  };
-  var Semigroup_infix = {
-    $less$great: combine
-  };
-  return {
-          combine: combine,
-          Semigroup_infix: Semigroup_infix,
-          $less$great: combine
-        };
+function S1_to_S0(X) {
+  return X;
 }
 
-function Make(X) {
-  var combine = X.combine;
-  var Semigroup_infix = {
-    $less$great: combine
-  };
-  return {
-          combine: combine,
-          Semigroup_infix: Semigroup_infix,
-          $less$great: combine
-        };
+function S1_to_S2(X) {
+  return X;
 }
 
-function MakeDual(X) {
-  var combine = function (x, y) {
-    return Curry._2(X.combine, y, x);
-  };
-  var Semigroup_infix = {
-    $less$great: combine
+function S2_to_S1(X) {
+  return X;
+}
+
+function S2_to_S3(X) {
+  return X;
+}
+
+function S3_to_S2(X) {
+  return X;
+}
+
+function Make3(X) {
+  var append = X.append;
+  var SemigroupInfix = {
+    $less$great: append
   };
   return {
-          combine: combine,
-          Semigroup_infix: Semigroup_infix,
-          $less$great: combine
+          append: append,
+          SemigroupInfix: SemigroupInfix,
+          $less$great: append
         };
 }
 
 function Make2(X) {
-  var combine = X.combine;
-  var Semigroup_infix = {
-    $less$great: combine
+  var append = X.append;
+  var SemigroupInfix = {
+    $less$great: append
   };
   return {
-          combine: combine,
-          Semigroup_infix: Semigroup_infix,
-          $less$great: combine
+          append: append,
+          SemigroupInfix: SemigroupInfix,
+          $less$great: append
+        };
+}
+
+function Make1(X) {
+  var append = X.append;
+  var SemigroupInfix = {
+    $less$great: append
+  };
+  return {
+          append: append,
+          SemigroupInfix: SemigroupInfix,
+          $less$great: append
+        };
+}
+
+function Make0(X) {
+  var append = X.append;
+  var SemigroupInfix = {
+    $less$great: append
+  };
+  return {
+          append: append,
+          SemigroupInfix: SemigroupInfix,
+          $less$great: append
+        };
+}
+
+function MakeDual3(X) {
+  var append = function (x, y) {
+    return Curry._2(X.append, y, x);
+  };
+  var SemigroupInfix = {
+    $less$great: append
+  };
+  return {
+          append: append,
+          SemigroupInfix: SemigroupInfix,
+          $less$great: append
         };
 }
 
 function MakeDual2(X) {
-  var combine = function (x, y) {
-    return Curry._2(X.combine, y, x);
+  var append = X.append;
+  var append$1 = function (x, y) {
+    return Curry._2(append, y, x);
   };
-  var Semigroup_infix = {
-    $less$great: combine
+  var SemigroupInfix = {
+    $less$great: append$1
   };
   return {
-          combine: combine,
-          Semigroup_infix: Semigroup_infix,
-          $less$great: combine
+          append: append$1,
+          SemigroupInfix: SemigroupInfix,
+          $less$great: append$1
         };
 }
 
+function MakeDual1(X) {
+  var append = X.append;
+  var append$1 = function (x, y) {
+    return Curry._2(append, y, x);
+  };
+  var SemigroupInfix = {
+    $less$great: append$1
+  };
+  return {
+          append: append$1,
+          SemigroupInfix: SemigroupInfix,
+          $less$great: append$1
+        };
+}
+
+function MakeDual0(X) {
+  var append = X.append;
+  var append$1 = function (x, y) {
+    return Curry._2(append, y, x);
+  };
+  var SemigroupInfix = {
+    $less$great: append$1
+  };
+  return {
+          append: append$1,
+          SemigroupInfix: SemigroupInfix,
+          $less$great: append$1
+        };
+}
+
+exports.S0_to_S1 = S0_to_S1;
+exports.S1_to_S0 = S1_to_S0;
+exports.S1_to_S2 = S1_to_S2;
+exports.S2_to_S1 = S2_to_S1;
+exports.S2_to_S3 = S2_to_S3;
+exports.S3_to_S2 = S3_to_S2;
 exports.Make0 = Make0;
-exports.MakeDual0 = MakeDual0;
-exports.Make = Make;
-exports.MakeDual = MakeDual;
+exports.Make1 = Make1;
 exports.Make2 = Make2;
+exports.Make3 = Make3;
+exports.MakeDual0 = MakeDual0;
+exports.MakeDual1 = MakeDual1;
 exports.MakeDual2 = MakeDual2;
+exports.MakeDual3 = MakeDual3;
 /* No side effect */

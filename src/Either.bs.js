@@ -4,90 +4,60 @@
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Monad$CoreCategory = require("./Monad.bs.js");
+var Semigroup$CoreCategory = require("./Semigroup.bs.js");
 var EitherBase$CoreCategory = require("./EitherBase.bs.js");
-var Applicative$CoreCategory = require("./Applicative.bs.js");
 
 var map = /* `Custom */[
   -198771759,
-  EitherBase$CoreCategory.map
+  EitherBase$CoreCategory.mapFirst
 ];
 
-function bind(t, f) {
-  if (t.tag) {
-    return /* Second */Block.__(1, [t[0]]);
+var pure = EitherBase$CoreCategory.first;
+
+function bind(x, f) {
+  if (x.tag) {
+    return /* Second */Block.__(1, [x[0]]);
   } else {
-    return Curry._1(f, t[0]);
+    return Curry._1(f, x[0]);
   }
 }
 
-var include = Monad$CoreCategory.Make2({
-      $$return: EitherBase$CoreCategory.first,
+function apply_(x, f) {
+  if (f.tag) {
+    return /* Second */Block.__(1, [f[0]]);
+  } else {
+    return Curry._2(EitherBase$CoreCategory.mapFirst, x, f[0]);
+  }
+}
+
+var apply = /* `Custom */[
+  -198771759,
+  apply_
+];
+
+var include = Monad$CoreCategory.MakeCustom2({
+      pure: pure,
       bind: bind,
-      apply: /* Using_bind */301992440,
       map: map,
-      liftA2: /* Using_apply */524559571,
-      liftA3: /* Using_apply */524559571,
-      discardFirst: /* Using_apply */524559571,
-      discardSecond: /* Using_apply */524559571,
-      select: /* Using_bind */301992440
+      replace: /* Derived */-684824643,
+      apply: apply,
+      liftA2: /* Derived */-684824643,
+      applyFirst: /* Derived */-684824643,
+      applySecond: /* Derived */-684824643,
+      select: /* Derived */-684824643
     });
 
-function Make3(F) {
-  var traverse = function (t, f) {
-    if (t.tag) {
-      return Curry._1(F.$$return, /* Second */Block.__(1, [t[0]]));
-    } else {
-      var func = F.map;
-      return (function (param) {
-                  return Curry._2(func, param, EitherBase$CoreCategory.first);
-                })(Curry._1(f, t[0]));
-    }
-  };
-  return {
-          traverse: traverse
-        };
+function append(a, b) {
+  if (a.tag) {
+    return b;
+  } else {
+    return a;
+  }
 }
 
-function Make2(F) {
-  var F$1 = Applicative$CoreCategory.S2_to_S3(F);
-  var traverse = function (t, f) {
-    if (t.tag) {
-      return Curry._1(F$1.$$return, /* Second */Block.__(1, [t[0]]));
-    } else {
-      var func = F$1.map;
-      return (function (param) {
-                  return Curry._2(func, param, EitherBase$CoreCategory.first);
-                })(Curry._1(f, t[0]));
-    }
-  };
-  return {
-          traverse: traverse
-        };
-}
-
-function Make(F) {
-  var F$1 = Applicative$CoreCategory.S_to_S2(F);
-  var F$2 = Applicative$CoreCategory.S2_to_S3(F$1);
-  var traverse = function (t, f) {
-    if (t.tag) {
-      return Curry._1(F$2.$$return, /* Second */Block.__(1, [t[0]]));
-    } else {
-      var func = F$2.map;
-      return (function (param) {
-                  return Curry._2(func, param, EitherBase$CoreCategory.first);
-                })(Curry._1(f, t[0]));
-    }
-  };
-  return {
-          traverse: traverse
-        };
-}
-
-var Traversable = {
-  Make3: Make3,
-  Make2: Make2,
-  Make: Make
-};
+var include$1 = Semigroup$CoreCategory.Make2({
+      append: append
+    });
 
 var first = EitherBase$CoreCategory.first;
 
@@ -95,13 +65,27 @@ var second = EitherBase$CoreCategory.second;
 
 var either = EitherBase$CoreCategory.either;
 
+var isFirst = EitherBase$CoreCategory.isFirst;
+
+var isSecond = EitherBase$CoreCategory.isSecond;
+
+var fromFirst = EitherBase$CoreCategory.fromFirst;
+
+var fromSecond = EitherBase$CoreCategory.fromSecond;
+
 var bimap = EitherBase$CoreCategory.bimap;
 
-var select = include.select;
+var mapFirst = EitherBase$CoreCategory.mapFirst;
+
+var mapSecond = EitherBase$CoreCategory.mapSecond;
+
+var map$1 = include.map;
+
+var replace = include.replace;
 
 var $$void = include.$$void;
 
-var Functor_infix = include.Functor_infix;
+var FunctorInfix = include.FunctorInfix;
 
 var $less$$great = include.$less$$great;
 
@@ -111,25 +95,15 @@ var $less$ = include.$less$;
 
 var $$great = include.$$great;
 
-var $$return = include.$$return;
+var apply$1 = include.apply;
 
-var apply = include.apply;
+var applyFirst = include.applyFirst;
 
-var discardFirst = include.discardFirst;
-
-var discardSecond = include.discardSecond;
+var applySecond = include.applySecond;
 
 var liftA2 = include.liftA2;
 
-var liftA3 = include.liftA3;
-
-var map$1 = include.map;
-
-var unit = include.unit;
-
-var merge = include.merge;
-
-var Applicative_infix = include.Applicative_infix;
+var ApplyInfix = include.ApplyInfix;
 
 var $less$star$great = include.$less$star$great;
 
@@ -139,7 +113,23 @@ var $less$star = include.$less$star;
 
 var $star$star = include.$star$star;
 
-var Selective_infix = include.Selective_infix;
+var liftA3 = include.liftA3;
+
+var liftA4 = include.liftA4;
+
+var liftA5 = include.liftA5;
+
+var merge = include.merge;
+
+var pure$1 = include.pure;
+
+var when_ = include.when_;
+
+var unless = include.unless;
+
+var select = include.select;
+
+var SelectiveInfix = include.SelectiveInfix;
 
 var $less$star$question = include.$less$star$question;
 
@@ -167,7 +157,7 @@ var whileS = include.whileS;
 
 var bind$1 = include.bind;
 
-var Monad_infix = include.Monad_infix;
+var MonadInfix = include.MonadInfix;
 
 var $great$great$eq = include.$great$great$eq;
 
@@ -185,32 +175,48 @@ var mapM = include.mapM;
 
 var mapM_ = include.mapM_;
 
+var append$1 = include$1.append;
+
+var SemigroupInfix = include$1.SemigroupInfix;
+
+var $less$great = include$1.$less$great;
+
 exports.first = first;
 exports.second = second;
 exports.either = either;
+exports.isFirst = isFirst;
+exports.isSecond = isSecond;
+exports.fromFirst = fromFirst;
+exports.fromSecond = fromSecond;
 exports.bimap = bimap;
-exports.select = select;
+exports.mapFirst = mapFirst;
+exports.mapSecond = mapSecond;
+exports.map = map$1;
+exports.replace = replace;
 exports.$$void = $$void;
-exports.Functor_infix = Functor_infix;
+exports.FunctorInfix = FunctorInfix;
 exports.$less$$great = $less$$great;
 exports.$less$amp$great = $less$amp$great;
 exports.$less$ = $less$;
 exports.$$great = $$great;
-exports.$$return = $$return;
-exports.apply = apply;
-exports.discardFirst = discardFirst;
-exports.discardSecond = discardSecond;
+exports.apply = apply$1;
+exports.applyFirst = applyFirst;
+exports.applySecond = applySecond;
 exports.liftA2 = liftA2;
-exports.liftA3 = liftA3;
-exports.map = map$1;
-exports.unit = unit;
-exports.merge = merge;
-exports.Applicative_infix = Applicative_infix;
+exports.ApplyInfix = ApplyInfix;
 exports.$less$star$great = $less$star$great;
 exports.$star$great = $star$great;
 exports.$less$star = $less$star;
 exports.$star$star = $star$star;
-exports.Selective_infix = Selective_infix;
+exports.liftA3 = liftA3;
+exports.liftA4 = liftA4;
+exports.liftA5 = liftA5;
+exports.merge = merge;
+exports.pure = pure$1;
+exports.when_ = when_;
+exports.unless = unless;
+exports.select = select;
+exports.SelectiveInfix = SelectiveInfix;
 exports.$less$star$question = $less$star$question;
 exports.$less$pipe$pipe$great = $less$pipe$pipe$great;
 exports.$less$amp$amp$great = $less$amp$amp$great;
@@ -224,7 +230,7 @@ exports.anyS = anyS;
 exports.allS = allS;
 exports.whileS = whileS;
 exports.bind = bind$1;
-exports.Monad_infix = Monad_infix;
+exports.MonadInfix = MonadInfix;
 exports.$great$great$eq = $great$great$eq;
 exports.$great$great$tilde = $great$great$tilde;
 exports.$great$eq$great = $great$eq$great;
@@ -233,5 +239,7 @@ exports.forever = forever;
 exports.sequenceM = sequenceM;
 exports.mapM = mapM;
 exports.mapM_ = mapM_;
-exports.Traversable = Traversable;
+exports.append = append$1;
+exports.SemigroupInfix = SemigroupInfix;
+exports.$less$great = $less$great;
 /* include Not a pure module */

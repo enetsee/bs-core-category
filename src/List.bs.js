@@ -4,16 +4,28 @@
 var Curry = require("bs-platform/lib/js/curry.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var Pervasives = require("bs-platform/lib/js/pervasives.js");
-var Caml_option = require("bs-platform/lib/js/caml_option.js");
-var Monad$CoreCategory = require("./Monad.bs.js");
 var Monoid$CoreCategory = require("./Monoid.bs.js");
 var Foldable$CoreCategory = require("./Foldable.bs.js");
-var Applicative$CoreCategory = require("./Applicative.bs.js");
+var MonadPlus$CoreCategory = require("./MonadPlus.bs.js");
 
-var combine = Pervasives.$at;
+function pure(x) {
+  return /* :: */[
+          x,
+          /* [] */0
+        ];
+}
 
-var include = Monoid$CoreCategory.Make({
-      combine: combine,
+function bind(x, f) {
+  return Belt_List.flatten(Belt_List.map(x, f));
+}
+
+var map = Belt_List.map;
+
+var include = MonadPlus$CoreCategory.Make1({
+      pure: pure,
+      bind: bind,
+      map: map,
+      alt: Pervasives.$at,
       empty: /* [] */0
     });
 
@@ -21,541 +33,170 @@ function foldLeft(t, f, init) {
   return Belt_List.reduce(t, init, f);
 }
 
-var include$1 = Foldable$CoreCategory.Make({
-      foldLeft: foldLeft
-    });
-
-var foldRight = include$1.foldRight;
-
-function apply_001(x, f) {
-  return Belt_List.flatten(Belt_List.map(f, (function (g) {
-                    return Belt_List.map(x, g);
-                  })));
+function foldRight_(t, f, init) {
+  return Belt_List.reduceReverse(t, init, (function (y, x) {
+                return Curry._2(f, x, y);
+              }));
 }
 
-var apply = /* `Custom */[
+var foldRight = /* `Custom */[
   -198771759,
-  apply_001
+  foldRight_
 ];
 
-function bind(x, f) {
-  return Belt_List.flatten(Belt_List.map(x, f));
-}
-
-var map_001 = Belt_List.map;
-
-var map = /* `Custom */[
-  -198771759,
-  map_001
-];
-
-function $$return(x) {
-  return /* :: */[
-          x,
-          /* [] */0
-        ];
-}
-
-var include$2 = Monad$CoreCategory.Make({
-      $$return: $$return,
-      bind: bind,
-      apply: apply,
-      map: map,
-      liftA2: /* Using_apply */524559571,
-      liftA3: /* Using_apply */524559571,
-      discardFirst: /* Using_apply */524559571,
-      discardSecond: /* Using_apply */524559571,
-      select: /* Using_bind */301992440
+var include$1 = Foldable$CoreCategory.MakeCustom1({
+      foldLeft: foldLeft,
+      foldRight: foldRight,
+      foldMap: /* Derived */-684824643
     });
 
-var map$1 = include$2.map;
-
-function isEmpty(param) {
-  if (param) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-var filter = Belt_List.keep;
-
-var filterMap = Belt_List.keepMap;
-
-function iter(f, xs) {
-  Curry._2(map$1, xs, f);
-  return /* () */0;
-}
-
-function last(_param) {
-  while(true) {
-    var param = _param;
-    if (param) {
-      var rest = param[1];
-      if (rest) {
-        _param = rest;
-        continue ;
-      } else {
-        return Caml_option.some(param[0]);
-      }
-    } else {
-      return ;
-    }
-  };
-}
+var include$2 = Monoid$CoreCategory.Make1({
+      append: Pervasives.$at,
+      mempty: /* [] */0
+    });
 
-var mapi = Belt_List.mapWithIndex;
+var FunctorInfix = include.FunctorInfix;
 
-var forAll = Belt_List.every;
+var ApplyInfix = include.ApplyInfix;
 
-var forAll2 = Belt_List.every2;
+var select = include.select;
 
-function cons(x, xs) {
-  return /* :: */[
-          x,
-          xs
-        ];
-}
+var SelectiveInfix = include.SelectiveInfix;
 
-function Make3(F) {
-  var traverse = function (t, f) {
-    var f$1 = function (x, ys) {
-      return Curry._3(F.liftA2, Curry._1(f, x), ys, cons);
-    };
-    return Curry._3(foldRight, t, f$1, Curry._1(F.$$return, /* [] */0));
-  };
-  return {
-          traverse: traverse
-        };
-}
+var $less$star$question = include.$less$star$question;
 
-function Make2(F) {
-  var F$1 = Applicative$CoreCategory.S2_to_S3(F);
-  var traverse = function (t, f) {
-    var f$1 = function (x, ys) {
-      return Curry._3(F$1.liftA2, Curry._1(f, x), ys, cons);
-    };
-    return Curry._3(foldRight, t, f$1, Curry._1(F$1.$$return, /* [] */0));
-  };
-  return {
-          traverse: traverse
-        };
-}
+var $less$pipe$pipe$great = include.$less$pipe$pipe$great;
 
-function Make(F) {
-  var F$1 = Applicative$CoreCategory.S_to_S2(F);
-  var F$2 = Applicative$CoreCategory.S2_to_S3(F$1);
-  var traverse = function (t, f) {
-    var f$1 = function (x, ys) {
-      return Curry._3(F$2.liftA2, Curry._1(f, x), ys, cons);
-    };
-    return Curry._3(foldRight, t, f$1, Curry._1(F$2.$$return, /* [] */0));
-  };
-  return {
-          traverse: traverse
-        };
-}
+var $less$amp$amp$great = include.$less$amp$amp$great;
 
-var Traversable = {
-  Make3: Make3,
-  Make2: Make2,
-  Make: Make
-};
+var orS = include.orS;
 
-var length = Belt_List.length;
+var andS = include.andS;
 
-var size = Belt_List.size;
+var whenS = include.whenS;
 
-var head = Belt_List.head;
+var branch = include.branch;
 
-var headExn = Belt_List.headExn;
+var ifS = include.ifS;
 
-var tail = Belt_List.tail;
+var fromOptionS = include.fromOptionS;
 
-var tailExn = Belt_List.tailExn;
+var anyS = include.anyS;
 
-var add = Belt_List.add;
+var allS = include.allS;
 
-var get = Belt_List.get;
+var whileS = include.whileS;
 
-var getExn = Belt_List.getExn;
+var bind$1 = include.bind;
 
-var make = Belt_List.make;
+var MonadInfix = include.MonadInfix;
 
-var makeByU = Belt_List.makeByU;
+var $great$great$eq = include.$great$great$eq;
 
-var makeBy = Belt_List.makeBy;
+var $great$great$tilde = include.$great$great$tilde;
 
-var shuffle = Belt_List.shuffle;
+var $great$eq$great = include.$great$eq$great;
 
-var drop = Belt_List.drop;
+var join = include.join;
 
-var take = Belt_List.take;
+var forever = include.forever;
 
-var splitAt = Belt_List.splitAt;
+var sequenceM = include.sequenceM;
 
-var concat = Belt_List.concat;
+var mapM = include.mapM;
 
-var concatMany = Belt_List.concatMany;
+var mapM_ = include.mapM_;
 
-var reverseConcat = Belt_List.reverseConcat;
+var alt = include.alt;
 
-var flatten = Belt_List.flatten;
-
-var mapU = Belt_List.mapU;
-
-var zip = Belt_List.zip;
-
-var zipByU = Belt_List.zipByU;
-
-var zipBy = Belt_List.zipBy;
-
-var mapWithIndexU = Belt_List.mapWithIndexU;
-
-var mapWithIndex = Belt_List.mapWithIndex;
-
-var fromArray = Belt_List.fromArray;
-
-var toArray = Belt_List.toArray;
-
-var reverse = Belt_List.reverse;
-
-var mapReverseU = Belt_List.mapReverseU;
-
-var mapReverse = Belt_List.mapReverse;
-
-var forEachU = Belt_List.forEachU;
-
-var forEach = Belt_List.forEach;
-
-var forEachWithIndexU = Belt_List.forEachWithIndexU;
-
-var forEachWithIndex = Belt_List.forEachWithIndex;
-
-var reduceU = Belt_List.reduceU;
-
-var reduce = Belt_List.reduce;
-
-var reduceWithIndexU = Belt_List.reduceWithIndexU;
-
-var reduceWithIndex = Belt_List.reduceWithIndex;
-
-var reduceReverseU = Belt_List.reduceReverseU;
-
-var reduceReverse = Belt_List.reduceReverse;
-
-var mapReverse2U = Belt_List.mapReverse2U;
-
-var mapReverse2 = Belt_List.mapReverse2;
-
-var forEach2U = Belt_List.forEach2U;
-
-var forEach2 = Belt_List.forEach2;
-
-var reduce2U = Belt_List.reduce2U;
-
-var reduce2 = Belt_List.reduce2;
-
-var reduceReverse2U = Belt_List.reduceReverse2U;
-
-var reduceReverse2 = Belt_List.reduceReverse2;
-
-var everyU = Belt_List.everyU;
-
-var every = Belt_List.every;
-
-var someU = Belt_List.someU;
-
-var some = Belt_List.some;
-
-var every2U = Belt_List.every2U;
-
-var every2 = Belt_List.every2;
-
-var some2U = Belt_List.some2U;
-
-var some2 = Belt_List.some2;
-
-var cmpByLength = Belt_List.cmpByLength;
-
-var cmpU = Belt_List.cmpU;
-
-var cmp = Belt_List.cmp;
-
-var eqU = Belt_List.eqU;
-
-var eq = Belt_List.eq;
-
-var hasU = Belt_List.hasU;
-
-var has = Belt_List.has;
-
-var getByU = Belt_List.getByU;
-
-var getBy = Belt_List.getBy;
-
-var keepU = Belt_List.keepU;
-
-var keep = Belt_List.keep;
-
-var keepWithIndexU = Belt_List.keepWithIndexU;
-
-var keepWithIndex = Belt_List.keepWithIndex;
-
-var filterWithIndex = Belt_List.filterWithIndex;
-
-var keepMapU = Belt_List.keepMapU;
-
-var keepMap = Belt_List.keepMap;
-
-var partitionU = Belt_List.partitionU;
-
-var partition = Belt_List.partition;
-
-var unzip = Belt_List.unzip;
-
-var getAssocU = Belt_List.getAssocU;
-
-var getAssoc = Belt_List.getAssoc;
-
-var hasAssocU = Belt_List.hasAssocU;
-
-var hasAssoc = Belt_List.hasAssoc;
-
-var removeAssocU = Belt_List.removeAssocU;
-
-var removeAssoc = Belt_List.removeAssoc;
-
-var setAssocU = Belt_List.setAssocU;
-
-var setAssoc = Belt_List.setAssoc;
-
-var sortU = Belt_List.sortU;
-
-var sort = Belt_List.sort;
+var AltInfix = include.AltInfix;
 
 var empty = include.empty;
 
-var combine$1 = include.combine;
+var map$1 = include.map;
 
-var Semigroup_infix = include.Semigroup_infix;
+var replace = include.replace;
 
-var $less$great = include.$less$great;
+var $$void = include.$$void;
+
+var $less$$great = include.$less$$great;
+
+var $less$amp$great = include.$less$amp$great;
+
+var $less$ = include.$less$;
+
+var $$great = include.$$great;
+
+var apply = include.apply;
+
+var liftA2 = include.liftA2;
+
+var applyFirst = include.applyFirst;
+
+var applySecond = include.applySecond;
+
+var $less$star$great = include.$less$star$great;
+
+var $star$great = include.$star$great;
+
+var $less$star = include.$less$star;
+
+var $star$star = include.$star$star;
+
+var liftA3 = include.liftA3;
+
+var liftA4 = include.liftA4;
+
+var liftA5 = include.liftA5;
+
+var merge = include.merge;
+
+var pure$1 = include.pure;
+
+var when_ = include.when_;
+
+var unless = include.unless;
+
+var AlternativeInfix = include.AlternativeInfix;
+
+var $less$pipe$great = include.$less$pipe$great;
+
+var $less$slash$great = include.$less$slash$great;
+
+var some = include.some;
+
+var many = include.many;
+
+var optional = include.optional;
 
 var foldLeft$1 = include$1.foldLeft;
 
+var foldRight$1 = include$1.foldRight;
+
 var foldMap = include$1.foldMap;
 
-var exists = include$1.exists;
-
-var forall = include$1.forall;
+var fold = include$1.fold;
 
 var find = include$1.find;
 
-var select = include$2.select;
+var isEmpty = include$1.isEmpty;
 
-var $$void = include$2.$$void;
+var exists = include$1.exists;
 
-var Functor_infix = include$2.Functor_infix;
+var forAll = include$1.forAll;
 
-var $less$$great = include$2.$less$$great;
+var mempty = include$2.mempty;
 
-var $less$amp$great = include$2.$less$amp$great;
+var append = include$2.append;
 
-var $less$ = include$2.$less$;
+var SemigroupInfix = include$2.SemigroupInfix;
 
-var $$great = include$2.$$great;
+var $less$great = include$2.$less$great;
 
-var $$return$1 = include$2.$$return;
-
-var apply$1 = include$2.apply;
-
-var liftA2 = include$2.liftA2;
-
-var liftA3 = include$2.liftA3;
-
-var discardFirst = include$2.discardFirst;
-
-var discardSecond = include$2.discardSecond;
-
-var unit = include$2.unit;
-
-var merge = include$2.merge;
-
-var Applicative_infix = include$2.Applicative_infix;
-
-var $less$star$great = include$2.$less$star$great;
-
-var $star$great = include$2.$star$great;
-
-var $less$star = include$2.$less$star;
-
-var $star$star = include$2.$star$star;
-
-var Selective_infix = include$2.Selective_infix;
-
-var $less$star$question = include$2.$less$star$question;
-
-var $less$pipe$pipe$great = include$2.$less$pipe$pipe$great;
-
-var $less$amp$amp$great = include$2.$less$amp$amp$great;
-
-var orS = include$2.orS;
-
-var andS = include$2.andS;
-
-var whenS = include$2.whenS;
-
-var branch = include$2.branch;
-
-var ifS = include$2.ifS;
-
-var fromOptionS = include$2.fromOptionS;
-
-var anyS = include$2.anyS;
-
-var allS = include$2.allS;
-
-var whileS = include$2.whileS;
-
-var bind$1 = include$2.bind;
-
-var Monad_infix = include$2.Monad_infix;
-
-var $great$great$eq = include$2.$great$great$eq;
-
-var $great$great$tilde = include$2.$great$great$tilde;
-
-var $great$eq$great = include$2.$great$eq$great;
-
-var join = include$2.join;
-
-var forever = include$2.forever;
-
-var sequenceM = include$2.sequenceM;
-
-var mapM = include$2.mapM;
-
-var mapM_ = include$2.mapM_;
-
-exports.length = length;
-exports.size = size;
-exports.head = head;
-exports.headExn = headExn;
-exports.tail = tail;
-exports.tailExn = tailExn;
-exports.add = add;
-exports.get = get;
-exports.getExn = getExn;
-exports.make = make;
-exports.makeByU = makeByU;
-exports.makeBy = makeBy;
-exports.shuffle = shuffle;
-exports.drop = drop;
-exports.take = take;
-exports.splitAt = splitAt;
-exports.concat = concat;
-exports.concatMany = concatMany;
-exports.reverseConcat = reverseConcat;
-exports.flatten = flatten;
-exports.mapU = mapU;
-exports.zip = zip;
-exports.zipByU = zipByU;
-exports.zipBy = zipBy;
-exports.mapWithIndexU = mapWithIndexU;
-exports.mapWithIndex = mapWithIndex;
-exports.fromArray = fromArray;
-exports.toArray = toArray;
-exports.reverse = reverse;
-exports.mapReverseU = mapReverseU;
-exports.mapReverse = mapReverse;
-exports.forEachU = forEachU;
-exports.forEach = forEach;
-exports.forEachWithIndexU = forEachWithIndexU;
-exports.forEachWithIndex = forEachWithIndex;
-exports.reduceU = reduceU;
-exports.reduce = reduce;
-exports.reduceWithIndexU = reduceWithIndexU;
-exports.reduceWithIndex = reduceWithIndex;
-exports.reduceReverseU = reduceReverseU;
-exports.reduceReverse = reduceReverse;
-exports.mapReverse2U = mapReverse2U;
-exports.mapReverse2 = mapReverse2;
-exports.forEach2U = forEach2U;
-exports.forEach2 = forEach2;
-exports.reduce2U = reduce2U;
-exports.reduce2 = reduce2;
-exports.reduceReverse2U = reduceReverse2U;
-exports.reduceReverse2 = reduceReverse2;
-exports.everyU = everyU;
-exports.every = every;
-exports.someU = someU;
-exports.some = some;
-exports.every2U = every2U;
-exports.every2 = every2;
-exports.some2U = some2U;
-exports.some2 = some2;
-exports.cmpByLength = cmpByLength;
-exports.cmpU = cmpU;
-exports.cmp = cmp;
-exports.eqU = eqU;
-exports.eq = eq;
-exports.hasU = hasU;
-exports.has = has;
-exports.getByU = getByU;
-exports.getBy = getBy;
-exports.keepU = keepU;
-exports.keep = keep;
-exports.keepWithIndexU = keepWithIndexU;
-exports.keepWithIndex = keepWithIndex;
-exports.filterWithIndex = filterWithIndex;
-exports.keepMapU = keepMapU;
-exports.keepMap = keepMap;
-exports.partitionU = partitionU;
-exports.partition = partition;
-exports.unzip = unzip;
-exports.getAssocU = getAssocU;
-exports.getAssoc = getAssoc;
-exports.hasAssocU = hasAssocU;
-exports.hasAssoc = hasAssoc;
-exports.removeAssocU = removeAssocU;
-exports.removeAssoc = removeAssoc;
-exports.setAssocU = setAssocU;
-exports.setAssoc = setAssoc;
-exports.sortU = sortU;
-exports.sort = sort;
-exports.empty = empty;
-exports.combine = combine$1;
-exports.Semigroup_infix = Semigroup_infix;
-exports.$less$great = $less$great;
-exports.foldLeft = foldLeft$1;
-exports.foldRight = foldRight;
-exports.foldMap = foldMap;
-exports.exists = exists;
-exports.forall = forall;
-exports.find = find;
+exports.FunctorInfix = FunctorInfix;
+exports.ApplyInfix = ApplyInfix;
 exports.select = select;
-exports.$$void = $$void;
-exports.Functor_infix = Functor_infix;
-exports.$less$$great = $less$$great;
-exports.$less$amp$great = $less$amp$great;
-exports.$less$ = $less$;
-exports.$$great = $$great;
-exports.$$return = $$return$1;
-exports.apply = apply$1;
-exports.liftA2 = liftA2;
-exports.liftA3 = liftA3;
-exports.discardFirst = discardFirst;
-exports.discardSecond = discardSecond;
-exports.map = map$1;
-exports.unit = unit;
-exports.merge = merge;
-exports.Applicative_infix = Applicative_infix;
-exports.$less$star$great = $less$star$great;
-exports.$star$great = $star$great;
-exports.$less$star = $less$star;
-exports.$star$star = $star$star;
-exports.Selective_infix = Selective_infix;
+exports.SelectiveInfix = SelectiveInfix;
 exports.$less$star$question = $less$star$question;
 exports.$less$pipe$pipe$great = $less$pipe$pipe$great;
 exports.$less$amp$amp$great = $less$amp$amp$great;
@@ -569,7 +210,7 @@ exports.anyS = anyS;
 exports.allS = allS;
 exports.whileS = whileS;
 exports.bind = bind$1;
-exports.Monad_infix = Monad_infix;
+exports.MonadInfix = MonadInfix;
 exports.$great$great$eq = $great$great$eq;
 exports.$great$great$tilde = $great$great$tilde;
 exports.$great$eq$great = $great$eq$great;
@@ -578,14 +219,47 @@ exports.forever = forever;
 exports.sequenceM = sequenceM;
 exports.mapM = mapM;
 exports.mapM_ = mapM_;
+exports.alt = alt;
+exports.AltInfix = AltInfix;
+exports.empty = empty;
+exports.map = map$1;
+exports.replace = replace;
+exports.$$void = $$void;
+exports.$less$$great = $less$$great;
+exports.$less$amp$great = $less$amp$great;
+exports.$less$ = $less$;
+exports.$$great = $$great;
+exports.apply = apply;
+exports.liftA2 = liftA2;
+exports.applyFirst = applyFirst;
+exports.applySecond = applySecond;
+exports.$less$star$great = $less$star$great;
+exports.$star$great = $star$great;
+exports.$less$star = $less$star;
+exports.$star$star = $star$star;
+exports.liftA3 = liftA3;
+exports.liftA4 = liftA4;
+exports.liftA5 = liftA5;
+exports.merge = merge;
+exports.pure = pure$1;
+exports.when_ = when_;
+exports.unless = unless;
+exports.AlternativeInfix = AlternativeInfix;
+exports.$less$pipe$great = $less$pipe$great;
+exports.$less$slash$great = $less$slash$great;
+exports.some = some;
+exports.many = many;
+exports.optional = optional;
+exports.foldLeft = foldLeft$1;
+exports.foldRight = foldRight$1;
+exports.foldMap = foldMap;
+exports.fold = fold;
+exports.find = find;
 exports.isEmpty = isEmpty;
-exports.filter = filter;
-exports.filterMap = filterMap;
-exports.iter = iter;
-exports.last = last;
-exports.mapi = mapi;
+exports.exists = exists;
 exports.forAll = forAll;
-exports.forAll2 = forAll2;
-exports.cons = cons;
-exports.Traversable = Traversable;
+exports.mempty = mempty;
+exports.append = append;
+exports.SemigroupInfix = SemigroupInfix;
+exports.$less$great = $less$great;
 /* include Not a pure module */

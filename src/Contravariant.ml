@@ -2,12 +2,12 @@ include Contravariant_intf
 
 (*** -- Conversion functors -- ***)
 
-module S_to_S2 (X : S) : S2 with type ('a,_) t = 'a X.t = struct
+module S1_to_S2 (X : S1) : S2 with type ('a,_) t = 'a X.t = struct
   type ('a,_) t = 'a X.t
-  include (X : S with type 'a t := 'a X.t)
+  include (X : S1 with type 'a t := 'a X.t)
 end 
 
-module S2_to_S (X : S2) : S with type 'a t = ('a,unit) X.t = struct
+module S2_to_S1(X : S2) : S1 with type 'a t = ('a,unit) X.t = struct
   type 'a t = ('a,unit) X.t
   include (X : S2 with type ('a, 'b) t := ('a, 'b) X.t)
 end
@@ -24,31 +24,47 @@ end
 
 (*** -- Make functors --- ***)
 
-module Make3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = struct 
+module MakeCustom3(X:Custom3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = struct 
 
-    let contramap = X.contramap 
+    let cmap = X.cmap 
 
-    let contramapConst = 
-      match X.contramapConst with 
+    let creplace  = 
+      match X.creplace with 
       | `Custom f -> f 
-      | `Using_contramap -> fun x c -> contramap x ~f:Fun.(const c)
+      | _ -> fun x ~const -> cmap x ~f:(fun _ -> const)
 
-    module Contravariant_infix = struct
-      let (>$<) f x = contramap x ~f
-      let (>$$<) x f = contramap x ~f
-      let (>$) x t = contramapConst t x 
-      let ($<) t x = contramapConst t x
+    module ContravariantInfix = struct
+      let (>$<) f x = cmap x ~f
+      let (>$$<) x f = cmap x ~f
+      let (>$) const t = creplace t ~const
+      let ($<) t const = creplace t ~const
     end   
-    include Contravariant_infix
+
+    include ContravariantInfix
     
 end 
+
+module MakeCustom2(X:Custom2) : S2 with type ('a,'b) t := ('a,'b) X.t = MakeCustom3(struct
+  type ('a,'b,_) t = ('a,'b) X.t
+  include (X: Custom2 with type ('a,'b) t := ('a,'b) X.t)
+end)
+
+module MakeCustom1(X:Custom1) : S1 with type 'a t := 'a X.t = MakeCustom2(struct
+  type ('a,_) t = 'a X.t
+  include (X: Custom1 with type 'a t := 'a X.t)
+end)
+
+module Make3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = MakeCustom3(struct 
+  include X
+  let creplace = `Derived
+end)
 
 module Make2(X:Minimal2) : S2 with type ('a,'b) t := ('a,'b) X.t = Make3(struct
   type ('a,'b,_) t = ('a,'b) X.t
   include (X: Minimal2 with type ('a,'b) t := ('a,'b) X.t)
 end)
-
-module Make(X:Minimal) : S with type 'a t := 'a X.t = Make2(struct
+  
+module Make1(X:Minimal1) : S1 with type 'a t := 'a X.t = Make2(struct
   type ('a,_) t = 'a X.t
-  include (X: Minimal with type 'a t := 'a X.t)
+  include (X: Minimal1 with type 'a t := 'a X.t)
 end)

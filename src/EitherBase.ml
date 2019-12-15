@@ -1,4 +1,6 @@
-type ('a,'b) t = First of 'a | Second of 'b
+type ('a,'b) t = 
+  | First of 'a 
+  | Second of 'b
 
 let first a = First a 
 
@@ -8,9 +10,23 @@ let either ~first ~second = function
   | First x -> first x 
   | Second x -> second x
 
-let bimap x ~f ~g = 
-  match x with 
-  | First a -> First(f a)
-  | Second b -> Second(g b)
+let isFirst = function First _ -> true | _ -> false 
 
-let map x ~f = bimap x ~f ~g:Fun.id
+let isSecond = function Second _ -> true | _ -> false 
+
+let fromFirst ~default = function 
+  | First x -> x 
+  | _ -> default 
+
+let fromSecond ~default = function 
+  | Second x -> x 
+  | _ -> default 
+
+include Bifunctor.Make2(struct
+  type nonrec ('a,'b) t = ('a,'b) t
+  let bimap t ~first ~second =
+    match t with 
+    | First x -> First (first x)
+    | Second y -> Second (second y)
+end)
+

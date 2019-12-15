@@ -1,1 +1,0 @@
-include DiffMonoid_intf.DiffMonoid

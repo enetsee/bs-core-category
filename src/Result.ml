@@ -1,14 +1,4 @@
 type ('a,'err) t = ('a,'err) result
-  
-let bimap x ~f ~g = 
-  match x with 
-  | Ok y -> Ok (f y)
-  | Error err -> Error (g err)
-
-let mapError x ~f = 
-  match x with 
-  | Error err -> Error (f err)
-  | Ok y -> Ok y
 
 let ok x = Ok x 
 
@@ -22,22 +12,27 @@ let isOk = function
   | Ok _ -> true 
   | _ -> false 
 
-let result t ~withError ~withOk = 
+let result t ~withErr ~withOk = 
   match t with
   | Ok x -> withOk x
-  | Error err -> withError err 
+  | Error err -> withErr err 
 
-include Monad.Make2(struct
+let map x ~f = 
+  match x with 
+  | Ok x -> Ok (f x)
+  | Error err -> Error err 
+
+let mapError x ~f = 
+  match x with 
+  | Error err -> Error (f err)
+  | Ok y -> Ok y
+
+(*** -- Standard interfaces -- ***)
+
+include Monad.MakeCustom2(struct
   type nonrec ('a,'b) t = ('a,'b) t
 
-  let map_ t ~f =
-    match t with 
-    | Ok x -> Ok (f x)
-    | Error err -> Error err
-  
-  let map = `Custom map_
-
-  let return x = Ok x 
+  let pure = ok
   
   let apply = `Custom (fun x ~f ->
     match f , x with
@@ -49,17 +44,42 @@ include Monad.Make2(struct
   let select  = `Custom (fun x ~f ->
     match x with 
     | Error err  -> Error err
-    | Ok Either.(First a)  -> map_ ~f:(fun g -> g a) f
+    | Ok Either.(First a)  -> map ~f:(fun g -> g a) f
     | Ok Either.(Second b) -> Ok b
   )
+
+  let map = `Custom map
+
+  let replace = `Derived
 
   let bind x ~f = 
     match x with 
     | Ok y -> f y 
     | Error err -> Error err 
 
-  let liftA2 = `Using_apply
-  let liftA3 = `Using_apply
-  let discardFirst = `Using_apply
-  let discardSecond = `Using_apply
+  let liftA2 = `Derived
+  let applyFirst = `Derived 
+  let applySecond = `Derived 
+
+end)
+
+include Bifunctor.MakeCustom2(struct
+  type nonrec ('a,'b) t  = ('a,'b) t 
+  let bimap x ~first ~second = 
+    match x with 
+    | Ok y -> Ok (first y)
+    | Error err -> Error (second err)
+
+  let mapFirst = `Custom map 
+
+  let mapSecond= `Custom mapError
+
+end)
+
+include Foldable.Make2(struct
+  type nonrec ('a,'b) t  = ('a,'b) t 
+  let foldLeft t ~f ~init = 
+    match t with 
+    | Ok x -> f init x 
+    | _ -> init 
 end)

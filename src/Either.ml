@@ -1,32 +1,30 @@
 include EitherBase
 
-include Monad.Make2(struct
-  type nonrec ('a,'b) t = ('a,'b) t 
-  let map = `Custom map 
-  let return = first 
-  let bind t ~f =
-    match t with 
-    | First x -> f x 
-    | Second y -> Second y 
-  let apply = `Using_bind 
-  let select = `Using_bind
-  let liftA2 = `Using_apply
-  let liftA3 = `Using_apply
-  let discardFirst = `Using_apply
-  let discardSecond = `Using_apply
+include Monad.MakeCustom2(struct
+  type nonrec ('a,'b) t = ('a,'b) t
+  let map = `Custom mapFirst 
+  let replace = `Derived 
+  let pure x = first x
+  let bind x ~f = 
+    match x with 
+    | First a -> f a 
+    | Second b -> Second b
+  let apply_ x ~f = 
+    match f with 
+    | Second e  -> Second e
+    | First g -> mapFirst ~f:g x
+  let apply = `Custom apply_
+  let liftA2 = `Derived 
+  let applyFirst = `Derived 
+  let applySecond = `Derived
+  let select = `Derived 
 end)
 
-module Traversable = struct
+include Semigroup.Make2(struct
+  type nonrec ('a,'b) t = ('a,'b) t
+  let append a b = 
+    match a with 
+    | Second _ -> b 
+    | _ -> a 
+end)
 
-  module Make3(F: Applicative.S3) = struct 
-    let traverse t ~f = 
-      match t with 
-      | First x -> F.map ~f:first @@ f x 
-      | Second x -> F.return (Second x)
-  end
-
-  module Make2(F: Applicative.S2) = Make3(Applicative.S2_to_S3(F))
-
-  module Make(F:Applicative.S) = Make2(Applicative.S_to_S2(F))
-
-end
