@@ -18,6 +18,7 @@ include Monad.MakeCustom2(struct
   let applyFirst = `Derived 
   let applySecond = `Derived
   let select = `Derived 
+  let join = `Derived
 end)
 
 include Semigroup.Make2(struct

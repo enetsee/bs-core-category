@@ -1,6 +1,6 @@
 {
     "name": "@enetsee/core-category",
-    "version": "1.7.1",
+    "version": "1.7.2",
     "description": "Categorical interfaces, functors and instances for Bucklescript",
     "repository": "https://github.com/enetsee/bs-core-category",
     "author": "Michael Thomas",

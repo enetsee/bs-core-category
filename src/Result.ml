@@ -61,6 +61,7 @@ include Monad.MakeCustom2(struct
   let applyFirst = `Derived 
   let applySecond = `Derived 
 
+  let join = `Derived
 end)
 
 include Bifunctor.MakeCustom2(struct

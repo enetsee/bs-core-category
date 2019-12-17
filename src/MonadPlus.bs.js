@@ -151,7 +151,8 @@ function MakeCustom3(X) {
         liftA2: X.liftA2,
         applyFirst: X.applyFirst,
         applySecond: X.applySecond,
-        select: X.select
+        select: X.select,
+        join: X.join
       });
   var map_001$1 = M.map;
   var map$1 = /* `Custom */[
@@ -250,7 +251,8 @@ function MakeCustom2(X) {
         liftA2: liftA2,
         applyFirst: applyFirst,
         applySecond: applySecond,
-        select: X.select
+        select: X.select,
+        join: X.join
       });
   var map_001$1 = M.map;
   var map$1 = /* `Custom */[
@@ -349,7 +351,8 @@ function MakeCustom1(X) {
         liftA2: liftA2,
         applyFirst: applyFirst,
         applySecond: applySecond,
-        select: X.select
+        select: X.select,
+        join: X.join
       });
   var map_001$1 = M.map;
   var map$1 = /* `Custom */[
@@ -444,7 +447,8 @@ function Make3(X) {
         liftA2: /* Derived */-684824643,
         applyFirst: /* Derived */-684824643,
         applySecond: /* Derived */-684824643,
-        select: /* Derived */-684824643
+        select: /* Derived */-684824643,
+        join: /* Derived */-684824643
       });
   var map_001$1 = M.map;
   var map$1 = /* `Custom */[
@@ -539,7 +543,8 @@ function Make2(X) {
         liftA2: /* Derived */-684824643,
         applyFirst: /* Derived */-684824643,
         applySecond: /* Derived */-684824643,
-        select: /* Derived */-684824643
+        select: /* Derived */-684824643,
+        join: /* Derived */-684824643
       });
   var map_001$1 = M.map;
   var map$1 = /* `Custom */[
@@ -634,7 +639,8 @@ function Make1(X) {
         liftA2: /* Derived */-684824643,
         applyFirst: /* Derived */-684824643,
         applySecond: /* Derived */-684824643,
-        select: /* Derived */-684824643
+        select: /* Derived */-684824643,
+        join: /* Derived */-684824643
       });
   var map_001$1 = M.map;
   var map$1 = /* `Custom */[

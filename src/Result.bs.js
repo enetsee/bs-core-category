@@ -113,7 +113,8 @@ var include = Monad$CoreCategory.MakeCustom2({
       liftA2: /* Derived */-684824643,
       applyFirst: /* Derived */-684824643,
       applySecond: /* Derived */-684824643,
-      select: select
+      select: select,
+      join: /* Derived */-684824643
     });
 
 var map$2 = include.map;

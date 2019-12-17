@@ -62,6 +62,7 @@ module Make3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = MakeCus
   let applyFirst = `Derived
   let applySecond = `Derived
   let select = `Derived
+  let join = `Derived
 end)
 
 module Make2(X:Minimal2) : S2 with type ('a,'b) t := ('a,'b) X.t = Make3(struct
