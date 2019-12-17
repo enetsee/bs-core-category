@@ -29,6 +29,7 @@ module type Custom1 = sig
   val applyFirst : [`Derived | `Custom of 'a t -> _ t -> 'a t]
   val applySecond : [`Derived | `Custom of _ t -> 'b t -> 'b t]
   val select : [`Derived | `Custom of ('a,'b) EitherBase.t t -> f:('a -> 'b) t -> 'b t ]
+  val join : [`Derived | `Custom of 'a t t -> 'a t]
 end
 
 module type Custom2 = sig 
@@ -40,6 +41,7 @@ module type Custom2 = sig
   val applyFirst : [`Derived | `Custom of ('a,'e) t -> (_,'e) t -> ('a,'e) t]
   val applySecond : [`Derived | `Custom of (_,'e) t -> ('b,'e) t -> ('b,'e) t]  
   val select : [`Derived | `Custom of (('a,'b) EitherBase.t,'e) t -> f:('a -> 'b,'e) t -> ('b,'e) t]
+  val join : [`Derived | `Custom of (('a,'e) t,'e) t -> ('a,'e) t]
 end
 
 module type Custom3 = sig 
@@ -51,6 +53,7 @@ module type Custom3 = sig
   val applyFirst : [`Derived | `Custom of ('a,'d,'e) t -> (_,'d,'e) t -> ('a,'d,'e) t]
   val applySecond : [`Derived | `Custom of (_,'d,'e) t -> ('b,'d,'e) t -> ('b,'d,'e) t]
   val select : [`Derived | `Custom of (('a,'b) EitherBase.t,'d,'e) t -> f:('a -> 'b,'d,'e) t -> ('b,'d,'e) t]
+  val join : [`Derived | `Custom of (('a,'d,'e) t,'d,'e) t -> ('a,'d,'e) t]
 end
 
 (*** -- Infix functions -- ***)

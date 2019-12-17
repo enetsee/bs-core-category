@@ -173,6 +173,21 @@ function MakeCustom3(X) {
         select: select
       });
   var pure$1 = include.pure;
+  var match$2 = X.join;
+  var join;
+  var exit$2 = 0;
+  if (typeof match$2 === "number" || match$2[0] !== -198771759) {
+    exit$2 = 1;
+  } else {
+    join = match$2[1];
+  }
+  if (exit$2 === 1) {
+    join = (function (tt) {
+        return Curry._2(bind, tt, (function (x) {
+                      return x;
+                    }));
+      });
+  }
   var $great$great$eq = Curry.__2(bind);
   var $great$great$tilde = function (m, n) {
     return Curry._2(bind, m, (function (param) {
@@ -186,11 +201,6 @@ function MakeCustom3(X) {
     $great$great$eq: $great$great$eq,
     $great$great$tilde: $great$great$tilde,
     $great$eq$great: $great$eq$great
-  };
-  var join = function (tt) {
-    return Curry._2(bind, tt, (function (x) {
-                  return x;
-                }));
   };
   var sequenceM = function (ts) {
     var op = function (n, m) {
@@ -293,6 +303,7 @@ function MakeCustom2(X) {
   var bind = X.bind;
   var apply = X.apply;
   var select = X.select;
+  var join = X.join;
   var apply$1;
   var exit = 0;
   if (typeof apply === "number" || apply[0] !== -198771759) {
@@ -341,6 +352,20 @@ function MakeCustom2(X) {
         select: select$1
       });
   var pure$1 = include.pure;
+  var join$1;
+  var exit$2 = 0;
+  if (typeof join === "number" || join[0] !== -198771759) {
+    exit$2 = 1;
+  } else {
+    join$1 = join[1];
+  }
+  if (exit$2 === 1) {
+    join$1 = (function (tt) {
+        return Curry._2(bind, tt, (function (x) {
+                      return x;
+                    }));
+      });
+  }
   var $great$great$eq = Curry.__2(bind);
   var $great$great$tilde = function (m, n) {
     return Curry._2(bind, m, (function (param) {
@@ -354,11 +379,6 @@ function MakeCustom2(X) {
     $great$great$eq: $great$great$eq,
     $great$great$tilde: $great$great$tilde,
     $great$eq$great: $great$eq$great
-  };
-  var join = function (tt) {
-    return Curry._2(bind, tt, (function (x) {
-                  return x;
-                }));
   };
   var sequenceM = function (ts) {
     var op = function (n, m) {
@@ -448,7 +468,7 @@ function MakeCustom2(X) {
           $great$great$eq: $great$great$eq,
           $great$great$tilde: $great$great$tilde,
           $great$eq$great: $great$eq$great,
-          join: join,
+          join: join$1,
           forever: forever,
           sequenceM: sequenceM,
           mapM: mapM,
@@ -461,6 +481,7 @@ function MakeCustom1(X) {
   var bind = X.bind;
   var apply = X.apply;
   var select = X.select;
+  var join = X.join;
   var apply$1;
   var exit = 0;
   if (typeof apply === "number" || apply[0] !== -198771759) {
@@ -509,6 +530,20 @@ function MakeCustom1(X) {
         select: select$1
       });
   var pure$1 = include.pure;
+  var join$1;
+  var exit$2 = 0;
+  if (typeof join === "number" || join[0] !== -198771759) {
+    exit$2 = 1;
+  } else {
+    join$1 = join[1];
+  }
+  if (exit$2 === 1) {
+    join$1 = (function (tt) {
+        return Curry._2(bind, tt, (function (x) {
+                      return x;
+                    }));
+      });
+  }
   var $great$great$eq = Curry.__2(bind);
   var $great$great$tilde = function (m, n) {
     return Curry._2(bind, m, (function (param) {
@@ -522,11 +557,6 @@ function MakeCustom1(X) {
     $great$great$eq: $great$great$eq,
     $great$great$tilde: $great$great$tilde,
     $great$eq$great: $great$eq$great
-  };
-  var join = function (tt) {
-    return Curry._2(bind, tt, (function (x) {
-                  return x;
-                }));
   };
   var sequenceM = function (ts) {
     var op = function (n, m) {
@@ -616,7 +646,7 @@ function MakeCustom1(X) {
           $great$great$eq: $great$great$eq,
           $great$great$tilde: $great$great$tilde,
           $great$eq$great: $great$eq$great,
-          join: join,
+          join: join$1,
           forever: forever,
           sequenceM: sequenceM,
           mapM: mapM,
@@ -667,6 +697,16 @@ function Make3(X) {
         select: select
       });
   var pure$1 = include.pure;
+  var join;
+  var exit$2 = 0;
+  exit$2 = 1;
+  if (exit$2 === 1) {
+    join = (function (tt) {
+        return Curry._2(bind, tt, (function (x) {
+                      return x;
+                    }));
+      });
+  }
   var $great$great$eq = Curry.__2(bind);
   var $great$great$tilde = function (m, n) {
     return Curry._2(bind, m, (function (param) {
@@ -680,11 +720,6 @@ function Make3(X) {
     $great$great$eq: $great$great$eq,
     $great$great$tilde: $great$great$tilde,
     $great$eq$great: $great$eq$great
-  };
-  var join = function (tt) {
-    return Curry._2(bind, tt, (function (x) {
-                  return x;
-                }));
   };
   var sequenceM = function (ts) {
     var op = function (n, m) {
@@ -825,6 +860,16 @@ function Make2(X) {
         select: select
       });
   var pure$1 = include.pure;
+  var join;
+  var exit$2 = 0;
+  exit$2 = 1;
+  if (exit$2 === 1) {
+    join = (function (tt) {
+        return Curry._2(bind, tt, (function (x) {
+                      return x;
+                    }));
+      });
+  }
   var $great$great$eq = Curry.__2(bind);
   var $great$great$tilde = function (m, n) {
     return Curry._2(bind, m, (function (param) {
@@ -838,11 +883,6 @@ function Make2(X) {
     $great$great$eq: $great$great$eq,
     $great$great$tilde: $great$great$tilde,
     $great$eq$great: $great$eq$great
-  };
-  var join = function (tt) {
-    return Curry._2(bind, tt, (function (x) {
-                  return x;
-                }));
   };
   var sequenceM = function (ts) {
     var op = function (n, m) {
@@ -983,6 +1023,16 @@ function Make1(X) {
         select: select
       });
   var pure$1 = include.pure;
+  var join;
+  var exit$2 = 0;
+  exit$2 = 1;
+  if (exit$2 === 1) {
+    join = (function (tt) {
+        return Curry._2(bind, tt, (function (x) {
+                      return x;
+                    }));
+      });
+  }
   var $great$great$eq = Curry.__2(bind);
   var $great$great$tilde = function (m, n) {
     return Curry._2(bind, m, (function (param) {
@@ -996,11 +1046,6 @@ function Make1(X) {
     $great$great$eq: $great$great$eq,
     $great$great$tilde: $great$great$tilde,
     $great$eq$great: $great$eq$great
-  };
-  var join = function (tt) {
-    return Curry._2(bind, tt, (function (x) {
-                  return x;
-                }));
   };
   var sequenceM = function (ts) {
     var op = function (n, m) {

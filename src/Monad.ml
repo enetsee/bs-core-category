@@ -63,6 +63,11 @@ module MakeCustom3(X:Custom3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = st
           )
 
   end)
+
+  let join = 
+    match X.join with 
+    | `Custom f -> f 
+    | _ -> fun tt -> bind tt ~f:(fun x -> x)
   
   module MonadInfix = struct
     let (>>=) m f = bind m ~f 
@@ -71,7 +76,7 @@ module MakeCustom3(X:Custom3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = st
   end
   include MonadInfix
   
-  let join tt = tt >>= fun x -> x
+  
   
   let sequenceM ts = 
     let op n m = m >>= fun x -> n >>= fun xs -> pure (x::xs) in 
@@ -117,6 +122,7 @@ module Make3(X:Minimal3) : S3 with type ('a,'b,'c) t := ('a,'b,'c) X.t = MakeCus
   let applyFirst = `Derived
   let applySecond = `Derived
   let select = `Derived
+  let join = `Derived
 end)
 
 module Make2(X:Minimal2) : S2 with type ('a,'b) t := ('a,'b) X.t = Make3(struct
